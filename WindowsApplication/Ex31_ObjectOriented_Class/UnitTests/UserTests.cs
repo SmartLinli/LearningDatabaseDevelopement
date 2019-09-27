@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Ex31_ObjectOriented_Class;
+using ObjectOriented_Class;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ex31_ObjectOriented_Class.Tests
+namespace ObjectOriented_Class.Tests
 {
 	[TestClass()]
 	public class UserTests

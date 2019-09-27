@@ -1,6 +1,6 @@
-﻿namespace ObjectOriented_Dapper
+﻿namespace ObjectOriented_MultiDb
 {
-	partial class ExistsValidator
+	partial class ExistValidator
 	{
 		/// <summary>
 		/// 必需的设计器变量。

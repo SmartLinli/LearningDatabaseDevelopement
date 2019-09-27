@@ -30,10 +30,10 @@ namespace ObjectOriented_DataTransferObject
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
 				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMaxLengh);
-			this.ExistsValidator
+			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this._UserBll.CheckNotExists)
+				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
 				.Configure(false);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;

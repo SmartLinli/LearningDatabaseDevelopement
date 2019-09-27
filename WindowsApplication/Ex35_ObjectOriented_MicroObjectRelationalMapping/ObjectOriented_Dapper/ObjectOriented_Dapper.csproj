@@ -97,8 +97,8 @@
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
     <Compile Include="Common\CrytoHelper.cs" />
     <Compile Include="DataAccessLayer\IUserDal.cs" />
-    <Compile Include="DataAccessLayer\PgSql\DapperPgSqlHelper.cs" />
-    <Compile Include="DataAccessLayer\PgSql\UserDalPgSql.cs" />
+    <Compile Include="DataAccessLayer\PgSql\DapperPgsqlHelper.cs" />
+    <Compile Include="DataAccessLayer\PgSql\UserDalPgsql.cs" />
     <Compile Include="DataAccessLayer\SqlServer\DapperSqlHelper.cs" />
     <Compile Include="DataAccessLayer\DalFactory.cs" />
     <Compile Include="DataAccessLayer\SqlServer\UserDalSql.cs" />
@@ -108,11 +108,11 @@
     <Compile Include="PresentationLayer\Component\BaseValidator.Designer.cs">
       <DependentUpon>BaseValidator.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Component\ExistsValidator.cs">
+    <Compile Include="PresentationLayer\Component\ExistValidator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Component\ExistsValidator.Designer.cs">
-      <DependentUpon>ExistsValidator.cs</DependentUpon>
+    <Compile Include="PresentationLayer\Component\ExistValidator.Designer.cs">
+      <DependentUpon>ExistValidator.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayer\frm_LogIn.cs">
       <SubType>Form</SubType>

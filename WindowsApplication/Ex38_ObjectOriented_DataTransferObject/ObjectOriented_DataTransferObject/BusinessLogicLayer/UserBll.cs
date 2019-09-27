@@ -43,7 +43,7 @@ namespace ObjectOriented_DataTransferObject
 		/// 处理用户不存在；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void HandleUserNotExists(User user)
+		private void HandleUserNotExist(User user)
 		{
 			if (user == null)
 			{
@@ -149,15 +149,15 @@ namespace ObjectOriented_DataTransferObject
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExists(string userNo) 
+		public bool CheckExist(string userNo) 
 		=>	this._UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
-		public bool CheckNotExists(string userNo)
-		=>	!this.CheckExists(userNo);
+		public bool CheckNotExist(string userNo)
+		=>	!this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
 		/// </summary>
@@ -169,7 +169,7 @@ namespace ObjectOriented_DataTransferObject
 			User user = this._UserDal.Select(userNo);
 			try
 			{
-				this.HandleUserNotExists(user);
+				this.HandleUserNotExist(user);
 				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
 				this.HandleUserPasswordNotMatch(user, userPassword);

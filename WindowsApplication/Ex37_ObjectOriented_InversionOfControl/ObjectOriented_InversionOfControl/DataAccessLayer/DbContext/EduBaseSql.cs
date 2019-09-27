@@ -26,12 +26,12 @@ namespace ObjectOriented_InversionOfControl
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("dbo");
+
 			modelBuilder.Entity<User>()
 				.Property(e => e.No)
 				.IsFixedLength()
 				.IsUnicode(false);
 		}
-
 		/// <summary>
 		/// ±£´æ¸ü¸Ä£»
 		/// </summary>

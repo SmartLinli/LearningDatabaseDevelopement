@@ -1,6 +1,6 @@
-﻿namespace ObjectOriented_SqlHelper
+﻿namespace ObjectOriented_Layer
 {
-	partial class ExistsValidator
+	partial class ExistValidator
 	{
 		/// <summary>
 		/// 必需的设计器变量。

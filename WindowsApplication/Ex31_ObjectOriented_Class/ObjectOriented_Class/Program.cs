@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Ex31_ObjectOriented_Class
+namespace ObjectOriented_Class
 {
     static class Program
     {

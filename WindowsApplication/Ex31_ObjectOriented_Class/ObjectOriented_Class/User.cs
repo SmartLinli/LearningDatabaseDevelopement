@@ -2,7 +2,7 @@
 using System.Data;                                                                                      //包含各类数据对象；
 using System.Data.SqlClient;                                                                            //包含访问SQL Server所需的各类对象；
 
-namespace Ex31_ObjectOriented_Class
+namespace ObjectOriented_Class
 {
 	/// <summary>
 	/// 公有类：用户；

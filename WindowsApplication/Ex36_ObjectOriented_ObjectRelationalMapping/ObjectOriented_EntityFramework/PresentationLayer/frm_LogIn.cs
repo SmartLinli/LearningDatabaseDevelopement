@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 
 namespace ObjectOriented_EntityFramework
 {
@@ -25,16 +24,16 @@ namespace ObjectOriented_EntityFramework
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
 			this.RequiredInfoValidator
-				.Add(new Control[] { this.txb_UserNo, this.txb_Password })
+				.Add(this.txb_UserNo, this.txb_Password)
 				.Add(this.ErrorProvider);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
 				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
-			this.ExistsValidator
+			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this.UserBll.CheckExists);
+				.Configure((Func<string, bool>)this.UserBll.CheckExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_LogIn;
 		}
@@ -60,9 +59,9 @@ namespace ObjectOriented_EntityFramework
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private async void btn_SignUp_Click(object sender, EventArgs e)
+		private void btn_SignUp_Click(object sender, EventArgs e)
 		{
-			frm_SignUp signUpForm = await Task.Run(() => new frm_SignUp());
+			frm_SignUp signUpForm = new frm_SignUp();
 			signUpForm.ShowDialog(this);
 		}
 	}

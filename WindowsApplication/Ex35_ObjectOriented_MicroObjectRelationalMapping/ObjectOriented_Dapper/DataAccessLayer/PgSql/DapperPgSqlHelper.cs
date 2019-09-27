@@ -10,14 +10,14 @@ namespace ObjectOriented_Dapper
 	/// <summary>
 	/// 基于Dapper的SQL助手；
 	/// </summary>
-	public class DapperPgSqlHelper
+	public class DapperPgsqlHelper
 	{
 		/// <summary>
 		/// 获取数据库连接；
 		/// </summary>
 		/// <returns>数据库连接</returns>
 		public static IDbConnection GetDbConnection()
-		=>	new NpgsqlConnection(ConfigurationManager.ConnectionStrings["PgSql"].ToString());
+		=>	new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Pgsql"].ToString());
 		/// <summary>
 		/// 执行存储过程，获取标量；
 		/// </summary>

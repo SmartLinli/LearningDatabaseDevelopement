@@ -1,21 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ObjectOriented_MultiDb
+namespace ObjectOriented_DataTransferObject
 {
 	/// <summary>
 	/// 存在验证器；
 	/// </summary>
-	public partial class ExistsValidator : BaseValidator
+	public partial class ExistValidator : BaseValidator
 	{
 		/// <summary>
-		/// 匹配条件；
+		/// 存在为有效；
 		/// </summary>
-		private bool ExistsIsValid = true;
+		private bool ExistIsValid = true;
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
-		protected override string ErrorMessage => this.ExistsIsValid ? "不存在" : "已存在";
+		protected override string ErrorMessage => this.ExistIsValid ? "不存在" : "已存在";
 		/// <summary>
 		/// 定义；
 		/// </summary>
@@ -25,21 +25,21 @@ namespace ObjectOriented_MultiDb
 		{
 			if (parameters[0] is Func<string, bool> match)
 			{
-				this.Match = parameters[0] as Func<string, bool>;
+				this.Match = match;
 			}
-			if (parameters[0] is bool existsIsValid)
+			if (parameters[0] is bool ExistIsValid)
 			{
-				this.ExistsIsValid = existsIsValid;
+				this.ExistIsValid = ExistIsValid;
 			}
 			return this;
 		}
 		#region 组件设计器生成的代码
-		public ExistsValidator()
+		public ExistValidator()
 		{
 			InitializeComponent();
 		}
 
-		public ExistsValidator(IContainer container)
+		public ExistValidator(IContainer container)
 		{
 			container.Add(this);
 

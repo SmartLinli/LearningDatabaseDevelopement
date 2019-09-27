@@ -25,16 +25,16 @@ namespace ObjectOriented_EntityFramework
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
 			this.RequiredInfoValidator
-				.Add(new Control[] { this.txb_UserNo, this.txb_Password })
+				.Add(this.txb_UserNo, this.txb_Password)
 				.Add(this.ErrorProvider);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
 				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
-			this.ExistsValidator
+			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this.UserBll.CheckNotExists)
+				.Configure((Func<string, bool>)this.UserBll.CheckNotExist)
 				.Configure(false);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;

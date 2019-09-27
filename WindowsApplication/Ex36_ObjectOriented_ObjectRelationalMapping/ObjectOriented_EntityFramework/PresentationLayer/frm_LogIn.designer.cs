@@ -39,7 +39,7 @@
 			this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
 			this.RequiredInfoValidator = new ObjectOriented_EntityFramework.RequiredInfoValidator(this.components);
 			this.LengthValidator = new ObjectOriented_EntityFramework.LengthValidator(this.components);
-			this.ExistsValidator = new ObjectOriented_EntityFramework.ExistsValidator(this.components);
+			this.ExistValidator = new ObjectOriented_EntityFramework.ExistValidator(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -140,7 +140,7 @@
 		private System.Windows.Forms.ErrorProvider ErrorProvider;
 		private RequiredInfoValidator RequiredInfoValidator;
 		private LengthValidator LengthValidator;
-		private ExistsValidator ExistsValidator;
+		private ExistValidator ExistValidator;
 	}
 }
 

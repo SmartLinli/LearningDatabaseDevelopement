@@ -19,13 +19,13 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 匹配条件；
 		/// </summary>
-		protected override Func<string, bool> Match =>
-			(s => s.Length >= this.MinLength && s.Length <= this.MaxLength);
+		protected override Func<string, bool> Match 
+		=>	(s => s.Length >= this.MinLength && s.Length <= this.MaxLength);
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
-		protected override string ErrorMessage =>
-			$"长度应为{this.MinLength}{(this.MinLength == this.MaxLength ? "" : $"-{this.MaxLength}")}";
+		protected override string ErrorMessage 
+		=>	$"长度应为{this.MinLength}{(this.MinLength == this.MaxLength ? "" : $"-{this.MaxLength}")}";
 		/// <summary>
 		/// 定义；
 		/// </summary>

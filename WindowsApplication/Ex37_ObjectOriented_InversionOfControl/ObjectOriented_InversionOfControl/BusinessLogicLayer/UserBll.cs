@@ -10,7 +10,7 @@ namespace ObjectOriented_InversionOfControl
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private UserDalEf _UserDal;
+		private UserDal _UserDal;
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
@@ -25,7 +25,7 @@ namespace ObjectOriented_InversionOfControl
 		public bool HasLoggedIn
 		{
 			get;
-			set;
+			private set;
 		}
 		/// <summary>
 		/// 是否完成注册；
@@ -33,7 +33,7 @@ namespace ObjectOriented_InversionOfControl
 		public bool HasSignedUp
 		{
 			get;
-			set;
+			private set;
 		}
 		/// <summary>
 		/// 消息；
@@ -47,7 +47,7 @@ namespace ObjectOriented_InversionOfControl
 		/// 处理用户不存在；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void ProcessUserNotExists(User user)
+		private void HandleUserNotExist(User user)
 		{
 			if (user == null)
 			{
@@ -60,7 +60,7 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <param name="password">密码</param>
-		private void ProcessUserPasswordNotMatchAndNotActivated(User user, string password)
+		private void HandleUserPasswordNotMatchAndNotActivated(User user, string password)
 		{
 			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
 			if (!isPasswordMatch && !user.IsActivated)
@@ -73,7 +73,7 @@ namespace ObjectOriented_InversionOfControl
 		/// 处理用户被冻结；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void ProcessUserNotActivated(User user)
+		private void HandleUserNotActivated(User user)
 		{
 			if (!user.IsActivated)
 			{
@@ -82,10 +82,10 @@ namespace ObjectOriented_InversionOfControl
 			}
 		}
 		/// <summary>
-		/// 处理用户登录失败超出限制；
+		/// 处理用户登录失败次数过多；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void ProcessUserLoginFailOutOfLimit(User user)
+		private void HandleUserLoginFailTooManyTimes(User user)
 		{
 			if (user.LoginFailCount >= 3)
 			{
@@ -99,11 +99,11 @@ namespace ObjectOriented_InversionOfControl
 		/// 处理用户登录失败；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void ProcessUserLoginFail(User user)
+		private void HandleUserLoginFail(User user)
 		{
 			user.LoginFailCount++;
 			this._UserDal.Update(user);
-			this.ProcessUserLoginFailOutOfLimit(user);
+			this.HandleUserLoginFailTooManyTimes(user);
 			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
 			throw new Exception();
 		}
@@ -112,19 +112,19 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <param name="password">密码</param>
-		private void ProcessUserPasswordNotMatch(User user, string password)
+		private void HandleUserPasswordNotMatch(User user, string password)
 		{
 			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
 			if (!isPasswordMatch)
 			{
-				this.ProcessUserLoginFail(user);
+				this.HandleUserLoginFail(user);
 			}
 		}
 		/// <summary>
 		/// 处理用户登录成功；
 		/// </summary>
 		/// <param name="user">用户</param>
-		private void ProcessUserLoginOk(User user)
+		private void HandleUserLoginOk(User user)
 		{
 			if (user.LoginFailCount!=0)
 			{
@@ -139,15 +139,15 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExists(string userNo) 
+		public bool CheckExist(string userNo) 
 		=>	this._UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
-		public bool CheckNotExists(string userNo) 
-		=>	!this.CheckExists(userNo);
+		public bool CheckNotExist(string userNo) 
+		=>	!this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
 		/// </summary>
@@ -159,15 +159,15 @@ namespace ObjectOriented_InversionOfControl
 			User user = this._UserDal.Select(userNo);
 			try
 			{
-				this.ProcessUserNotExists(user);
-				this.ProcessUserPasswordNotMatchAndNotActivated(user, userPassword);
-				this.ProcessUserNotActivated(user);
-				this.ProcessUserPasswordNotMatch(user, userPassword);
-				this.ProcessUserLoginOk(user);
+				this.HandleUserNotExist(user);
+				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
+				this.HandleUserNotActivated(user);
+				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserLoginOk(user);
 			}
 			catch (Exception)
 			{
-				;
+				this.Message = "登录失败！";
 			}
 			return user;
 		}
@@ -206,7 +206,7 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		public UserBll()
 		{
-			this._UserDal = new UserDalEf();
+			this._UserDal = new UserDal();
 		}
 	}
 }

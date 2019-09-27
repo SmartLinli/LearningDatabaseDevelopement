@@ -1,6 +1,6 @@
-﻿namespace ObjectOriented_EntityFramework
+﻿namespace ObjectOriented_Dapper
 {
-	partial class ExistsValidator
+	partial class ExistValidator
 	{
 		/// <summary>
 		/// 必需的设计器变量。

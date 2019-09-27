@@ -1,6 +1,6 @@
-﻿namespace ObjectOriented_Layer
+﻿namespace ObjectOriented_InversionOfControl
 {
-	partial class ExistsValidator
+	partial class ExistValidator
 	{
 		/// <summary>
 		/// 必需的设计器变量。

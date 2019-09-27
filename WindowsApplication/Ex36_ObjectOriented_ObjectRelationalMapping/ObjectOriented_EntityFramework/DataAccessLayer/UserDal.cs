@@ -5,7 +5,7 @@ namespace ObjectOriented_EntityFramework
 	/// <summary>
 	/// 用户（基于EntityFramwork的数据访问层）；
 	/// </summary>
-	public class UserDalEf
+	public class UserDal
 	{
 		/// <summary>
 		/// 查询用户计数;
@@ -38,7 +38,7 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
-		public UserDalEf()
+		public UserDal()
 		=>	EfHelper.WarmUp();
 	}
 }

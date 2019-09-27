@@ -26,12 +26,12 @@ namespace ObjectOriented_EntityFramework
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("public");
+
 			modelBuilder.Entity<User>()
 				.Property(e => e.No)
 				.IsFixedLength()
 				.IsUnicode(false);
 		}
-
 		/// <summary>
 		/// ±£´æ¸ü¸Ä£»
 		/// </summary>

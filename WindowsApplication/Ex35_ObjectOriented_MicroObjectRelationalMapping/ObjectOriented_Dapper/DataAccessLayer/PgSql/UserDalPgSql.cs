@@ -6,7 +6,7 @@ namespace ObjectOriented_Dapper
 	/// <summary>
 	/// 用户（PostgreSQL数据访问层）；
 	/// </summary>
-	public class UserDalPgSql:IUserDal
+	public class UserDalPgsql:IUserDal
 	{
 		/// <summary>
 		/// 查询用户计数;
@@ -14,7 +14,7 @@ namespace ObjectOriented_Dapper
 		/// <param name="userNo">用户号</param>
 		/// <returns>计数</returns>
 		public int SelectCount(string userNo)
-		=>	DapperPgSqlHelper.GetScalarFromSp<int>
+		=>	DapperPgsqlHelper.GetScalarFromSp<int>
 				("usp_select_user_count_by_no"
 				, new { p_no = userNo });
 		/// <summary>
@@ -23,7 +23,7 @@ namespace ObjectOriented_Dapper
 		/// <param name="user">用户号</param>
 		/// <returns>用户</returns>
 		public User Select(string userNo)
-		=>	DapperPgSqlHelper.GetQueryResultFromSp<dynamic>
+		=>	DapperPgsqlHelper.GetQueryResultFromSp<dynamic>
 				("usp_select_user_by_no"
 				, new { p_no = userNo })
 				.Select
@@ -41,7 +41,7 @@ namespace ObjectOriented_Dapper
 		/// <param name="user">用户</param>
 		/// <returns>受影响行数</returns>
 		public int Update(User user)
-		=> DapperPgSqlHelper.GetScalarFromSp<int>
+		=> DapperPgsqlHelper.GetScalarFromSp<int>
 				("usp_update_user"
 				, new
 				{
@@ -61,7 +61,7 @@ namespace ObjectOriented_Dapper
 			try
 			{
 				rowAffected =
-					DapperPgSqlHelper.GetScalarFromSp<int>
+					DapperPgsqlHelper.GetScalarFromSp<int>
 						("usp_insert_user"
 						, new
 						{

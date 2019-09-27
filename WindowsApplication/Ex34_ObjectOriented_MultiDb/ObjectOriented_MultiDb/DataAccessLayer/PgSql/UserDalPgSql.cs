@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace ObjectOriented_MultiDb
@@ -7,21 +6,21 @@ namespace ObjectOriented_MultiDb
 	/// <summary>
 	/// 用户（PostgreSQL数据访问层）；
 	/// </summary>
-	public class UserDalPgSql:IUserDal
+	public class UserDalPgsql:IUserDal
 	{
 		/// <summary>
 		/// SQL助手；
 		/// </summary>
-		private PgSqlHelper PgSqlHelper;
+		private PgsqlHelper _PgsqlHelper;
 		/// <summary>
 		/// 查询用户计数;
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>计数</returns>
 		public int SelectCount(string userNo)
-		=>	this.PgSqlHelper
+		=>	this._PgsqlHelper
 			.NewCommand("usp_select_user_count_by_no")
-			.IsStoredProcedure(true)
+			.IsStoredProcedure()
 			.NewParameter("p_no", userNo)
 			.GetScalar<int>();
 		/// <summary>
@@ -32,9 +31,9 @@ namespace ObjectOriented_MultiDb
 		public User Select(string userNo)
 		{
 			IDataReader dataReader =
-				this.PgSqlHelper
+				this._PgsqlHelper
 				.NewCommand("usp_select_user_by_no")
-				.IsStoredProcedure(true)
+				.IsStoredProcedure()
 				.NewParameter("p_no", userNo)
 				.GetReader();
 			User user = null;
@@ -56,9 +55,9 @@ namespace ObjectOriented_MultiDb
 		/// <param name="user">用户</param>
 		/// <returns>受影响行数</returns>
 		public int Update(User user)
-		=>	this.PgSqlHelper
+		=>	this._PgsqlHelper
 			.NewCommand("usp_update_user")
-			.IsStoredProcedure(true)
+			.IsStoredProcedure()
 			.NewParameter("p_no", user.No)
 			.NewParameter("p_password", user.Password)
 			.NewParameter("p_is_activated", user.IsActivated)
@@ -75,8 +74,8 @@ namespace ObjectOriented_MultiDb
 			try
 			{
 				rowAffected =
-					this.PgSqlHelper.NewCommand("usp_insert_user")
-					.IsStoredProcedure(true)
+					this._PgsqlHelper.NewCommand("usp_insert_user")
+					.IsStoredProcedure()
 					.NewParameter("p_no", user.No)
 					.NewParameter("p_password", user.Password)
 					.NewParameter("p_is_activated", user.IsActivated)
@@ -95,9 +94,9 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
-		public UserDalPgSql()
+		public UserDalPgsql()
 		{
-			this.PgSqlHelper = new PgSqlHelper();
+			this._PgsqlHelper = new PgsqlHelper();
 		}
 	}
 }

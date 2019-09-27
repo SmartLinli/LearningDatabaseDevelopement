@@ -11,16 +11,16 @@ namespace ObjectOriented_SqlHelper
 		/// <summary>
 		/// SQL助手；
 		/// </summary>
-		private SqlHelper SqlHelper;
+		private SqlHelper _SqlHelper;
 		/// <summary>
 		/// 查询用户计数;
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>计数</returns>
 		public int SelectCount(string userNo)
-		=>	this.SqlHelper
+		=>	this._SqlHelper
 			.NewCommand("usp_selectUserCountByNo")
-			.IsStoredProcedure(true)
+			.IsStoredProcedure()
 			.NewParameter("@No", userNo)
 			.GetScalar<int>();
 		/// <summary>
@@ -31,9 +31,9 @@ namespace ObjectOriented_SqlHelper
 		public User Select(string userNo)
 		{
 			IDataReader dataReader=
-				this.SqlHelper
+				this._SqlHelper
 				.NewCommand("usp_selectUserByNo")
-				.IsStoredProcedure(true)
+				.IsStoredProcedure()
 				.NewParameter("@No", userNo)
 				.GetReader();
 			User user = null;
@@ -55,9 +55,9 @@ namespace ObjectOriented_SqlHelper
 		/// <param name="user">用户</param>
 		/// <returns>受影响行数</returns>
 		public int Update(User user)
-		=>	this.SqlHelper
+		=>	this._SqlHelper
 			.NewCommand("usp_updateUser")
-			.IsStoredProcedure(true)
+			.IsStoredProcedure()
 			.NewParameter("@No", user.No)
 			.NewParameter("@Password", user.Password)
 			.NewParameter("@IsActivated", user.IsActivated)
@@ -74,8 +74,8 @@ namespace ObjectOriented_SqlHelper
 			try
 			{
 				rowAffected =
-					this.SqlHelper.NewCommand("usp_insertUser")
-					.IsStoredProcedure(true)
+					this._SqlHelper.NewCommand("usp_insertUser")
+					.IsStoredProcedure()
 					.NewParameter("@No", user.No)
 					.NewParameter("@Password", user.Password)
 					.NewParameter("@IsActivated", user.IsActivated)
@@ -96,7 +96,7 @@ namespace ObjectOriented_SqlHelper
 		/// </summary>
 		public UserDal()
 		{
-			this.SqlHelper = new SqlHelper();
+			this._SqlHelper = new SqlHelper();
 		}
 	}
 }

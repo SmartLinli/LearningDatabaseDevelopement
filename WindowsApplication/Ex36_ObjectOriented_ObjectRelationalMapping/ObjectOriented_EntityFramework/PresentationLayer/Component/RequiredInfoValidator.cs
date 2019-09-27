@@ -11,8 +11,8 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 匹配条件；
 		/// </summary>
-		protected override Func<string, bool> Match => 
-			(s => s != null && s != string.Empty);
+		protected override Func<string, bool> Match 
+		=>	(s => s != null && s != string.Empty);
 		/// <summary>
 		/// 错误消息；
 		/// </summary>

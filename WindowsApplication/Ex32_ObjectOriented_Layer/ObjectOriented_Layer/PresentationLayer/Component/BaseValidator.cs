@@ -13,11 +13,11 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 控件列表；
 		/// </summary>
-		private List<Control> Controls = new List<Control>();
+		private List<Control> _Controls = new List<Control>();
 		/// <summary>
 		/// 错误提供器；
 		/// </summary>
-		private ErrorProvider ErrorProvider;
+		private ErrorProvider _ErrorProvider;
 		/// <summary>
 		/// 匹配条件；
 		/// </summary>
@@ -29,31 +29,19 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
-		protected virtual string ErrorMessage 
-		=>	"输入无效";
+		protected virtual string ErrorMessage => "输入无效";
 		/// <summary>
 		/// 添加（控件）；
 		/// </summary>
-		/// <param name="control">控件</param>
-		/// <returns>验证器</returns>
-		public BaseValidator Add(Control control)
-		{
-			control.Validating += this.Validate;
-			this.Controls.Add(control);
-			return this;
-		}
-		/// <summary>
-		/// 添加（控件数组）；
-		/// </summary>
 		/// <param name="controls">控件</param>
 		/// <returns>验证器</returns>
-		public BaseValidator Add(Control[] controls)
+		public BaseValidator Add(params Control[] controls)
 		{
 			foreach (var control in controls)
 			{
 				control.Validating += this.Validate;
 			}
-			this.Controls.AddRange(controls);
+			this._Controls.AddRange(controls);
 			return this;
 		}
 		/// <summary>
@@ -63,7 +51,7 @@ namespace ObjectOriented_Layer
 		/// <returns>验证器</returns>
 		public BaseValidator Add(ErrorProvider errorProvider)
 		{
-			this.ErrorProvider = errorProvider;
+			this._ErrorProvider = errorProvider;
 			return this;
 		}
 		/// <summary>
@@ -77,30 +65,27 @@ namespace ObjectOriented_Layer
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void Validate(object sender, CancelEventArgs e)
+		protected virtual void Validate(object sender, CancelEventArgs e)
 		{
 			Control control = sender as Control;
 			string
-				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString(),
-				errorMessage = $"{controlDescription}{this.ErrorMessage}"
-				, oldErrorMessage = this.ErrorProvider.GetError(control);
-			bool
-				ControlTextMatchesRule = Match(control.Text.Trim())
-				, errorProviderHasError = oldErrorMessage != string.Empty
-				, errorProviderHasSameOldError = oldErrorMessage == errorMessage;
-			if (!ControlTextMatchesRule)
+				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString()
+				, currentValidatorMessage = $"{controlDescription}{this.ErrorMessage}"
+				, errorProviderMessage = this._ErrorProvider.GetError(control);
+			bool errorProviderHasErrorFromOtherValidator = 
+					errorProviderMessage != string.Empty 
+					&& errorProviderMessage != currentValidatorMessage;
+			if (errorProviderHasErrorFromOtherValidator)
 			{
-				if (errorProviderHasError)
-				{
-					return;
-				}
-				this.ErrorProvider.SetError(control, errorMessage);
 				return;
 			}
-			if (errorProviderHasSameOldError)
+			bool controlTextMatchesRule = this.Match(control.Text.Trim());
+			if (!controlTextMatchesRule)
 			{
-				this.ErrorProvider.SetError(control, string.Empty);
+				this._ErrorProvider.SetError(control, currentValidatorMessage);
+				return;
 			}
+			this._ErrorProvider.SetError(control, string.Empty);
 		}
 		#region 组件设计器生成的代码
 		public BaseValidator()

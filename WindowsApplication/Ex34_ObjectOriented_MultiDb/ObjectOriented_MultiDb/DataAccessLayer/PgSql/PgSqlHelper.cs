@@ -1,6 +1,5 @@
 ﻿using Npgsql;
 using NpgsqlTypes;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 
@@ -10,25 +9,25 @@ namespace ObjectOriented_MultiDb
 	/// <summary>
 	/// PGSQL助手；
 	/// </summary>
-	public class PgSqlHelper
+	public class PgsqlHelper
 	{
 		/// <summary>
 		/// PGSQL命令；
 		/// </summary>
-		private NpgsqlCommand PgSqlCommand;
+		private NpgsqlCommand _PgsqlCommand;
 		/// <summary>
 		/// PGSQL参数；
 		/// </summary>
-		private NpgsqlParameter PgSqlParameter;
+		private NpgsqlParameter _PgsqlParameter;
 		/// <summary>
 		/// 新建PGSQL命令；
 		/// </summary>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper NewCommand()
+		public PgsqlHelper NewCommand()
 		{
 			NpgsqlConnection pgsqlConnection = new NpgsqlConnection();
-			pgsqlConnection.ConnectionString = ConfigurationManager.ConnectionStrings["PgSql"].ToString();
-			this.PgSqlCommand = pgsqlConnection.CreateCommand();
+			pgsqlConnection.ConnectionString = ConfigurationManager.ConnectionStrings["Pgsql"].ToString();
+			this._PgsqlCommand = pgsqlConnection.CreateCommand();
 			return this;
 		}
 		/// <summary>
@@ -36,7 +35,7 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper NewCommand(string commandText)
+		public PgsqlHelper NewCommand(string commandText)
 		{
 			this.NewCommand();
 			return this.CommandText(commandText);
@@ -46,9 +45,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper CommandText(string commandText)
+		public PgsqlHelper CommandText(string commandText)
 		{
-			this.PgSqlCommand.CommandText = commandText;
+			this._PgsqlCommand.CommandText = commandText;
 			return this;
 		}
 		/// <summary>
@@ -56,9 +55,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="isStoredProcedure">是否存储过程</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper IsStoredProcedure(bool isStoredProcedure)
+		public PgsqlHelper IsStoredProcedure(bool isStoredProcedure = true)
 		{
-			this.PgSqlCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
+			this._PgsqlCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
 			return this;
 		}
 		/// <summary>
@@ -66,11 +65,11 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="parameterName">参数名称</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper NewParameter(string parameterName)
+		public PgsqlHelper NewParameter(string parameterName)
 		{
-			this.PgSqlParameter = new NpgsqlParameter();
-			this.PgSqlParameter.ParameterName = parameterName;
-			this.PgSqlCommand.Parameters.Add(this.PgSqlParameter);
+			this._PgsqlParameter = new NpgsqlParameter();
+			this._PgsqlParameter.ParameterName = parameterName;
+			this._PgsqlCommand.Parameters.Add(this._PgsqlParameter);
 			return this;
 		}
 		/// <summary>
@@ -79,10 +78,10 @@ namespace ObjectOriented_MultiDb
 		/// <param name="parameterName">参数名称</param>
 		/// <param name="value">参数值</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper NewParameter(string parameterName, object value)
+		public PgsqlHelper NewParameter(string parameterName, object value)
 		{
 			this.NewParameter(parameterName);
-			this.PgSqlParameter.Value = value;
+			this._PgsqlParameter.Value = value;
 			return this;
 		}
 		/// <summary>
@@ -90,9 +89,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="sqlDbType">PostgreSQL数据类型</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper ParameterType(NpgsqlDbType pgsqlDbType)
+		public PgsqlHelper ParameterType(NpgsqlDbType pgsqlDbType)
 		{
-			this.PgSqlParameter.NpgsqlDbType = pgsqlDbType;
+			this._PgsqlParameter.NpgsqlDbType = pgsqlDbType;
 			return this;
 		}
 		/// <summary>
@@ -100,9 +99,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="size">长度</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper ParameterSize(int size)
+		public PgsqlHelper ParameterSize(int size)
 		{
-			this.PgSqlParameter.Size = size;
+			this._PgsqlParameter.Size = size;
 			return this;
 		}
 		/// <summary>
@@ -110,9 +109,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="value">参数值</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper ParameterValue(object value)
+		public PgsqlHelper ParameterValue(object value)
 		{
-			this.PgSqlParameter.Value = value;
+			this._PgsqlParameter.Value = value;
 			return this;
 		}
 		/// <summary>
@@ -120,9 +119,9 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="parameterDirection">参数方向</param>
 		/// <returns>PGSQL助手</returns>
-		public PgSqlHelper ParameterDirection(ParameterDirection parameterDirection)
+		public PgsqlHelper ParameterDirection(ParameterDirection parameterDirection)
 		{
-			this.PgSqlParameter.Direction = parameterDirection;
+			this._PgsqlParameter.Direction = parameterDirection;
 			return this;
 		}
 		/// <summary>
@@ -133,9 +132,9 @@ namespace ObjectOriented_MultiDb
 		public T GetScalar<T>()
 		{
 			object result = null;
-			this.PgSqlCommand.Connection.Open();
-			result = this.PgSqlCommand.ExecuteScalar();
-			this.PgSqlCommand.Connection.Close();
+			this._PgsqlCommand.Connection.Open();
+			result = this._PgsqlCommand.ExecuteScalar();
+			this._PgsqlCommand.Connection.Close();
 			return (T)result;
 		}
 		/// <summary>
@@ -145,8 +144,8 @@ namespace ObjectOriented_MultiDb
 		/// <returns>数据读取器</returns>
 		public IDataReader GetReader()
 		{
-			this.PgSqlCommand.Connection.Open();
-			NpgsqlDataReader pgsqlDataReader = this.PgSqlCommand.ExecuteReader();
+			this._PgsqlCommand.Connection.Open();
+			NpgsqlDataReader pgsqlDataReader = this._PgsqlCommand.ExecuteReader();
 			return pgsqlDataReader;
 		}
 		/// <summary>
@@ -158,8 +157,8 @@ namespace ObjectOriented_MultiDb
 			int rowAffected = 0;
 			try
 			{
-				this.PgSqlCommand.Connection.Open();
-				rowAffected = this.PgSqlCommand.ExecuteNonQuery();
+				this._PgsqlCommand.Connection.Open();
+				rowAffected = this._PgsqlCommand.ExecuteNonQuery();
 			}
 			catch (NpgsqlException pgsqlEx)
 			{
@@ -171,7 +170,7 @@ namespace ObjectOriented_MultiDb
 			}
 			finally
 			{
-				this.PgSqlCommand.Connection.Close();
+				this._PgsqlCommand.Connection.Close();
 			}
 			return rowAffected;
 		}

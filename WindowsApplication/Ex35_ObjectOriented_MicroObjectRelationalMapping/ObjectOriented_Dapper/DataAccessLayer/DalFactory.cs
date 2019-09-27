@@ -20,7 +20,7 @@ namespace ObjectOriented_Dapper
 			switch (dalTypeName)
 			{
 				case "PgSql":
-					userDal = new UserDalPgSql();
+					userDal = new UserDalPgsql();
 					break;
 				default:
 					userDal = new UserDalSql();

@@ -33,20 +33,9 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 添加（控件）；
 		/// </summary>
-		/// <param name="control">控件</param>
-		/// <returns>验证器</returns>
-		public BaseValidator Add(Control control)
-		{
-			control.Validating += this.Validate;
-			this.Controls.Add(control);
-			return this;
-		}
-		/// <summary>
-		/// 添加（控件数组）；
-		/// </summary>
 		/// <param name="controls">控件</param>
 		/// <returns>验证器</returns>
-		public BaseValidator Add(Control[] controls)
+		public BaseValidator Add(params Control[] controls)
 		{
 			foreach (var control in controls)
 			{
@@ -80,24 +69,20 @@ namespace ObjectOriented_EntityFramework
 		{
 			Control control = sender as Control;
 			string
-				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString(),
-				errorMessage = $"{controlDescription}{this.ErrorMessage}"
-				, oldErrorMessage = this.ErrorProvider.GetError(control);
-			bool
-				ControlTextMatchesRule = Match(control.Text.Trim())
-				, errorProviderHasError = oldErrorMessage != string.Empty
-				, errorProviderHasSameOldError = oldErrorMessage != errorMessage;
-			if (!ControlTextMatchesRule)
+				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString()
+				, currentValidatorMessage = $"{controlDescription}{this.ErrorMessage}"
+				, errorProviderMessage = this.ErrorProvider.GetError(control);
+			bool errorProviderHasErrorFromOtherValidator = 
+					errorProviderMessage != string.Empty 
+					&& errorProviderMessage != currentValidatorMessage;
+			if (errorProviderHasErrorFromOtherValidator)
 			{
-				if (errorProviderHasError)
-				{
-					return;
-				}
-				this.ErrorProvider.SetError(control, errorMessage);
 				return;
 			}
-			if (errorProviderHasSameOldError)
+			bool controlTextMatchesRule = this.Match(control.Text.Trim());
+			if (!controlTextMatchesRule)
 			{
+				this.ErrorProvider.SetError(control, currentValidatorMessage);
 				return;
 			}
 			this.ErrorProvider.SetError(control, string.Empty);

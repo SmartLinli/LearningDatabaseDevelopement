@@ -1,4 +1,4 @@
-﻿namespace Ex31_ObjectOriented_Class
+﻿namespace ObjectOriented_Class
 {
     partial class frm_LogIn
     {

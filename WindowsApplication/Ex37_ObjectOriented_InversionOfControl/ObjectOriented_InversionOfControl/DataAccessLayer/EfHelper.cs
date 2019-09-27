@@ -12,6 +12,10 @@ namespace ObjectOriented_InversionOfControl
 	public class EfHelper
 	{
 		/// <summary>
+		/// 是否已预热；
+		/// </summary>
+		private static bool _HasWarmedUp = false;
+		/// <summary>
 		/// 获取数据库上下文；
 		/// </summary>
 		/// <returns></returns>
@@ -22,6 +26,10 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		public static async void WarmUp()
 		{
+			if (_HasWarmedUp)
+			{
+				return;
+			}
 			using (MyDbContext eduBase = GetDbContext())
 			{
 				await Task.Run(() => eduBase.Database.ExecuteSqlCommand("SELECT 1"));

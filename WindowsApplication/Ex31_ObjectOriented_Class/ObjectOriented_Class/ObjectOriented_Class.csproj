@@ -8,8 +8,8 @@
     <ProjectGuid>{B721287E-2299-43B9-BCCC-1A69B8BAAD4B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ex31_ObjectOriented_Class</RootNamespace>
-    <AssemblyName>Ex31_ObjectOriented_Class</AssemblyName>
+    <RootNamespace>ObjectOriented_Class</RootNamespace>
+    <AssemblyName>ObjectOriented_Class</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

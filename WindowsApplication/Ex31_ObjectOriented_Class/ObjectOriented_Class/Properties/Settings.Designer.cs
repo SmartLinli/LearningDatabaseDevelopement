@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ex31_ObjectOriented_Class.Properties {
+namespace ObjectOriented_Class.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

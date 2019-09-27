@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex31_ObjectOriented_Class", "Ex31_ObjectOriented_Class\Ex31_ObjectOriented_Class.csproj", "{B721287E-2299-43B9-BCCC-1A69B8BAAD4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectOriented_Class", "ObjectOriented_Class\ObjectOriented_Class.csproj", "{B721287E-2299-43B9-BCCC-1A69B8BAAD4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6D32709C-787A-45C9-8D6A-98336CFBB1CC}"
 EndProject

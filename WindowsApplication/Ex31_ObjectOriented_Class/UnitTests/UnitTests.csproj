@@ -64,9 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ex31_ObjectOriented_Class\Ex31_ObjectOriented_Class.csproj">
+    <ProjectReference Include="..\Ex31_ObjectOriented_Class\ObjectOriented_Class.csproj">
       <Project>{B721287E-2299-43B9-BCCC-1A69B8BAAD4B}</Project>
-      <Name>Ex31_ObjectOriented_Class</Name>
+      <Name>ObjectOriented_Class</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
