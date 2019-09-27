@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "ObjectOriented_InversionOfControl",
+  "components": [
+    {
+      "type": "ObjectOriented_InversionOfControl.EduBaseSql,ObjectOriented_InversionOfControl",
+      "services": [
+        {
+          "type": "ObjectOriented_InversionOfControl.MyDbContext,ObjectOriented_InversionOfControl"
+        }
+      ]      
+    }
+  ]
+}

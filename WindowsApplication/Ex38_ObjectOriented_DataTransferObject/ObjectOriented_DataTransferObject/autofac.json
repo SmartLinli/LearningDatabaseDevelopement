@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "ObjectOriented_DataTransferObject",
+  "components": [
+    {
+      "type": "ObjectOriented_DataTransferObject.EduBasePgsql,ObjectOriented_DataTransferObject",
+      "services": [
+        {
+          "type": "ObjectOriented_DataTransferObject.MyDbContext,ObjectOriented_DataTransferObject"
+        }
+      ]      
+    }
+  ]
+}
