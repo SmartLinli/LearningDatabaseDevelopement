@@ -93,11 +93,15 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <param name="parameterName">参数名称</param>
 		/// <param name="value">参数值</param>
+		/// <param name="sqlDbType">SQL Server数据类型</param>
+		/// <param name="size">长度</param>
 		/// <returns>SQL助手</returns>
-		public SqlHelper With(string parameterName, object value)
+		public SqlHelper With(string parameterName, object value, SqlDbType sqlDbType = SqlDbType.VarChar, int size = 0)
 		{
 			this.NewParameter(parameterName);
 			this._SqlParameter.Value = value;
+			this._SqlParameter.SqlDbType = sqlDbType;
+			this._SqlParameter.Size = size;
 			return this;
 		}
 		/// <summary>

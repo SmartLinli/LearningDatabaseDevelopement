@@ -95,11 +95,15 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <param name="parameterName">参数名称</param>
 		/// <param name="value">参数值</param>
+		/// <param name="pgsqlDbType">PostgreSQL数据类型</param>
+		/// <param name="size">长度</param>
 		/// <returns>PGSQL助手</returns>
-		public PgsqlHelper With(string parameterName, object value)
+		public PgsqlHelper With(string parameterName, object value, NpgsqlDbType pgsqlDbType = NpgsqlDbType.Varchar, int size = 0)
 		{
 			this.NewParameter(parameterName);
 			this._PgsqlParameter.Value = value;
+			this._PgsqlParameter.NpgsqlDbType = pgsqlDbType;
+			this._PgsqlParameter.Size = size;
 			return this;
 		}
 		/// <summary>
@@ -111,7 +115,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="sourceColumn">来源列</param>
 		/// <param name="dataRowVersion">数据行版本</param>
 		/// <returns>PGSQL助手</returns>
-		public PgsqlHelper With(string parameterName, NpgsqlDbType pgsqlDbType = NpgsqlDbType.Text, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
+		public PgsqlHelper With(string parameterName, NpgsqlDbType pgsqlDbType = NpgsqlDbType.Varchar, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
 		{
 			this.NewParameter(parameterName);
 			this._PgsqlParameter.NpgsqlDbType = pgsqlDbType;

@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "Record_Update_Orm",
+  "components": [
+    {
+      "type": "Record_Update_Orm.EduBasePgsql,Record_Update_Orm",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.MyDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]
+    }
+  ]
+}

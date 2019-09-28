@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SmartLinli.DatabaseDevelopement
 {
@@ -81,11 +82,11 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="match">匹配条件</param>
 		/// <returns>实体</returns>
-		public static IQueryable<T> Select<T>(Expression<Func<T, bool>> match) where T : class
+		public static List<T> Select<T>(Expression<Func<T, bool>> match) where T : class
 		{
 			using (MyDbContext eduBase = GetDbContext())
 			{
-				return eduBase.Set<T>().Where(match);
+				return eduBase.Set<T>().Where(match).ToList();
 			}
 		}
 		/// <summary>
@@ -109,11 +110,23 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="commandText">命令文本</param>
 		/// <param name="parameters">参数</param>
 		/// <returns>实体</returns>
-		public static IQueryable<T> Select<T>(string commandText, params object[] parameters) where T : class
+		public static List<T> Select<T>(string commandText, params object[] parameters) where T : class
 		{
 			using (MyDbContext eduBase = GetDbContext())
 			{
-				return eduBase.Database.SqlQuery<T>(commandText, parameters).AsQueryable<T>();
+				return eduBase.Database.SqlQuery<T>(commandText, parameters).ToList();
+			}
+		}
+		/// <summary>
+		/// 查询所有实体；
+		/// </summary>
+		/// <typeparam name="T">实体类型</typeparam>
+		/// <returns>实体</returns>
+		public static List<T> SelectAll<T>() where T:class
+		{
+			using (MyDbContext eduBase = GetDbContext())
+			{
+				return eduBase.Set<T>().ToList();
 			}
 		}
 		/// <summary>

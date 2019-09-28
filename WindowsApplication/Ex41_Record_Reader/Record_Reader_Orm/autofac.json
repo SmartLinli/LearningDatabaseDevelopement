@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "Record_Reader_Orm",
+  "components": [
+    {
+      "type": "Record_Reader_Orm.EduBasePgsql,Record_Reader_Orm",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.MyDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]
+    }
+  ]
+}
