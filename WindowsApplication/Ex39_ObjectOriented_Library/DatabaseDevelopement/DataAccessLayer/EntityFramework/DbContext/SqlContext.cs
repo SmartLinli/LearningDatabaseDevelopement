@@ -16,6 +16,14 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 		}
 		/// <summary>
+		/// 创建模型时；
+		/// </summary>
+		/// <param name="modelBuilder">模型建造器</param>
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.HasDefaultSchema("dbo");
+		}
+		/// <summary>
 		/// 保存更改；
 		/// </summary>
 		/// <param name="notUniqueErrorMessage">不唯一错误消息</param>
