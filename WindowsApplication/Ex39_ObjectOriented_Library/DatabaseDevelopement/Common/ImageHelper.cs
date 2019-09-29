@@ -32,6 +32,20 @@ namespace SmartLinli.DatabaseDevelopement
 			return image;
 		}
 		/// <summary>
+		/// 获取图像；
+		/// </summary>
+		/// <param name="imageBytes">图像所在的字节数组</param>
+		/// <returns>图像</returns>
+		public static Image GetImage(object imageBytes)
+		{
+			Image image = null;
+			if (imageBytes is byte[] bytes)
+			{
+				image = GetImage(bytes);
+			}
+			return image;
+		}
+		/// <summary>
 		/// 获取字节数组
 		/// </summary>
 		/// <param name="image">图像</param>

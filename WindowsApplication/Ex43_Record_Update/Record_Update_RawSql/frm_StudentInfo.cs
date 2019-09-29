@@ -27,14 +27,14 @@ namespace Record_Update_RawSql
 			var dbHelper = new SqlHelper();
 			var classTable = dbHelper
 				.NewCommand("SELECT * FROM Class;")
-				.GetTable();
+				.ReturnTable();
 			this.cmb_Class.DataSource = classTable;
 			this.cmb_Class.DisplayMember = "Name";
 			this.cmb_Class.ValueMember = "No";
 			var studentReader = dbHelper
 				.NewCommand("SELECT * FROM Student WHERE No=@No;")
 				.With("@No", "3120707001")
-				.GetReader();
+				.ReturnReader();
 			if (studentReader.Read())
 			{
 				this.txb_No.Text = studentReader["No"].ToString();
@@ -67,7 +67,7 @@ namespace Record_Update_RawSql
 				.With("@BirthDate", this.dtp_BirthDate.Value, DbType.Date)
 				.With("@ClassNo", (int)this.cmb_Class.SelectedValue, DbType.Int32)
 				.With("@Speciality", this.txb_Speciality.Text.Trim())
-				.NonQuery();
+				.Submit();
 			MessageBox.Show($"更新{rowAffected}行。");
 		}
 	}

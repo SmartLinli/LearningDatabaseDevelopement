@@ -32,10 +32,9 @@ namespace SmartLinli.DatabaseDevelopement
 		protected override DbDataAdapter GetDbDataAdapter()
 		=>	new SqlDataAdapter();
 		/// <summary>
-		/// 设置SQL参数的SQL Server数据类型；
+		/// 设置参数的SQL Server数据类型；
 		/// </summary>
 		/// <param name="sqlDbType">SQL Server数据类型</param>
-		/// <returns>SQL助手</returns>
 		protected override void SpecificParameterType(object dbType)
 		{
 			SqlDbType sqlDbType = SqlDbType.VarChar;
@@ -46,10 +45,10 @@ namespace SmartLinli.DatabaseDevelopement
 			((SqlParameter)this._DbParameter).SqlDbType = sqlDbType;
 		}
 		/// <summary>
-		/// 执行SQL命令，写入数据；
+		/// 执行命令，提交数据；
 		/// </summary>
 		/// <returns>受影响行数</returns>
-		public override int NonQuery()
+		public override int Submit()
 		=>	base.ExecuteNonQuery(ex => (ex as SqlException).Number == 2627);
 	}
 }

@@ -29,10 +29,7 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			get
 			{
-				if (this._DbDataAdapter == null)
-				{
-					this._DbDataAdapter = this.GetDbDataAdapter();
-				}
+				this._DbDataAdapter = this._DbDataAdapter ?? this.GetDbDataAdapter();
 				return this._DbDataAdapter;
 			}
 		}
@@ -219,11 +216,11 @@ namespace SmartLinli.DatabaseDevelopement
 			return this;
 		}
 		/// <summary>
-		/// 执行命令，获取标量；
+		/// 执行命令，返回标量；
 		/// </summary>
 		/// <typeparam name="T">标量类型</typeparam>
 		/// <returns>标量值</returns>
-		public virtual T GetScalar<T>()
+		public virtual T Return<T>()
 		{
 			object result = null;
 			this._DbCommand.Connection.Open();
@@ -232,21 +229,21 @@ namespace SmartLinli.DatabaseDevelopement
 			return (T)result;
 		}
 		/// <summary>
-		/// 执行命令，获取数据读取器；
+		/// 执行命令，返回数据读取器；
 		/// 完成读取后，请手动关闭数据读取器；
 		/// </summary>
 		/// <returns>数据读取器</returns>
-		public virtual IDataReaderHelper GetReader()
+		public virtual IDataReaderHelper ReturnReader()
 		{
 			this._DbCommand.Connection.Open();
 			IDataReader dataReader = this._DbCommand.ExecuteReader();
 			return new DataReaderHelper(dataReader);
 		}
 		/// <summary>
-		/// 执行SQL命令，获取数据表；
+		/// 执行SQL命令，返回数据表；
 		/// </summary>
 		/// <returns>数据表</returns>
-		public virtual DataTable GetTable()
+		public virtual DataTable ReturnTable()
 		{
 			DataTable dataTable = new DataTable();
 			this.DbDataAdapter.SelectCommand = this._DbCommand;
@@ -258,6 +255,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 执行SQL命令，写入数据；
 		/// </summary>
+		/// <param name="match">匹配特定异常</param>
 		/// <returns>受影响行数</returns>
 		protected int ExecuteNonQuery(Func<Exception,bool> match)
 		{
@@ -277,20 +275,22 @@ namespace SmartLinli.DatabaseDevelopement
 			}
 			finally
 			{
-				this._DbCommand	.Connection.Close();
+				this._DbCommand.Connection.Close();
 			}
 			return rowAffected;
 		}
-		public abstract int NonQuery();
 		/// <summary>
-		/// 提交；
+		/// 执行命令，提交数据；
+		/// </summary>
+		/// <returns>受影响行数</returns>
+		public abstract int Submit();
+		/// <summary>
+		/// 执行命令，提交数据；
 		/// </summary>
 		/// <param name="dataTable">数据表</param>
 		/// <returns>受影响行数</returns>
 		public virtual int Submit(DataTable dataTable)
-		{
-			return this.DbDataAdapter.Update(dataTable);
-		}
+		=>	this.DbDataAdapter.Update(dataTable);
 		/// <summary>
 		/// 转换可空值；
 		/// </summary>

@@ -33,10 +33,9 @@ namespace SmartLinli.DatabaseDevelopement
 		protected override DbDataAdapter GetDbDataAdapter()
 		=>	new NpgsqlDataAdapter();
 		/// <summary>
-		/// 设置SQL参数的SQL Server数据类型；
+		/// 设置参数的PostgreSQL助手数据类型；
 		/// </summary>
 		/// <param name="sqlDbType">SQL Server数据类型</param>
-		/// <returns>SQL助手</returns>
 		protected override void SpecificParameterType(object dbType)
 		{
 			NpgsqlDbType pgsqlDbType = NpgsqlDbType.Varchar;
@@ -47,10 +46,10 @@ namespace SmartLinli.DatabaseDevelopement
 			((NpgsqlParameter)this._DbParameter).NpgsqlDbType = pgsqlDbType;
 		}
 		/// <summary>
-		/// 执行SQL命令，写入数据；
+		/// 执行命令，提交数据；
 		/// </summary>
 		/// <returns>受影响行数</returns>
-		public override int NonQuery()
+		public override int Submit()
 		=>	base.ExecuteNonQuery(ex => (ex as NpgsqlException).Message.Substring(0, 5) == "23505");
 	}
 }
