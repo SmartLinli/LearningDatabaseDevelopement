@@ -20,8 +20,8 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 获取数据库上下文；
 		/// </summary>
 		/// <returns></returns>
-		public static MyDbContext GetDbContext()
-		=>	AutofacHelper.Get<MyDbContext>();
+		public static SmartDbContext GetDbContext()
+		=>	AutofacHelper.Get<SmartDbContext>();
 		/// <summary>
 		/// 预热；
 		/// </summary>
@@ -31,7 +31,7 @@ namespace SmartLinli.DatabaseDevelopement
 			{
 				return;
 			}
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				await Task.Run(() => eduBase.Database.ExecuteSqlCommand("SELECT 1"));
 			}
@@ -44,7 +44,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>计数</returns>
 		public static int SelectCount<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Set<T>().Where(match).Count();
 			}
@@ -57,7 +57,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static T SelectOne<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Set<T>().Where(match).FirstOrDefault();
 			}
@@ -71,7 +71,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static T SelectOne<T>(Expression<Func<T, bool>> match,string objectPath) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Set<T>().Where(match).Include(objectPath).FirstOrDefault();
 			}
@@ -84,7 +84,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static List<T> Select<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Set<T>().Where(match).ToList();
 			}
@@ -98,7 +98,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static T SelectOne<T>(string commandText, params object[] parameters) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Database.SqlQuery<T>(commandText, parameters).FirstOrDefault();
 			}
@@ -112,7 +112,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static List<T> Select<T>(string commandText, params object[] parameters) where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Database.SqlQuery<T>(commandText, parameters).ToList();
 			}
@@ -124,7 +124,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>实体</returns>
 		public static List<T> SelectAll<T>() where T:class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				return eduBase.Set<T>().ToList();
 			}
@@ -139,7 +139,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>受影响行数</returns>
 		public static int Save<T>(T entity, EntityState entityState, string message = "") where T : class
 		{
-			using (MyDbContext eduBase = GetDbContext())
+			using (SmartDbContext eduBase = GetDbContext())
 			{
 				eduBase.Entry(entity).State = entityState;
 				return eduBase.SaveChanges(message);

@@ -2,16 +2,16 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement</id>
-    <version>0.0.0.16-alpha</version>
+    <version>0.0.0.24-alpha</version>
     <title>DatabaseDevelopement</title>
-    <authors>SmartLin</authors>
-    <owners>SmartLin</owners>
+    <authors>SmartLinli</authors>
+    <owners>SmartLinli</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
     <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/SmartLinli/LearningDatabaseDevelopement/master/WindowsApplication/Ex39_ObjectOriented_Library/design_art_King_of_Trash_Avatar_Big_32.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Basic functions for database developement</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <releaseNotes>Npgsql package 4.0.9 required.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Database</tags>
   </metadata>

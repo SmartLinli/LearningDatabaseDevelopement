@@ -6,13 +6,21 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// 数据库上下文（基于SQL Server）；
 	/// </summary>
-	public partial class SqlContext : MyDbContext
+	public partial class SqlContext : SmartDbContext
 	{
 		/// <summary>
-		/// 构造函数
+		/// 构造函数；
 		/// </summary>
 		public SqlContext()
 			: base("name=Sql")
+		{
+		}
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		/// <param name="nameOrConnectionString">名称或连接字符串</param>
+		public SqlContext(string nameOrConnectionString)
+			: base(nameOrConnectionString)
 		{
 		}
 		/// <summary>

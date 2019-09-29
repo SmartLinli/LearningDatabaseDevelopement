@@ -189,6 +189,9 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 
+# NuGet Offline Packages
+**/NugetOfflinePackages/*
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef

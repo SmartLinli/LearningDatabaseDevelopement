@@ -7,6 +7,9 @@ namespace Record_Update_Orm
 {
 	public partial class frm_StudentInfo : Form
 	{
+		/// <summary>
+		/// 学生；
+		/// </summary>
 		private Student _Student;
 		/// <summary>
 		/// 公有方法：构造函数；
@@ -57,7 +60,7 @@ namespace Record_Update_Orm
 			student.BirthDate = this.dtp_BirthDate.Value;
 			student.ClassNo = (int)this.cmb_Class.SelectedValue;
 			student.Speciality = this.txb_Speciality.Text;
-			int rowAffected = EfHelper.Save<Student>(this._Student, EntityState.Modified);
+			int rowAffected = EfHelper.Save(this._Student, EntityState.Modified);
 			MessageBox.Show($"更新{rowAffected}行。");
 		}
 	}

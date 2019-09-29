@@ -93,6 +93,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.1.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -153,14 +154,18 @@
     <Compile Include="Common\AutofacHelper.cs" />
     <Compile Include="Common\AutoMapperHelper.cs" />
     <Compile Include="Common\CrytoHelper.cs" />
+    <Compile Include="Common\ImageHelper.cs" />
+    <Compile Include="DataAccessLayer\AdoDotNet\DataReaderHelper\IDataReaderHelper.cs" />
+    <Compile Include="DataAccessLayer\AdoDotNet\DataReaderHelper\DataReaderHelper.cs" />
+    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\DbHelperBase.cs" />
     <Compile Include="DataAccessLayer\EntityFramework\DalBase.cs" />
     <Compile Include="DataAccessLayer\EntityFramework\DbContext\MyDbContext.cs" />
     <Compile Include="DataAccessLayer\EntityFramework\DbContext\PgsqlContext.cs" />
     <Compile Include="DataAccessLayer\EntityFramework\DbContext\SqlContext.cs" />
     <Compile Include="DataAccessLayer\EntityFramework\EfHelper.cs" />
     <Compile Include="DataAccessLayer\Exception.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\PgsqlHelper.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\SqlHelper.cs" />
+    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\PgsqlHelper.cs" />
+    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\SqlHelper.cs" />
     <Compile Include="PresentationLayer\Component\BaseValidator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -192,7 +197,9 @@
     <None Include="autofac.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="SmartLinli.DatabaseDevelopement.nuspec">
       <SubType>Designer</SubType>
     </None>

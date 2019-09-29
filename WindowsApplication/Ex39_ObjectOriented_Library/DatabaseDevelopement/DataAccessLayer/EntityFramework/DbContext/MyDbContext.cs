@@ -5,7 +5,7 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// 自定义数据库上下文；
 	/// </summary>
-	public abstract class MyDbContext : DbContext
+	public abstract class SmartDbContext : DbContext
 	{
 		/// <summary>
 		/// 保存更改；
@@ -17,7 +17,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 构造函数；
 		/// </summary>
 		/// <param name="nameOrConnectionString">数据库名称或连接字符串名称</param>
-		public MyDbContext(string nameOrConnectionString) 
+		public SmartDbContext(string nameOrConnectionString) 
 			: base(nameOrConnectionString)
 		{
 			;

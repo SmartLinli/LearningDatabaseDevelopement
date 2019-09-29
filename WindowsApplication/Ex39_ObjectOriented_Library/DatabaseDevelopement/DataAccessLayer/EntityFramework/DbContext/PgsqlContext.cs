@@ -6,13 +6,21 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// 数据库上下文（基于PostgreSQL）；
 	/// </summary>
-	public partial class PgsqlContext : MyDbContext
+	public partial class PgsqlContext : SmartDbContext
 	{
 		/// <summary>
 		/// 构造函数
 		/// </summary>
 		public PgsqlContext()
 			: base("name=Pgsql")
+		{
+		}
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		/// <param name="nameOrConnectionString">名称或连接字符串</param>
+		public PgsqlContext(string nameOrConnectionString)
+			: base(nameOrConnectionString)
 		{
 		}
 		/// <summary>
