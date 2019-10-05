@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SmartLinli.DatabaseDevelopement.Dto</id>
+    <version>0.0.0.1-alpha</version>
+    <title>DatabaseDevelopement</title>
+    <authors>SmartLinli</authors>
+    <owners>SmartLinli</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/SmartLinli/LearningDatabaseDevelopement/master/WindowsApplication/Ex39_ObjectOriented_Library/design_art_King_of_Trash_Avatar_Big_32.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Including AutoMapperHelper currently.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>AutoMapperHelper</tags>
+  </metadata>
+</package>

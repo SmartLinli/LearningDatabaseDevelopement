@@ -1,0 +1,6 @@
+﻿<configuration>
+  <connectionStrings>
+    <add name="Pgsql" connectionString="Server=localhost;Database=EduBaseDemo;User ID=Administrator" providerName="Npgsql" />
+    <add name="Sql" connectionString="data source=(local);initial catalog=EduBaseDemo;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
+  </connectionStrings> 
+</configuration>

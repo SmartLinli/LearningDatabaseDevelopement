@@ -35,7 +35,7 @@ namespace ObjectOriented_Layer
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
 				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
-				.Configure(false);
+				.Configure(ExistValidatorReturnError.IfExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;
 		}

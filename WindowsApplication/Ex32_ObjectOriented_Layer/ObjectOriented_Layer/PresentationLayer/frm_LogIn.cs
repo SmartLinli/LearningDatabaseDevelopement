@@ -33,7 +33,8 @@ namespace ObjectOriented_Layer
 			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this._UserBll.CheckExist);
+				.Configure((Func<string, bool>)this._UserBll.CheckExist)
+				.Configure(ExistValidatorReturnError.IfNotExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_LogIn;
 		}

@@ -61,11 +61,11 @@ namespace Record_Update_RawSql
 				+ " WHERE No=@No;";
 			int rowAffected = dbHelper
 				.NewCommand(updateCommand)
-				.With("@No", "3120707001", DbType.StringFixedLength, 10)
+				.With("@No", "3120707001", SqlDbType.Char, 10)
 				.With("@Name", this.txb_Name.Text.Trim())
-				.With("@Gender", this.rdb_Male.Checked, DbType.Boolean)
-				.With("@BirthDate", this.dtp_BirthDate.Value, DbType.Date)
-				.With("@ClassNo", (int)this.cmb_Class.SelectedValue, DbType.Int32)
+				.With("@Gender", this.rdb_Male.Checked, SqlDbType.Bit)
+				.With("@BirthDate", this.dtp_BirthDate.Value, SqlDbType.Date)
+				.With("@ClassNo", (int)this.cmb_Class.SelectedValue, SqlDbType.Int)
 				.With("@Speciality", this.txb_Speciality.Text.Trim())
 				.Submit();
 			MessageBox.Show($"更新{rowAffected}行。");

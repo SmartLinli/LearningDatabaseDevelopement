@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "SmartLinli.DatabaseDevelopement",
+  "components": [
+    {
+      "type": "SmartLinli.DatabaseDevelopement.EduBasePgsql,SmartLinli.DatabaseDevelopement",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.SmartDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]      
+    }
+  ]
+}

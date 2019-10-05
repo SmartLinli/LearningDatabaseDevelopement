@@ -5,7 +5,7 @@
       "type": "Record_Update_Orm.EduBasePgsql,Record_Update_Orm",
       "services": [
         {
-          "type": "SmartLinli.DatabaseDevelopement.MyDbContext,SmartLinli.DatabaseDevelopement"
+          "type": "SmartLinli.DatabaseDevelopement.SmartDbContext,SmartLinli.DatabaseDevelopement"
         }
       ]
     }

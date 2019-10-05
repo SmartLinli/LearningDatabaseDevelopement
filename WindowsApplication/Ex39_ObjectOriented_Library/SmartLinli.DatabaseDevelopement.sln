@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement", "DatabaseDevelopement\SmartLinli.DatabaseDevelopement.csproj", "{B2A3129C-0792-4883-8763-86711C46FC83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement", "SmartLinli.DatabaseDevelopement\SmartLinli.DatabaseDevelopement.csproj", "{B2A3129C-0792-4883-8763-86711C46FC83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement.Common", "SmartLinli.DatabaseDevelopement.Common\SmartLinli.DatabaseDevelopement.Common.csproj", "{65EEB723-9E9B-4FC0-92EB-665915CCAEB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement.DbHelper", "SmartLinli.DatabaseDevelopement.DbHelper\SmartLinli.DatabaseDevelopement.DbHelper.csproj", "{DABBD416-2788-492A-BC1F-24A7FA40641F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement.Orm", "SmartLinli.DatabaseDevelopement.Orm\SmartLinli.DatabaseDevelopement.Orm.csproj", "{6707A038-3128-45BE-A70A-2849DD54161D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement.Dto", "SmartLinli.DatabaseDevelopement.Dto\SmartLinli.DatabaseDevelopement.Dto.csproj", "{DA4C78F8-E8DE-4F81-8478-341E27040333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLinli.DatabaseDevelopement.Validator", "SmartLinli.DatabaseDevelopement.Validator\SmartLinli.DatabaseDevelopement.Validator.csproj", "{152844B4-BDA8-4E7D-9125-A8A1A6799FBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{B2A3129C-0792-4883-8763-86711C46FC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A3129C-0792-4883-8763-86711C46FC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A3129C-0792-4883-8763-86711C46FC83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65EEB723-9E9B-4FC0-92EB-665915CCAEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65EEB723-9E9B-4FC0-92EB-665915CCAEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65EEB723-9E9B-4FC0-92EB-665915CCAEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65EEB723-9E9B-4FC0-92EB-665915CCAEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABBD416-2788-492A-BC1F-24A7FA40641F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABBD416-2788-492A-BC1F-24A7FA40641F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABBD416-2788-492A-BC1F-24A7FA40641F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABBD416-2788-492A-BC1F-24A7FA40641F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6707A038-3128-45BE-A70A-2849DD54161D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6707A038-3128-45BE-A70A-2849DD54161D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6707A038-3128-45BE-A70A-2849DD54161D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6707A038-3128-45BE-A70A-2849DD54161D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4C78F8-E8DE-4F81-8478-341E27040333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4C78F8-E8DE-4F81-8478-341E27040333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4C78F8-E8DE-4F81-8478-341E27040333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4C78F8-E8DE-4F81-8478-341E27040333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152844B4-BDA8-4E7D-9125-A8A1A6799FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152844B4-BDA8-4E7D-9125-A8A1A6799FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152844B4-BDA8-4E7D-9125-A8A1A6799FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152844B4-BDA8-4E7D-9125-A8A1A6799FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

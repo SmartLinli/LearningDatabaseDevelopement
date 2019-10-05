@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "Record_Update_RawSql",
+  "components": [
+    {
+      "type": "SmartLinli.DatabaseDevelopement.EduBasePgsql,SmartLinli.DatabaseDevelopement",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.MyDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]
+    }
+  ]
+}

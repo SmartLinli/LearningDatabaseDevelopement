@@ -4,18 +4,32 @@ using System.ComponentModel;
 namespace ObjectOriented_MultiDb
 {
 	/// <summary>
+	/// 存在验证器返回错误的条件为；
+	/// </summary>
+	public class ExistValidatorReturnError
+	{
+		/// <summary>
+		/// 对象存在；
+		/// </summary>
+		public const bool IfExist = true;
+		/// <summary>
+		/// 对象不存在；
+		/// </summary>
+		public const bool IfNotExist = false;
+	}
+	/// <summary>
 	/// 存在验证器；
 	/// </summary>
 	public partial class ExistValidator : BaseValidator
 	{
 		/// <summary>
-		/// 存在为有效；
+		/// 存在则有误；
 		/// </summary>
-		private bool _ExistIsValid = true;
+		private bool _HasErrorIfExist = false;
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
-		protected override string ErrorMessage => this._ExistIsValid ? "不存在" : "已存在";
+		protected override string ErrorMessage => this._HasErrorIfExist ? "已存在" : "不存在";
 		/// <summary>
 		/// 定义；
 		/// </summary>
@@ -27,9 +41,9 @@ namespace ObjectOriented_MultiDb
 			{
 				this.Match = match;
 			}
-			if (parameters[0] is bool ExistIsValid)
+			if (parameters[0] is bool hasErrorIfExist)
 			{
-				this._ExistIsValid = ExistIsValid;
+				this._HasErrorIfExist = hasErrorIfExist;
 			}
 			return this;
 		}
