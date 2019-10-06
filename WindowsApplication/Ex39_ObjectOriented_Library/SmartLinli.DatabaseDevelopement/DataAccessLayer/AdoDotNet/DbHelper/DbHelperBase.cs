@@ -8,7 +8,7 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// 数据库助手（基类）；
 	/// </summary>
-	public abstract class DbHelperBase
+	public abstract partial class DbHelperBase
 	{
 		/// <summary>
 		/// 数据库命令；

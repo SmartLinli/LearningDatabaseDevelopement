@@ -198,8 +198,6 @@
     <None Include="autofac.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="content\DatabaseTemplate\PgSql\RunPSqlScript.bat" />
-    <None Include="content\DatabaseTemplate\SqlSvr\RunSqlScript.ps1" />
     <None Include="content\app.config.transform">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -216,16 +214,8 @@
   <ItemGroup>
     <Folder Include="content\BusinessLogicLayer\" />
     <Folder Include="content\DataAccessLayer\" />
+    <Folder Include="content\DatabaseTemplate\" />
     <Folder Include="content\PresentationLayer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="content\DatabaseTemplate\PgSql\01_terminate_backend.sql" />
-    <Content Include="content\DatabaseTemplate\PgSql\02_DROP_DATABASE.sql" />
-    <Content Include="content\DatabaseTemplate\PgSql\03_DROP_TABLESPACE.sql" />
-    <Content Include="content\DatabaseTemplate\PgSql\04_CREATE_DATABASE.sql" />
-    <Content Include="content\DatabaseTemplate\PgSql\05_CREATE_TABLE_INSERT.sql" />
-    <Content Include="content\DatabaseTemplate\PgSql\PSqlBatch.sql" />
-    <Content Include="content\DatabaseTemplate\SqlSvr\InitDb.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

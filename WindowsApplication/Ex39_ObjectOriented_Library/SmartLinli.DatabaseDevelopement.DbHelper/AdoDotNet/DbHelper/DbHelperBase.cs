@@ -118,7 +118,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="dbType">数据类型</param>
 		/// <param name="size">长度</param>
 		/// <returns>数据库助手</returns>
-		public virtual DbHelperBase With(string parameterName, object value, ValueType dbType = null, int size = 0)
+		public virtual DbHelperBase WithParameter(string parameterName, object value, ValueType dbType = null, int size = 0)
 		{
 			this.NewParameter(parameterName);
 			this._DbParameter.Value = value;
@@ -135,7 +135,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="sourceColumn">来源列</param>
 		/// <param name="dataRowVersion">数据行版本</param>
 		/// <returns>数据库助手</returns>
-		public virtual DbHelperBase With(string parameterName, ValueType dbType = null, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
+		public virtual DbHelperBase WithParameter(string parameterName, ValueType dbType = null, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
 		{
 			this.NewParameter(parameterName);
 			this.SpecificParameterType(dbType);
@@ -146,6 +146,19 @@ namespace SmartLinli.DatabaseDevelopement
 				: sourceColumn;
 			this._DbParameter.SourceColumn = sourceColumn;
 			this._DbParameter.SourceVersion = dataRowVersion;
+			return this;
+		}
+		/// <summary>
+		/// 包含参数；参数值源自数据表；
+		/// </summary>
+		/// <param name="parameterNames">参数名称</param>
+		/// <returns>数据库助手</returns>
+		public virtual DbHelperBase WithParameters(params string[] parameterNames)
+		{
+			foreach (var parameterName in parameterNames)
+			{
+				this.WithParameter(parameterName, null, 0, "", DataRowVersion.Current);
+			}
 			return this;
 		}
 		/// <summary>

@@ -7,7 +7,7 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// SQL Server助手；
 	/// </summary>
-	public class SqlHelper : DbHelperBase
+	public partial class SqlHelper : DbHelperBase
 	{
 		/// <summary>
 		/// 数据库连接字符串名称；
