@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement</id>
-    <version>0.0.0.29-alpha</version>
+    <version>0.0.0.37-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
@@ -54,9 +54,9 @@
       </group>
     </dependencies>
   </metadata>
-  <files>
-    <file src="bin\Debug\SmartLinli.DatabaseDevelopement.dll" target="lib\net472\SmartLinli.DatabaseDevelopement.dll"/>
-    <file src="bin\Debug\SmartLinli.DatabaseDevelopement.xml" target="lib\net472\SmartLinli.DatabaseDevelopement.xml"/>
-    <file src="content\**" target="content" copyToOutput="true"/>
-  </files>
+    <files>
+      <file src="bin\Debug\SmartLinli.DatabaseDevelopement.dll" target="lib\net472\SmartLinli.DatabaseDevelopement.dll"/>
+      <file src="bin\Debug\SmartLinli.DatabaseDevelopement.xml" target="lib\net472\SmartLinli.DatabaseDevelopement.xml"/>
+      <file src="content\**" target="content"/>
+    </files>
 </package>
