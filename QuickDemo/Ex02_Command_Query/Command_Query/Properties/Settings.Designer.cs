@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Command.Properties {
+namespace Command_Query_Query.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

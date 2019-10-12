@@ -239,7 +239,7 @@ namespace SmartLinli.DatabaseDevelopement
 			this._DbCommand.Connection.Open();
 			result = this._DbCommand.ExecuteScalar();
 			this._DbCommand.Connection.Close();
-			return (T)result;
+			return result == null ? default(T) : (T)result;
 		}
 		/// <summary>
 		/// 执行命令，返回数据读取器；

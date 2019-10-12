@@ -1,4 +1,4 @@
-﻿namespace CommandNonQuery
+﻿namespace Command_Insert
 {
     partial class frm_SignUp
     {

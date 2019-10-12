@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CommandNonQuery
+namespace Command_Insert
 {
     static class Program
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Command
+namespace Command_Query
 {
     static class Program
     {

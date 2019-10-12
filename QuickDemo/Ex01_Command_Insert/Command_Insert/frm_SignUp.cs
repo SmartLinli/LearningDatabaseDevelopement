@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace CommandNonQuery
+namespace Command_Insert
 {
 	public partial class frm_SignUp : Form
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Command
+namespace Command_Query
 {
 	public partial class frm_LogIn : Form
     {        
@@ -22,14 +22,14 @@ namespace Command
 		private void btn_LogIn_Click(object sender, EventArgs e)
         {
 			string commandText =
-				$"SELECT COUNT(1) FROM tb_User"
+				$"SELECT 1 FROM tb_User"
 				+ $" WHERE No='{this.txb_UserNo.Text.Trim()}'"
 				+ $" AND Password='{this.txb_Password.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			int rowCount = sqlHelper
+			int result = sqlHelper
 				.NewCommand(commandText)
 				.Return<int>();
-            if (rowCount == 1)                                                             
+            if (result == 1)                                                             
             {
                 MessageBox.Show("登录成功。");												
             }

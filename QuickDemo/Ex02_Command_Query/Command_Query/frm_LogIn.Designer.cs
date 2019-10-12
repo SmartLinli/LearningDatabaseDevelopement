@@ -1,4 +1,4 @@
-﻿namespace Command
+﻿namespace Command_Query
 {
     partial class frm_LogIn
     {
