@@ -26,9 +26,7 @@ namespace Command_Query
 				+ $" WHERE No='{this.txb_UserNo.Text.Trim()}'"
 				+ $" AND Password='{this.txb_Password.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			int result = sqlHelper
-				.NewCommand(commandText)
-				.Return<int>();
+			int result = sqlHelper.QuickReturn<int>(commandText);
             if (result == 1)                                                             
             {
                 MessageBox.Show("登录成功。");												

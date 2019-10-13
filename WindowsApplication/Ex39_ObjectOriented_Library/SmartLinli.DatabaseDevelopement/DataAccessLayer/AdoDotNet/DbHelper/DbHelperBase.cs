@@ -118,7 +118,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="dbType">数据类型</param>
 		/// <param name="size">长度</param>
 		/// <returns>数据库助手</returns>
-		public virtual DbHelperBase With(string parameterName, object value, ValueType dbType = null, int size = 0)
+		public virtual DbHelperBase WithParameter(string parameterName, object value, ValueType dbType = null, int size = 0)
 		{
 			this.NewParameter(parameterName);
 			this._DbParameter.Value = value;
@@ -135,7 +135,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="sourceColumn">来源列</param>
 		/// <param name="dataRowVersion">数据行版本</param>
 		/// <returns>数据库助手</returns>
-		public virtual DbHelperBase With(string parameterName, ValueType dbType = null, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
+		public virtual DbHelperBase WithParameter(string parameterName, ValueType dbType = null, int size = 0, string sourceColumn = "", DataRowVersion dataRowVersion = DataRowVersion.Current)
 		{
 			this.NewParameter(parameterName);
 			this.SpecificParameterType(dbType);
@@ -146,6 +146,19 @@ namespace SmartLinli.DatabaseDevelopement
 				: sourceColumn;
 			this._DbParameter.SourceColumn = sourceColumn;
 			this._DbParameter.SourceVersion = dataRowVersion;
+			return this;
+		}
+		/// <summary>
+		/// 包含参数；参数值源自数据表；
+		/// </summary>
+		/// <param name="parameterNames">参数名称</param>
+		/// <returns>数据库助手</returns>
+		public virtual DbHelperBase WithParameters(params string[] parameterNames)
+		{
+			foreach (var parameterName in parameterNames)
+			{
+				this.WithParameter(parameterName, null, 0, "", DataRowVersion.Current);
+			}
 			return this;
 		}
 		/// <summary>
@@ -218,15 +231,36 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 执行命令，返回标量；
 		/// </summary>
-		/// <typeparam name="T">标量类型</typeparam>
 		/// <returns>标量值</returns>
-		public virtual T Return<T>()
+		public virtual object Return()
 		{
 			object result = null;
 			this._DbCommand.Connection.Open();
 			result = this._DbCommand.ExecuteScalar();
 			this._DbCommand.Connection.Close();
-			return (T)result;
+			return result;
+		}
+		/// <summary>
+		/// 执行命令，返回标量；
+		/// 若结果为空值，将返回其类型的默认值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <returns>标量值</returns>
+		public virtual T Return<T>() where T : struct
+		{
+			object result = this.Return<T>();
+			return result == null ? default(T) : (T)result;
+		}
+		/// <summary>
+		/// 执行命令，返回可空标量；
+		/// 若结果为空值，将返回可空类型的标量值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <returns>标量值</returns>
+		public virtual T? ReturnNullable<T>() where T : struct
+		{
+			object result = this.Return();
+			return new T?((T)result);
 		}
 		/// <summary>
 		/// 执行命令，返回数据读取器；
@@ -257,7 +291,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <param name="match">匹配特定异常</param>
 		/// <returns>受影响行数</returns>
-		protected int ExecuteNonQuery(Func<Exception,bool> match)
+		protected int ExecuteNonQuery(Func<Exception, bool> match)
 		{
 			int rowAffected = 0;
 			try
@@ -290,7 +324,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="dataTable">数据表</param>
 		/// <returns>受影响行数</returns>
 		public virtual int Submit(DataTable dataTable)
-		=>	this.DbDataAdapter.Update(dataTable);
+		=> this.DbDataAdapter.Update(dataTable);
 		/// <summary>
 		/// 转换可空值；
 		/// </summary>

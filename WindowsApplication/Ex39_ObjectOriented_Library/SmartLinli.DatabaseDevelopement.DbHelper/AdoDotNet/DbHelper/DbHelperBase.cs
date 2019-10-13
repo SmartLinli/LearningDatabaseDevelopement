@@ -231,16 +231,46 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 执行命令，返回标量；
 		/// </summary>
-		/// <typeparam name="T">标量类型</typeparam>
 		/// <returns>标量值</returns>
-		public virtual T Return<T>()
+		public virtual object Return()
 		{
 			object result = null;
 			this._DbCommand.Connection.Open();
 			result = this._DbCommand.ExecuteScalar();
 			this._DbCommand.Connection.Close();
+			return result;
+		}
+		/// <summary>
+		/// 执行命令，返回标量；
+		/// 若结果为空值，将返回其类型的默认值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <returns>标量值</returns>
+		public virtual T Return<T>() where T : struct
+		{
+			object result = this.Return();
 			return result == null ? default(T) : (T)result;
 		}
+		/// <summary>
+		/// 执行命令，返回可空标量；
+		/// 若结果为空值，将返回可空类型的标量值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <returns>标量值</returns>
+		public virtual T? ReturnNullable<T>() where T : struct
+		{
+			object result = this.Return();
+			return new T?((T)result);
+		}
+		/// <summary>
+		/// 快速执行命令，返回标量；
+		/// 若结果为空值，将返回其类型的默认值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>标量值</returns>
+		public virtual T QuickReturn<T>(string commandText) where T : struct
+		=>	this.NewCommand(commandText).Return<T>();
 		/// <summary>
 		/// 执行命令，返回数据读取器；
 		/// 完成读取后，请手动关闭数据读取器；
@@ -297,6 +327,13 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <returns>受影响行数</returns>
 		public abstract int Submit();
+		/// <summary>
+		/// 快速执行命令，提交数据；
+		/// </summary>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>受影响行数</returns>
+		public virtual int QuickSubmit(string commandText)
+		=>	this.NewCommand(commandText).Submit();
 		/// <summary>
 		/// 执行命令，提交数据；
 		/// </summary>

@@ -24,9 +24,7 @@ namespace Record
 			string commandText =
 				$"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			var studentReader = sqlHelper
-				.NewCommand(commandText)
-				.ReturnReader();
+			var studentReader = sqlHelper.NewCommand(commandText).ReturnReader();
             if (studentReader.Read())                                                                      
             {
                 this.txb_No.Text = studentReader["No"].ToString();                                         

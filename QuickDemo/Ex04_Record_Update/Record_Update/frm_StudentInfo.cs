@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace RecordUpdate
+namespace Record_Update
 {
 	public partial class frm_StudentInfo : Form
 	{

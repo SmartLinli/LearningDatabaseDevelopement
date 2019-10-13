@@ -40,9 +40,7 @@ namespace Command_Insert
 				+ $" VALUES"
 				+ $" ('{this.txb_UserNo.Text.Trim()}','{this.txb_Password.Text.Trim()}');";
 			SqlHelper sqlHelper = new SqlHelper();
-			int rowAffected = sqlHelper
-				.NewCommand(commandText)
-				.Submit();
+			int rowAffected = sqlHelper.QuickSubmit(commandText);
 			if (rowAffected == 1)
 			{
 				MessageBox.Show("注册成功。");

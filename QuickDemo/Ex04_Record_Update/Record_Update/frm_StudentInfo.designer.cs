@@ -1,4 +1,4 @@
-﻿namespace RecordUpdate
+﻿namespace Record_Update
 {
     partial class frm_StudentInfo
     {
