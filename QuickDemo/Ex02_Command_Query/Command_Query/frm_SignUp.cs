@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Command_Insert
+namespace Command_Query
 {
 	/// <summary>
 	/// 注册窗体；

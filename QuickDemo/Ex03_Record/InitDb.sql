@@ -18,6 +18,19 @@ CREATE DATABASE EduBaseDemo
 GO
 USE EduBaseDemo;
 --创建表；
+----用户表；
+CREATE TABLE tb_User
+	(No
+		CHAR(10)
+		NOT NULL
+		PRIMARY KEY
+	,Password
+		VARCHAR(20)
+		NOT NULL);
+INSERT tb_User
+	(No,Password)
+	VALUES
+	('3180707001','7001');
 ----学生表；
 CREATE TABLE tb_Student
 	(No

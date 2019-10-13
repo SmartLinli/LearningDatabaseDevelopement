@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Command_Query
+namespace Record
 {
 	/// <summary>
 	/// 登录窗体；
@@ -32,7 +32,10 @@ namespace Command_Query
 			int result = sqlHelper.QuickReturn<int>(commandText);
             if (result == 1)                                                             
             {
-                MessageBox.Show("登录成功。");												
+                MessageBox.Show("登录成功。");
+				frm_StudentInfo studentInfoForm = new frm_StudentInfo(this.txb_UserNo.Text.Trim());
+				studentInfoForm.Show();
+				this.Close();
             }
             else                                                                           
             {
