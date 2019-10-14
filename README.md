@@ -4,7 +4,5 @@ Examples about database application developement with .NET Framework, .NET Core,
 
 Based on Visual Studio 2017, SQL Server 2017, PostgreSQL 10.5.
 
-![GitHub All Releases](https://img.shields.io/github/downloads/smartlinli/LearningDatabaseDevelopement/total?color=CD853F)
-
 
 
