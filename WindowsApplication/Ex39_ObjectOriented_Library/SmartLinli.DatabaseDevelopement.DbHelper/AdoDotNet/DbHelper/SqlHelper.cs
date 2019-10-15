@@ -42,7 +42,7 @@ namespace SmartLinli.DatabaseDevelopement
 			{
 				sqlDbType = (SqlDbType)dbType;
 			}
-			((SqlParameter)this._DbParameter).SqlDbType = sqlDbType;
+			((SqlParameter)this.DbParameter).SqlDbType = sqlDbType;
 		}
 		/// <summary>
 		/// 执行命令，提交数据；

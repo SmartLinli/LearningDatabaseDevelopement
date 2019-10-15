@@ -43,7 +43,7 @@ namespace SmartLinli.DatabaseDevelopement
 			{
 				pgsqlDbType = (NpgsqlDbType)dbType;
 			}
-			((NpgsqlParameter)this._DbParameter).NpgsqlDbType = pgsqlDbType;
+			((NpgsqlParameter)this.DbParameter).NpgsqlDbType = pgsqlDbType;
 		}
 		/// <summary>
 		/// 执行命令，提交数据；

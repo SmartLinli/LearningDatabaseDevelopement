@@ -22,13 +22,13 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 获取位于指定索引的列的值；
 		/// </summary>
 		/// <param name="index">索引</param>
-		/// <returns>对象</returns>
+		/// <returns>值</returns>
 		public object this[int index] => this._DataReader[index] == DBNull.Value ? null: this._DataReader[index];
 		/// <summary>
 		/// 获取位于指定名称的列的值；
 		/// </summary>
 		/// <param name="name">名称</param>
-		/// <returns>对象</returns>
+		/// <returns>值</returns>
 		public object this[string name] => this._DataReader[name] == DBNull.Value ? null : this._DataReader[name];
 		/// <summary>
 		/// 关闭；

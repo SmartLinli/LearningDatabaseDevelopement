@@ -22,27 +22,20 @@ namespace Record_Update
 		private void btn_Load_Click(object sender, EventArgs e)
 		{
 			string
-				studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';"
-				, classCommand = "SELECT * FROM tb_Class";
+				classCommand = "SELECT * FROM tb_Class"
+				, studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			var studentReader = sqlHelper
-				.NewCommand(studentCommand)
-				.ReturnReader();
-			var classTable = sqlHelper
-				.NewCommand(classCommand)
-				.ReturnTable();
-			this.cmb_Class.DataSource = classTable;
-			this.cmb_Class.ValueMember = "No";
-			this.cmb_Class.DisplayMember = "Name";
-			if (studentReader.Read())
+			sqlHelper.QuickRead(studentCommand);
+			if (sqlHelper.HasRecord)
 			{
-				this.txb_No.Text = studentReader["No"].ToString();
-				this.txb_Name.Text = studentReader["Name"].ToString();
-				this.rdb_Male.Checked = (bool)studentReader["Gender"];
-				this.rdb_Female.Checked = !(bool)studentReader["Gender"];
-				this.dtp_BirthDate.Value = (DateTime)studentReader["BirthDate"];
-				this.cmb_Class.SelectedValue = (int)studentReader["ClassNo"];
-				this.txb_Speciality.Text = studentReader["Speciality"].ToString();
+				sqlHelper.QuickFill(classCommand, this.cmb_Class);
+				this.txb_No.Text = sqlHelper["No"].ToString();
+				this.txb_Name.Text = sqlHelper["Name"].ToString();
+				this.rdb_Male.Checked = (bool)sqlHelper["Gender"];
+				this.rdb_Female.Checked = !(bool)sqlHelper["Gender"];
+				this.dtp_BirthDate.Value = (DateTime)sqlHelper["BirthDate"];
+				this.cmb_Class.SelectedValue = (int)sqlHelper["ClassNo"];
+				this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
 			}
 		}
 		/// <summary>
