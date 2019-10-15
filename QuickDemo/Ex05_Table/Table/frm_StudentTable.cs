@@ -23,10 +23,7 @@ namespace Table
 		private void btn_Load_Click(object sender, EventArgs e)
         {
 			SqlHelper sqlHelper = new SqlHelper();
-			var studentTable = sqlHelper
-				.NewCommand("SELECT * FROM tb_Student;")
-				.ReturnTable();
-            this.dgv_Student.DataSource = studentTable;                                                    
+			sqlHelper.QuickFill("SELECT * FROM tb_Student;", this.dgv_Student);
         }        
         /// <summary>
         /// 点击提交按钮；
