@@ -1,1 +1,0 @@
-DROP TABLESPACE IF EXISTS "ts_EduBaseDemo";

@@ -1,5 +1,5 @@
 /*
-表
+记录_图像
 */
 --创建数据库；
 USE master;
@@ -21,6 +21,22 @@ CREATE DATABASE EduBaseDemo
 GO
 USE EduBaseDemo;
 --创建表；
+----班级表
+CREATE TABLE tb_Class
+	(No
+		INT
+		NOT NULL
+		PRIMARY KEY
+	,Name
+		VARCHAR(20)
+		NOT NULL);
+INSERT tb_Class
+	(No,Name)
+	VALUES
+	(1,'18公管')
+	,(2,'18信管')
+	,(3,'18中医')
+	,(4,'18临床');
 ----学生表；
 CREATE TABLE tb_Student
 	(No
@@ -31,21 +47,23 @@ CREATE TABLE tb_Student
 		VARCHAR(20)
 		NOT NULL
 	,Gender
-		CHAR(2)
+		BIT
 		NOT NULL
 	,BirthDate
 		DATE
 		NOT NULL
-	,Class
-		VARCHAR(50)
+	,ClassNo
+		INT
 		NOT NULL
+		FOREIGN KEY REFERENCES tb_Class(No)
 	,Speciality
 		VARCHAR(100)
+		NULL
+	,Photo
+		VARBINARY(MAX)
 		NULL);
 INSERT tb_Student
-	(No,Name,Gender,BirthDate,Class,Speciality)
+	(No,Name,Gender,BirthDate,ClassNo,Speciality)
 	VALUES
-	('3180707001','周林好','女','2000-04-17','18信管','睡觉')
-	,('3180707002','林钦妹','女','1999-10-18','18信管','吃货')
-	,('3180707003','胡方珍','女','2000-01-22','18信管',NULL)
-	,('3180707004','谢永成','男','2000-03-02','18信管',NULL);
+	('3180707001','周林好',0,'2000-04-17',2,'睡觉');
+GO

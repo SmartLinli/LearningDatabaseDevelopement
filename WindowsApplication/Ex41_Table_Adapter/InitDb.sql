@@ -1,5 +1,5 @@
 /*
-表
+表_适配器
 */
 --创建数据库；
 USE master;
@@ -10,7 +10,6 @@ IF DB_ID('EduBaseDemo') IS NOT NULL
 			WITH ROLLBACK IMMEDIATE;
 		DROP DATABASE EduBaseDemo;
 	END
-GO
 CREATE DATABASE EduBaseDemo
 	ON
 		(NAME='Datafile'
@@ -45,7 +44,7 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3180707001','周林好','女','2000-04-17','18信管','睡觉')
-	,('3180707002','林钦妹','女','1999-10-18','18信管','吃货')
-	,('3180707003','胡方珍','女','2000-01-22','18信管',NULL)
-	,('3180707004','谢永成','男','2000-03-02','18信管',NULL);
+	('3180707001','周林好','女','2000-04-17','18信管','唱歌')
+	,('3180707003','林钦妹','女','1999-10-18','18信管','跳舞')
+	,('3180707014','胡方珍','女','2000-01-22','18信管','打篮球')
+	,('3180707023','谢永成','男','2000-03-02','18信管',NULL);
