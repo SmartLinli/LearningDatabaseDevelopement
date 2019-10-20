@@ -11,6 +11,7 @@ namespace SmartLinli.DatabaseDevelopement
 	{
 		/// <summary>
 		/// 快速填充；
+		/// 读取数据表，并设为列表控件的数据源；
 		/// </summary>
 		/// <param name="dbHelper">数据库助手</param>
 		/// <param name="commandText">命令文本</param>
@@ -26,6 +27,7 @@ namespace SmartLinli.DatabaseDevelopement
 		}
 		/// <summary>
 		/// 快速填充；
+		/// 读取数据表，并设为数据网格视图的数据源；
 		/// </summary>
 		/// <param name="dbHelper">数据库助手</param>
 		/// <param name="commandText">命令文本</param>

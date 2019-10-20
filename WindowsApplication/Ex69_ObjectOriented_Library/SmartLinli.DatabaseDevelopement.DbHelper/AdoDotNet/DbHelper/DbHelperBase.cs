@@ -329,29 +329,42 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 是否读得记录；
 		/// </summary>
-		public bool HasRecord { get; set; } = false;
+		public bool HasRecord { get; set; }
 		/// <summary>
-		/// 数据读取器；
+		/// 记录；
 		/// </summary>
-		internal Dictionary<string, object> Record { get; set; } = new Dictionary<string, object>();
+		internal Dictionary<string, object> Record { get; set; }
 		/// <summary>
 		/// 获取位于指定索引的列的值；
 		/// </summary>
 		/// <param name="name">名称</param>
 		/// <returns>值</returns>
-		public object this[string name] => this.Record[name];
+		public object this[string name]
+		{
+			get
+			{
+				if (this.Record == null)
+				{
+					throw new ApplicationException("未读取到任何记录");
+				}
+				return this.Record[name];
+			}
+		}
 		/// <summary>
-		/// 快速执行命令，并获取数据读取器；
+		/// 快速执行命令，通过数据读取器读取1行记录，存入1个集合（如字典）；
+		/// 可直接通过数据库助手的索引器，访问集合；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据库助手</returns>
 		public DbHelperBase QuickRead(string commandText)
 		{
 			this.HasRecord = false;
+			this.Record = null;
 			var dataReader = this.QuickReturnReader(commandText);
 			if (dataReader.Read())
 			{
 				this.HasRecord = true;
+				this.Record = new Dictionary<string, object>();
 				for (int i = 0; i < dataReader.FieldCount; i++)
 				{
 					var value = dataReader[i] == DBNull.Value ? null : dataReader[i];
