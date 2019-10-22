@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -13,15 +14,51 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 数据库命令；
 		/// </summary>
-		protected DbCommand _DbCommand;
+		private DbCommand _DbCommand;
+		/// <summary>
+		/// 数据库命令；
+		/// </summary>
+		protected DbCommand DbCommand
+		{
+			get
+			{
+				if (this._DbCommand == null)
+				{
+					throw new ApplicationException("尚未创建数据库命令");
+				}
+				return this._DbCommand;
+			}
+			set
+			{
+				this._DbCommand = value;
+			}
+		}
 		/// <summary>
 		/// 数据库参数；
 		/// </summary>
-		protected DbParameter _DbParameter;
+		private DbParameter _DbParameter;
+		/// <summary>
+		/// 数据库参数；
+		/// </summary>
+		protected DbParameter DbParameter
+		{
+			get
+			{
+				if (this._DbParameter == null)
+				{
+					throw new ApplicationException("尚未创建数据库参数");
+				}
+				return this._DbParameter;
+			}
+			set
+			{
+				this._DbParameter = value;
+			}
+		}
 		/// <summary>
 		/// 数据适配器；
 		/// </summary>
-		protected DbDataAdapter _DbDataAdapter;
+		private DbDataAdapter _DbDataAdapter;
 		/// <summary>
 		/// 数据适配器；
 		/// </summary>
@@ -60,7 +97,7 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			DbConnection dbConnection = this.GetDbConnection();
 			dbConnection.ConnectionString = ConfigurationManager.ConnectionStrings[this.DbConnectionStringName].ToString();
-			this._DbCommand = dbConnection.CreateCommand();
+			this.DbCommand = dbConnection.CreateCommand();
 			return this;
 		}
 		/// <summary>
@@ -70,7 +107,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase CommandText(string commandText)
 		{
-			this._DbCommand.CommandText = commandText;
+			this.DbCommand.CommandText = commandText;
 			return this;
 		}
 		/// <summary>
@@ -80,7 +117,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase IsStoredProcedure(bool isStoredProcedure = true)
 		{
-			this._DbCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
+			this.DbCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
 			return this;
 		}
 		/// <summary>
@@ -100,9 +137,9 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase NewParameter(string parameterName)
 		{
-			this._DbParameter = this.GetDbParameter();
-			this._DbParameter.ParameterName = parameterName;
-			this._DbCommand.Parameters.Add(this._DbParameter);
+			this.DbParameter = this.GetDbParameter();
+			this.DbParameter.ParameterName = parameterName;
+			this.DbCommand.Parameters.Add(this._DbParameter);
 			return this;
 		}
 		/// <summary>
@@ -121,9 +158,9 @@ namespace SmartLinli.DatabaseDevelopement
 		public virtual DbHelperBase WithParameter(string parameterName, object value, ValueType dbType = null, int size = 0)
 		{
 			this.NewParameter(parameterName);
-			this._DbParameter.Value = value;
+			this.DbParameter.Value = value;
 			this.SpecificParameterType(dbType);
-			this._DbParameter.Size = size;
+			this.DbParameter.Size = size;
 			return this;
 		}
 		/// <summary>
@@ -139,13 +176,13 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			this.NewParameter(parameterName);
 			this.SpecificParameterType(dbType);
-			this._DbParameter.Size = size;
+			this.DbParameter.Size = size;
 			sourceColumn =
 				sourceColumn == "" ?
 				parameterName.Substring(1, parameterName.Length - 1)
 				: sourceColumn;
-			this._DbParameter.SourceColumn = sourceColumn;
-			this._DbParameter.SourceVersion = dataRowVersion;
+			this.DbParameter.SourceColumn = sourceColumn;
+			this.DbParameter.SourceVersion = dataRowVersion;
 			return this;
 		}
 		/// <summary>
@@ -168,7 +205,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase ParameterType(DbType dbType)
 		{
-			this._DbParameter.DbType = dbType;
+			this.DbParameter.DbType = dbType;
 			return this;
 		}
 		/// <summary>
@@ -178,7 +215,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase ParameterSize(int size)
 		{
-			this._DbParameter.Size = size;
+			this.DbParameter.Size = size;
 			return this;
 		}
 		/// <summary>
@@ -188,7 +225,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase ParameterValue(object value)
 		{
-			this._DbParameter.Value = value;
+			this.DbParameter.Value = value;
 			return this;
 		}
 		/// <summary>
@@ -198,7 +235,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public virtual DbHelperBase ParameterDirection(ParameterDirection parameterDirection)
 		{
-			this._DbParameter.Direction = parameterDirection;
+			this.DbParameter.Direction = parameterDirection;
 			return this;
 		}
 		/// <summary>
@@ -235,9 +272,9 @@ namespace SmartLinli.DatabaseDevelopement
 		public virtual object Return()
 		{
 			object result = null;
-			this._DbCommand.Connection.Open();
+			this.DbCommand.Connection.Open();
 			result = this._DbCommand.ExecuteScalar();
-			this._DbCommand.Connection.Close();
+			this.DbCommand.Connection.Close();
 			return result;
 		}
 		/// <summary>
@@ -248,7 +285,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>标量值</returns>
 		public virtual T Return<T>() where T : struct
 		{
-			object result = this.Return<T>();
+			object result = this.Return();
 			return result == null ? default(T) : (T)result;
 		}
 		/// <summary>
@@ -263,15 +300,68 @@ namespace SmartLinli.DatabaseDevelopement
 			return new T?((T)result);
 		}
 		/// <summary>
+		/// 快速执行命令，返回标量；
+		/// 若结果为空值，将返回其类型的默认值；
+		/// </summary>
+		/// <typeparam name="T">标量类型</typeparam>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>标量值</returns>
+		public virtual T QuickReturn<T>(string commandText) where T : struct
+		=> this.NewCommand(commandText).Return<T>();
+		/// <summary>
 		/// 执行命令，返回数据读取器；
 		/// 完成读取后，请手动关闭数据读取器；
 		/// </summary>
 		/// <returns>数据读取器</returns>
-		public virtual IDataReaderHelper ReturnReader()
+		public virtual IDataReader ReturnReader()
 		{
-			this._DbCommand.Connection.Open();
-			IDataReader dataReader = this._DbCommand.ExecuteReader();
-			return new DataReaderHelper(dataReader);
+			this.DbCommand.Connection.Open();
+			IDataReader dataReader = this.DbCommand.ExecuteReader();
+			return dataReader;
+		}
+		/// <summary>
+		/// 快速执行命令，返回数据读取器助手；
+		/// 完成读取后，请手动关闭数据读取器；
+		/// </summary>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>数据读取器助手</returns>
+		public virtual IDataReaderHelper QuickReturnReader(string commandText)
+		=> new DataReaderHelper(this.NewCommand(commandText).ReturnReader());
+		/// <summary>
+		/// 是否读得记录；
+		/// </summary>
+		public bool HasRecord { get; set; } = false;
+		/// <summary>
+		/// 数据读取器；
+		/// </summary>
+		internal Dictionary<string, object> Record { get; set; } = new Dictionary<string, object>();
+		/// <summary>
+		/// 获取位于指定索引的列的值；
+		/// </summary>
+		/// <param name="name">名称</param>
+		/// <returns>值</returns>
+		public object this[string name] => this.Record[name];
+		/// <summary>
+		/// 快速执行命令，并读取一行记录，存入数据库助手下的字典；
+		/// 可通过数据库助手的索引器访问该行记录；
+		/// </summary>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>数据库助手</returns>
+		public DbHelperBase QuickRead(string commandText)
+		{
+			this.HasRecord = false;
+			var dataReader = this.NewCommand(commandText).ReturnReader();
+			if (dataReader.Read())
+			{
+				this.HasRecord = true;
+				for (int i = 0; i < dataReader.FieldCount; i++)
+				{
+					var value = dataReader[i] == DBNull.Value ? null : dataReader[i];
+					this.Record.Add(dataReader.GetName(i), value);
+				}
+			}
+			dataReader.Close();
+			return this;
 		}
 		/// <summary>
 		/// 执行SQL命令，返回数据表；
@@ -281,9 +371,9 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			DataTable dataTable = new DataTable();
 			this.DbDataAdapter.SelectCommand = this._DbCommand;
-			this._DbCommand.Connection.Open();
+			this.DbCommand.Connection.Open();
 			this.DbDataAdapter.Fill(dataTable);
-			this._DbCommand.Connection.Close();
+			this.DbCommand.Connection.Close();
 			return dataTable;
 		}
 		/// <summary>
@@ -296,8 +386,8 @@ namespace SmartLinli.DatabaseDevelopement
 			int rowAffected = 0;
 			try
 			{
-				this._DbCommand.Connection.Open();
-				rowAffected = this._DbCommand.ExecuteNonQuery();
+				this.DbCommand.Connection.Open();
+				rowAffected = this.DbCommand.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -309,7 +399,7 @@ namespace SmartLinli.DatabaseDevelopement
 			}
 			finally
 			{
-				this._DbCommand.Connection.Close();
+				this.DbCommand.Connection.Close();
 			}
 			return rowAffected;
 		}
@@ -318,6 +408,13 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <returns>受影响行数</returns>
 		public abstract int Submit();
+		/// <summary>
+		/// 快速执行命令，提交数据；
+		/// </summary>
+		/// <param name="commandText">命令文本</param>
+		/// <returns>受影响行数</returns>
+		public virtual int QuickSubmit(string commandText)
+		=> this.NewCommand(commandText).Submit();
 		/// <summary>
 		/// 执行命令，提交数据；
 		/// </summary>

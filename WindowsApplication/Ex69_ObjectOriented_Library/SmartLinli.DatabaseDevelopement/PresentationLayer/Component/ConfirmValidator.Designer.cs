@@ -1,6 +1,6 @@
 ﻿namespace SmartLinli.DatabaseDevelopement
 {
-	partial class BaseValidator<TSpec>
+	partial class ConfirmValidator
 	{
 		/// <summary>
 		/// 必需的设计器变量。

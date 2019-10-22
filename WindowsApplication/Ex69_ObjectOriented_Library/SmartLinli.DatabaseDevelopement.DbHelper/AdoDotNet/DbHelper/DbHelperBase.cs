@@ -320,12 +320,13 @@ namespace SmartLinli.DatabaseDevelopement
 			return dataReader;
 		}
 		/// <summary>
-		/// 快速执行命令，返回数据读取器；
+		/// 快速执行命令，返回数据读取器助手；
+		/// 完成读取后，请手动关闭数据读取器；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
-		/// <returns>数据读取器</returns>
-		public virtual IDataReader QuickReturnReader(string commandText)
-		=>	this.NewCommand(commandText).ReturnReader();
+		/// <returns>数据读取器助手</returns>
+		public virtual IDataReaderHelper QuickReturnReader(string commandText)
+		=>	new DataReaderHelper(this.NewCommand(commandText).ReturnReader());
 		/// <summary>
 		/// 是否读得记录；
 		/// </summary>
@@ -341,14 +342,15 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>值</returns>
 		public object this[string name] => this.Record[name];
 		/// <summary>
-		/// 快速执行命令，并获取数据读取器；
+		/// 快速执行命令，并读取一行记录，存入数据库助手下的字典；
+		/// 可通过数据库助手的索引器访问该行记录；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据库助手</returns>
 		public DbHelperBase QuickRead(string commandText)
 		{
 			this.HasRecord = false;
-			var dataReader = this.QuickReturnReader(commandText);
+			var dataReader = this.NewCommand(commandText).ReturnReader();
 			if (dataReader.Read())
 			{
 				this.HasRecord = true;
