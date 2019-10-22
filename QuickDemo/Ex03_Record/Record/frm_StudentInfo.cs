@@ -13,15 +13,15 @@ namespace Record
 		/// 学号；
 		/// </summary>
 		private string _StudentNo;
-        /// <summary>
-        /// 构造函数；
-        /// </summary>
-        public frm_StudentInfo()
-        {
-            InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		public frm_StudentInfo()
+		{
+			InitializeComponent();
+			this.StartPosition = FormStartPosition.CenterScreen;
 			this.FormClosing += (_, __) => Application.Exit();
-        }
+		}
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
