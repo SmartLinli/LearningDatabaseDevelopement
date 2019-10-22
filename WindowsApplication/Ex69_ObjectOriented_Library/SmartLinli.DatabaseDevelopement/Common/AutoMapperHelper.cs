@@ -29,7 +29,8 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 获取目标对象；
 		/// </summary>
-		/// <typeparam name="T">目标类型</typeparam>
+		/// <typeparam name="TSource">来源类型</typeparam>
+		/// <typeparam name="TDestination">目标类型</typeparam>
 		/// <param name="source">源对象</param>
 		/// <returns>目标对象</returns>
 		public static TDestination Get<TSource,TDestination>(TSource source)

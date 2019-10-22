@@ -55,9 +55,7 @@ namespace Record_Update
 				+ $" ,Speciality='{this.txb_Speciality.Text.Trim()}'"
 				+ $" WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			int rowAffected = sqlHelper
-				.NewCommand(commandText)
-				.Submit();
+			int rowAffected = sqlHelper.QuickSubmit(commandText);
 			MessageBox.Show($"更新{rowAffected}行。");
 		}
 	}
