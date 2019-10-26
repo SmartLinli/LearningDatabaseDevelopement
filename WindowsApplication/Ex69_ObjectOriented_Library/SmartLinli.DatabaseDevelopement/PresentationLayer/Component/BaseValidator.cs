@@ -9,7 +9,7 @@ namespace SmartLinli.DatabaseDevelopement
 	/// 验证单元；
 	/// </summary>
 	/// <typeparam name="TSpec">验证规则类型</typeparam>
-	internal class ValidatingUnit<TSpec>
+	internal class BaseValidatingUnit<TSpec>
 	{
 		/// <summary>
 		/// 验证规则；
@@ -30,7 +30,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 匹配操作；
 		/// </summary>
-		internal virtual Func<ValidatingUnit<TSpec>, bool> Match { get; set; }
+		internal virtual Func<BaseValidatingUnit<TSpec>, bool> Match { get; set; }
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
@@ -47,7 +47,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="name">验证规则名称</param>
 		/// <param name="item">验证规则项目</param>
 		/// <returns>验证单元</returns>
-		internal ValidatingUnit<TSpec> AddSpecification(string name, TSpec item)
+		internal BaseValidatingUnit<TSpec> AddSpecification(string name, TSpec item)
 		{
 			if (this.Specifications == null)
 			{
@@ -87,7 +87,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 构造函数；
 		/// </summary>
 		/// <param name="control">需要验证的控件</param>
-		internal ValidatingUnit(Control control)
+		internal BaseValidatingUnit(Control control)
 		{
 			control.Validating += this.Validate;
 			this.Control = control;
@@ -103,7 +103,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 验证单元；
 		/// </summary>
-		internal List<ValidatingUnit<TSpec>> ValidatingUnits = new List<ValidatingUnit<TSpec>>();		
+		internal List<BaseValidatingUnit<TSpec>> ValidatingUnits = new List<BaseValidatingUnit<TSpec>>();		
 		/// <summary>
 		/// 添加（需要验证的控件）；
 		/// </summary>
@@ -113,7 +113,7 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			foreach (var control in controls)
 			{
-				ValidatingUnit<TSpec> validatingUnit = new ValidatingUnit<TSpec>(control);
+				BaseValidatingUnit<TSpec> validatingUnit = new BaseValidatingUnit<TSpec>(control);
 				this.ValidatingUnits.Add(validatingUnit);
 			}
 			return this;
@@ -138,7 +138,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="errorMessage">错误消息</param>
 		/// <param name="specifications">验证规则</param>
 		/// <returns>验证器</returns>
-		internal virtual BaseValidator<TSpec> Configure(Func<ValidatingUnit<TSpec>, bool> match, string errorMessage, params (string Name, TSpec Item)[] specifications)
+		internal virtual BaseValidator<TSpec> Configure(Func<BaseValidatingUnit<TSpec>, bool> match, string errorMessage, params (string Name, TSpec Item)[] specifications)
 		{
 			foreach (var validatingUnit in this.ValidatingUnits)
 			{
@@ -163,9 +163,9 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="errorMessage">错误消息</param>
 		/// <param name="specifications">验证规则</param>
 		/// <returns>验证器</returns>
-		internal virtual BaseValidator<TSpec> Add(Control control, Func<ValidatingUnit<TSpec>, bool> match, string errorMessage, params (string Name, TSpec Item)[] specifications)
+		internal virtual BaseValidator<TSpec> Add(Control control, Func<BaseValidatingUnit<TSpec>, bool> match, string errorMessage, params (string Name, TSpec Item)[] specifications)
 		{
-			ValidatingUnit<TSpec> validatingUnit = new ValidatingUnit<TSpec>(control);
+			BaseValidatingUnit<TSpec> validatingUnit = new BaseValidatingUnit<TSpec>(control);
 			validatingUnit.Match = match;
 			validatingUnit.ErrorMessage = errorMessage;
 			foreach (var specification in specifications)

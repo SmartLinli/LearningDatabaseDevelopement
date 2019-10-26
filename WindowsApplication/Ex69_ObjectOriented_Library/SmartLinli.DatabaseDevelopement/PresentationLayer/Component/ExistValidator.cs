@@ -27,10 +27,11 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="match">匹配操作</param>
 		/// <param name="existIsValid">存在是否为有效</param>
 		/// <returns></returns>
-		private ValidatingUnit<Func<string, bool>> ConfigSpecification(ValidatingUnit<Func<string, bool>> validatingUnit, Func<string, bool> match, bool existIsValid)
+		private BaseValidatingUnit<Func<string, bool>> ConfigSpecification(BaseValidatingUnit<Func<string, bool>> validatingUnit, Func<string, bool> match, bool existIsValid)
 		{
 			this.ExistIsValid = existIsValid;
 			validatingUnit.Match = s => match(s.ControlText);
+			//validatingUnit.AddSpecification("", existIsValid);
 			validatingUnit.ErrorMessage = existIsValid ? "不存在" : "已存在";
 			return validatingUnit;
 		}
@@ -44,7 +45,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>存在验证器</returns>
 		public ExistValidator Add(Control control, Func<string, bool> match, bool existIsValid)
 		{
-			ValidatingUnit<Func<string, bool>> validatingUnit = new ValidatingUnit<Func<string, bool>>(control);
+			BaseValidatingUnit<Func<string, bool>> validatingUnit = new BaseValidatingUnit<Func<string, bool>>(control);
 			this.ConfigSpecification(validatingUnit, match, existIsValid);
 			this.ValidatingUnits.Add(validatingUnit);
 			return this;

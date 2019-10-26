@@ -15,7 +15,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 匹配操作；
 		/// </summary>
-		private Func<ValidatingUnit<int>, bool> Match
+		private Func<BaseValidatingUnit<int>, bool> Match
 		=>	v => v.ControlText.Length >= v["MinLength"]
 				  && v.ControlText.Length <= v["MaxLength"];
 		/// <summary>
@@ -25,7 +25,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="minLength">最小长度</param>
 		/// <param name="maxLength">最大长度</param>
 		/// <returns>验证单元</returns>
-		private ValidatingUnit<int> ConfigSpecification(ValidatingUnit<int> validatingUnit, int minLength, int maxLength)
+		private BaseValidatingUnit<int> ConfigSpecification(BaseValidatingUnit<int> validatingUnit, int minLength, int maxLength)
 		{
 			validatingUnit.Match = this.Match;
 			validatingUnit.AddSpecification("MinLength", minLength);
@@ -43,7 +43,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>长度验证器</returns>
 		public LengthValidator Add(Control control, int minLength, int maxLength)
 		{
-			ValidatingUnit<int> validatingUnit = new ValidatingUnit<int>(control);
+			BaseValidatingUnit<int> validatingUnit = new BaseValidatingUnit<int>(control);
 			this.ConfigSpecification(validatingUnit, minLength, maxLength);
 			this.ValidatingUnits.Add(validatingUnit);
 			return this;

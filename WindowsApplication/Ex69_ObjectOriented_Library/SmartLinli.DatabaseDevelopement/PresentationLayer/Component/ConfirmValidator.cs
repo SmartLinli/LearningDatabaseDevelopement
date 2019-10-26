@@ -14,7 +14,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 匹配操作；
 		/// </summary>
-		private Func<ValidatingUnit<Control>, bool> Match
+		private Func<BaseValidatingUnit<Control>, bool> Match
 		=>	v => v.ControlText == (v["ReferenceControl"] as Control).Text.Trim();
 		/// <summary>
 		/// 错误消息
@@ -26,7 +26,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="validatingUnit">验证单元</param>
 		/// <param name="referenceControl">参照控件</param>
 		/// <returns>验证单元</returns>
-		private ValidatingUnit<Control> ConfigSpecification(ValidatingUnit<Control> validatingUnit, Control referenceControl)
+		private BaseValidatingUnit<Control> ConfigSpecification(BaseValidatingUnit<Control> validatingUnit, Control referenceControl)
 		{
 			validatingUnit.Match = this.Match;
 			validatingUnit.AddSpecification("ReferenceControl", referenceControl);
@@ -41,7 +41,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>确认验证器</returns>
 		public ConfirmValidator Add(Control referenceControl, Control confirmControl)
 		{
-			ValidatingUnit<Control> validatingUnit = new ValidatingUnit<Control>(confirmControl);
+			BaseValidatingUnit<Control> validatingUnit = new BaseValidatingUnit<Control>(confirmControl);
 			this.ConfigSpecification(validatingUnit, referenceControl);
 			this.ValidatingUnits.Add(validatingUnit);
 			return this;

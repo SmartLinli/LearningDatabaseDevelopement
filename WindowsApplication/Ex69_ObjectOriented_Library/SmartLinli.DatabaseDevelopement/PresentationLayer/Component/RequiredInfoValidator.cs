@@ -14,7 +14,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 匹配操作；
 		/// </summary>
-		private Func<ValidatingUnit<object>, bool> Match
+		private Func<BaseValidatingUnit<object>, bool> Match
 		=>	v => !string.IsNullOrEmpty(v.ControlText);
 		/// <summary>
 		/// 错误消息；
