@@ -20,7 +20,13 @@ namespace Record
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this.FormClosing += (_, __) => Application.Exit();
+			this.FormClosed += (_, __) =>
+			{
+				if (Application.OpenForms.Count == 0)
+				{
+					Application.Exit();
+				}
+			};
 		}
 		/// <summary>
 		/// 构造函数；
