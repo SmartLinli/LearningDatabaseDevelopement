@@ -13,6 +13,20 @@ namespace Record_Update
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
+			this.LoadClasses();
+		}
+		/// <summary>
+		/// 向下拉框载入班级名称；
+		/// </summary>
+		private void LoadClasses()
+		{
+			string classCommand = "SELECT * FROM tb_Class";
+			var sqlHelper = new SqlHelper();
+			sqlHelper.QuickBatchRead(classCommand);
+			while (sqlHelper.HasRecord)
+			{
+				this.cmb_Class.Items.Add(sqlHelper["Name"]);
+			}
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -21,20 +35,17 @@ namespace Record_Update
 		/// <param name="e"></param>
 		private void btn_Load_Click(object sender, EventArgs e)
 		{
-			string
-				classCommand = "SELECT * FROM tb_Class"
-				, studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
+			string  studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
 			sqlHelper.QuickRead(studentCommand);
 			if (sqlHelper.HasRecord)
 			{
-				sqlHelper.QuickFill(classCommand, this.cmb_Class);
 				this.txb_No.Text = sqlHelper["No"].ToString();
 				this.txb_Name.Text = sqlHelper["Name"].ToString();
 				this.rdb_Male.Checked = (bool)sqlHelper["Gender"];
 				this.rdb_Female.Checked = !(bool)sqlHelper["Gender"];
 				this.dtp_BirthDate.Value = (DateTime)sqlHelper["BirthDate"];
-				this.cmb_Class.SelectedValue = (int)sqlHelper["ClassNo"];
+				this.cmb_Class.SelectedItem = sqlHelper["Class"].ToString();
 				this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
 			}
 		}
@@ -51,7 +62,7 @@ namespace Record_Update
 				+ $" Name='{this.txb_Name.Text.Trim()}'"
 				+ $" ,Gender='{this.rdb_Male.Checked}'"
 				+ $" ,BirthDate='{this.dtp_BirthDate.Value}'"
-				+ $" ,ClassNo={this.cmb_Class.SelectedValue}"
+				+ $" ,Class='{this.cmb_Class.SelectedItem.ToString()}'"
 				+ $" ,Speciality='{this.txb_Speciality.Text.Trim()}'"
 				+ $" WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();

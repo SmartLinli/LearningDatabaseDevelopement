@@ -68,7 +68,7 @@ namespace SmartLinli.DatabaseDevelopement
 				return dbHelper;
 			}
 			name = name ?? GetDataColumnName(control);
-			control.Text = dbHelper.Record[name].ToString();
+			control.Text = dbHelper[name].ToString();
 			return dbHelper;
 		}
 		/// <summary>
@@ -92,7 +92,7 @@ namespace SmartLinli.DatabaseDevelopement
 				isOpposite = true;
 				name = name.Substring(1);
 			}
-			radioButton.Checked = (bool)dbHelper.Record[name] ^ isOpposite;
+			radioButton.Checked = (bool)dbHelper[name] ^ isOpposite;
 			return dbHelper;
 		}
 		/// <summary>
@@ -109,7 +109,7 @@ namespace SmartLinli.DatabaseDevelopement
 				return dbHelper;
 			}
 			name = name ?? GetDataColumnName(dateTimePicker);
-			dateTimePicker.Value = (DateTime)dbHelper.Record[name];
+			dateTimePicker.Value = (DateTime)dbHelper[name];
 			return dbHelper;
 		}
 		/// <summary>
@@ -126,7 +126,7 @@ namespace SmartLinli.DatabaseDevelopement
 				return dbHelper;
 			}
 			name = name ?? GetDataColumnName(listControl);
-			listControl.SelectedValue = (int)dbHelper.Record[name];
+			listControl.SelectedValue = (int)dbHelper[name];
 			return dbHelper;
 		}
 		/// <summary>

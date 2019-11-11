@@ -22,7 +22,7 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			get
 			{
-				if (this._DbCommand==null)
+				if (this._DbCommand == null)
 				{
 					throw new ApplicationException("尚未创建数据库命令");
 				}
@@ -330,20 +330,57 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 是否读得记录；
 		/// </summary>
-		public bool HasRecord { get; set; } = false;
+		private bool _HasRecord;
 		/// <summary>
-		/// 数据读取器；
+		/// 是否读得记录；
 		/// </summary>
-		internal Dictionary<string, object> Record { get; set; } = new Dictionary<string, object>();
+		public bool HasRecord
+		{
+			get
+			{
+				if (this._HasRecord)
+				{
+					this.CurrentRecordIndex++;
+				}
+				if (this.CurrentRecordIndex > this.MaxRecordIndex)
+				{
+					this._HasRecord = false;
+				}
+				return this._HasRecord;
+			}
+			set => this._HasRecord = value;
+		}
+		/// <summary>
+		/// 数据读取器读得的记录；
+		/// </summary>
+		internal Dictionary<string, object>[] Records { get; set; }
+		/// <summary>
+		/// 当前记录序号；
+		/// </summary>
+		private int CurrentRecordIndex { get; set; }
+		/// <summary>
+		/// 最大记录序号；
+		/// </summary>
+		private int MaxRecordIndex { get; set; }
 		/// <summary>
 		/// 获取位于指定索引的列的值；
 		/// </summary>
 		/// <param name="name">名称</param>
 		/// <returns>值</returns>
-		public object this[string name] => this.Record[name];
+		public object this[string name]
+		{
+			get
+			{
+				if (this.CurrentRecordIndex < 0)
+				{
+					throw new ApplicationException("请先判断SQL助手是否读得记录");
+				}
+				return this.Records[CurrentRecordIndex][name];
+			}
+		}
 		/// <summary>
-		/// 快速执行命令，并读取一行记录，存入数据库助手下的字典；
-		/// 可通过数据库助手的索引器访问该行记录；
+		/// 快速执行命令，并读取一行记录，存入数据库助手下的字典数组；
+		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据库助手</returns>
@@ -354,13 +391,45 @@ namespace SmartLinli.DatabaseDevelopement
 			if (dataReader.Read())
 			{
 				this.HasRecord = true;
+				this.Records = new Dictionary<string, object>[] { new Dictionary<string, object>() };
 				for (int i = 0; i < dataReader.FieldCount; i++)
 				{
 					var value = dataReader[i] == DBNull.Value ? null : dataReader[i];
-					this.Record.Add(dataReader.GetName(i), value);
+					this.Records[0].Add(dataReader.GetName(i), value);
 				}
 			}
 			dataReader.Close();
+			this.CurrentRecordIndex = -1;
+			return this;
+		}
+		/// <summary>
+		/// 快速执行命令，并批量读取多行记录，存入数据库助手下的字典数组；
+		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问下一行记录；
+		/// </summary>
+		/// <param name="commandText"></param>
+		/// <returns></returns>
+		public DbHelperBase QuickBatchRead(string commandText)
+		{
+			this.HasRecord = false;
+			var dataTable = this.NewCommand(commandText).ReturnTable();
+			int rowCount = dataTable.Rows.Count;
+			if (rowCount != 0)
+			{
+				this.HasRecord = true;
+				this.Records = new Dictionary<string, object>[dataTable.Rows.Count];
+				for (int i = 0; i < rowCount; i++)
+				{
+					this.Records[i] = new Dictionary<string, object>();
+					foreach (DataColumn column in dataTable.Columns)
+					{
+						var value = dataTable.Rows[i][column];
+						value = value == DBNull.Value ? null : value;
+						this.Records[i].Add(column.ColumnName, value);
+					}
+				}
+			}
+			this.CurrentRecordIndex = -1;
+			this.MaxRecordIndex = rowCount - 1;
 			return this;
 		}
 		/// <summary>
@@ -381,7 +450,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <param name="match">匹配特定异常</param>
 		/// <returns>受影响行数</returns>
-		protected int ExecuteNonQuery(Func<Exception,bool> match)
+		protected int ExecuteNonQuery(Func<Exception, bool> match)
 		{
 			int rowAffected = 0;
 			try
