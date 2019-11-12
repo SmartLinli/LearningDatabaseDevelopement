@@ -307,7 +307,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="commandText">命令文本</param>
 		/// <returns>标量值</returns>
 		public virtual T QuickReturn<T>(string commandText) where T : struct
-		=>	this.NewCommand(commandText).Return<T>();
+		=> this.NewCommand(commandText).Return<T>();
 		/// <summary>
 		/// 执行命令，返回数据读取器；
 		/// 完成读取后，请手动关闭数据读取器；
@@ -328,32 +328,9 @@ namespace SmartLinli.DatabaseDevelopement
 		public virtual IDataReaderHelper QuickReturnReader(string commandText)
 		=>	new DataReaderHelper(this.NewCommand(commandText).ReturnReader());
 		/// <summary>
-		/// 是否读得记录；
+		/// 初始记录序号；
 		/// </summary>
-		private bool _HasRecord;
-		/// <summary>
-		/// 是否读得记录；
-		/// </summary>
-		public bool HasRecord
-		{
-			get
-			{
-				if (this._HasRecord)
-				{
-					this.CurrentRecordIndex++;
-				}
-				if (this.CurrentRecordIndex > this.MaxRecordIndex)
-				{
-					this._HasRecord = false;
-				}
-				return this._HasRecord;
-			}
-			set => this._HasRecord = value;
-		}
-		/// <summary>
-		/// 数据读取器读得的记录；
-		/// </summary>
-		internal Dictionary<string, object>[] Records { get; set; }
+		private int InitialRecordIndex => -1;
 		/// <summary>
 		/// 当前记录序号；
 		/// </summary>
@@ -362,6 +339,24 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 最大记录序号；
 		/// </summary>
 		private int MaxRecordIndex { get; set; }
+		/// <summary>
+		/// 是否读得记录；
+		/// </summary>
+		public bool HasRecord
+		{
+			get
+			{
+				if (this.CurrentRecordIndex <= this.MaxRecordIndex)
+				{
+					this.CurrentRecordIndex++;
+				}
+				return this.CurrentRecordIndex <= this.MaxRecordIndex;
+			}
+		}
+		/// <summary>
+		/// 数据读取器读得的记录；
+		/// </summary>
+		private Dictionary<string, object>[] Records { get; set; }
 		/// <summary>
 		/// 获取位于指定索引的列的值；
 		/// </summary>
@@ -386,11 +381,11 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>数据库助手</returns>
 		public DbHelperBase QuickRead(string commandText)
 		{
-			this.HasRecord = false;
+			this.MaxRecordIndex = this.InitialRecordIndex;
 			var dataReader = this.NewCommand(commandText).ReturnReader();
 			if (dataReader.Read())
 			{
-				this.HasRecord = true;
+				this.MaxRecordIndex = 0;
 				this.Records = new Dictionary<string, object>[] { new Dictionary<string, object>() };
 				for (int i = 0; i < dataReader.FieldCount; i++)
 				{
@@ -399,7 +394,7 @@ namespace SmartLinli.DatabaseDevelopement
 				}
 			}
 			dataReader.Close();
-			this.CurrentRecordIndex = -1;
+			this.CurrentRecordIndex = this.InitialRecordIndex;
 			return this;
 		}
 		/// <summary>
@@ -410,12 +405,12 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns></returns>
 		public DbHelperBase QuickBatchRead(string commandText)
 		{
-			this.HasRecord = false;
+			this.MaxRecordIndex = this.InitialRecordIndex;
 			var dataTable = this.NewCommand(commandText).ReturnTable();
 			int rowCount = dataTable.Rows.Count;
 			if (rowCount != 0)
 			{
-				this.HasRecord = true;
+				this.MaxRecordIndex = rowCount - 1;
 				this.Records = new Dictionary<string, object>[dataTable.Rows.Count];
 				for (int i = 0; i < rowCount; i++)
 				{
@@ -428,8 +423,7 @@ namespace SmartLinli.DatabaseDevelopement
 					}
 				}
 			}
-			this.CurrentRecordIndex = -1;
-			this.MaxRecordIndex = rowCount - 1;
+			this.CurrentRecordIndex = this.InitialRecordIndex;
 			return this;
 		}
 		/// <summary>
