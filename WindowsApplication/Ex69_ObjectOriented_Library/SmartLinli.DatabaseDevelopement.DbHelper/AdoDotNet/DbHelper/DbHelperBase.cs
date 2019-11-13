@@ -356,9 +356,9 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 数据读取器读得的记录；
 		/// </summary>
-		private Dictionary<string, object>[] Records { get; set; }
+		private List<Dictionary<string, object>> Records { get; set; }
 		/// <summary>
-		/// 获取位于指定索引的列的值；
+		/// 获取指定名称的列的值；
 		/// </summary>
 		/// <param name="name">名称</param>
 		/// <returns>值</returns>
@@ -366,7 +366,7 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			get
 			{
-				if (this.CurrentRecordIndex < 0)
+				if (this.CurrentRecordIndex <= this.InitialRecordIndex)
 				{
 					throw new ApplicationException("请先判断SQL助手是否读得记录");
 				}
@@ -374,8 +374,8 @@ namespace SmartLinli.DatabaseDevelopement
 			}
 		}
 		/// <summary>
-		/// 快速执行命令，并读取一行记录，存入数据库助手下的字典数组；
-		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录；
+		/// 快速执行命令，并读取一行或多行记录；
+		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录的指定列；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据库助手</returns>
@@ -383,49 +383,22 @@ namespace SmartLinli.DatabaseDevelopement
 		{
 			this.MaxRecordIndex = this.InitialRecordIndex;
 			var dataReader = this.NewCommand(commandText).ReturnReader();
-			if (dataReader.Read())
+			this.Records = new List<Dictionary<string, object>>();
+			while (dataReader.Read())
 			{
-				this.MaxRecordIndex = 0;
-				this.Records = new Dictionary<string, object>[] { new Dictionary<string, object>() };
+				var record = new Dictionary<string, object>();
 				for (int i = 0; i < dataReader.FieldCount; i++)
 				{
 					var value = dataReader[i] == DBNull.Value ? null : dataReader[i];
-					this.Records[0].Add(dataReader.GetName(i), value);
+					record.Add(dataReader.GetName(i), value);
 				}
+				this.Records.Add(record);
 			}
 			dataReader.Close();
+			this.MaxRecordIndex = this.Records.Count - 1;
 			this.CurrentRecordIndex = this.InitialRecordIndex;
 			return this;
-		}
-		/// <summary>
-		/// 快速执行命令，并批量读取多行记录，存入数据库助手下的字典数组；
-		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问下一行记录；
-		/// </summary>
-		/// <param name="commandText"></param>
-		/// <returns></returns>
-		public DbHelperBase QuickBatchRead(string commandText)
-		{
-			this.MaxRecordIndex = this.InitialRecordIndex;
-			var dataTable = this.NewCommand(commandText).ReturnTable();
-			int rowCount = dataTable.Rows.Count;
-			if (rowCount != 0)
-			{
-				this.MaxRecordIndex = rowCount - 1;
-				this.Records = new Dictionary<string, object>[dataTable.Rows.Count];
-				for (int i = 0; i < rowCount; i++)
-				{
-					this.Records[i] = new Dictionary<string, object>();
-					foreach (DataColumn column in dataTable.Columns)
-					{
-						var value = dataTable.Rows[i][column];
-						value = value == DBNull.Value ? null : value;
-						this.Records[i].Add(column.ColumnName, value);
-					}
-				}
-			}
-			this.CurrentRecordIndex = this.InitialRecordIndex;
-			return this;
-		}
+		}	
 		/// <summary>
 		/// 执行SQL命令，返回数据表；
 		/// </summary>

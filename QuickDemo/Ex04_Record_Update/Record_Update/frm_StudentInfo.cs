@@ -22,7 +22,7 @@ namespace Record_Update
 		{
 			string classCommand = "SELECT * FROM tb_Class";
 			var sqlHelper = new SqlHelper();
-			sqlHelper.QuickBatchRead(classCommand);
+			sqlHelper.QuickRead(classCommand);
 			while (sqlHelper.HasRecord)
 			{
 				this.cmb_Class.Items.Add(sqlHelper["Name"]);
