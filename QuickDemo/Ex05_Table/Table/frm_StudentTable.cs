@@ -24,7 +24,7 @@ namespace Table
 		private void dgv_Student_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			string currentStudentName = this.dgv_Student.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-			this.lbl_CurrentStudent.Text = $"当前学生：{currentStudentName}";
+			this.lbl_CurrentStudent.Text = $"当前学生姓名：{currentStudentName}";
 		}
 		/// <summary>
 		/// 点击载入按钮；

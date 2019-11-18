@@ -69,9 +69,9 @@
 			this.lbl_CurrentStudent.AutoSize = true;
 			this.lbl_CurrentStudent.Location = new System.Drawing.Point(12, 224);
 			this.lbl_CurrentStudent.Name = "lbl_CurrentStudent";
-			this.lbl_CurrentStudent.Size = new System.Drawing.Size(65, 12);
+			this.lbl_CurrentStudent.Size = new System.Drawing.Size(89, 12);
 			this.lbl_CurrentStudent.TabIndex = 51;
-			this.lbl_CurrentStudent.Text = "当前学生：";
+			this.lbl_CurrentStudent.Text = "当前学生姓名：";
 			// 
 			// frm_StudentTable
 			// 
