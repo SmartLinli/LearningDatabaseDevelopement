@@ -13,6 +13,20 @@ namespace Record_Update
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
+			this.LoadClasses();
+		}
+		/// <summary>
+		/// 向下拉框载入班级名称；
+		/// </summary>
+		private void LoadClasses()
+		{
+			string classCommand = "SELECT * FROM tb_Class";
+			var sqlHelper = new SqlHelper();
+			sqlHelper.QuickRead(classCommand);
+			while (sqlHelper.HasRecord)
+			{
+				this.cmb_Class.Items.Add(sqlHelper["Name"]);
+			}
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -21,28 +35,18 @@ namespace Record_Update
 		/// <param name="e"></param>
 		private void btn_Load_Click(object sender, EventArgs e)
 		{
-			string
-				studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';"
-				, classCommand = "SELECT * FROM tb_Class";
+			string  studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			var studentReader = sqlHelper
-				.NewCommand(studentCommand)
-				.ReturnReader();
-			var classTable = sqlHelper
-				.NewCommand(classCommand)
-				.ReturnTable();
-			this.cmb_Class.DataSource = classTable;
-			this.cmb_Class.ValueMember = "No";
-			this.cmb_Class.DisplayMember = "Name";
-			if (studentReader.Read())
+			sqlHelper.QuickRead(studentCommand);
+			if (sqlHelper.HasRecord)
 			{
-				this.txb_No.Text = studentReader["No"].ToString();
-				this.txb_Name.Text = studentReader["Name"].ToString();
-				this.rdb_Male.Checked = (bool)studentReader["Gender"];
-				this.rdb_Female.Checked = !(bool)studentReader["Gender"];
-				this.dtp_BirthDate.Value = (DateTime)studentReader["BirthDate"];
-				this.cmb_Class.SelectedValue = (int)studentReader["ClassNo"];
-				this.txb_Speciality.Text = studentReader["Speciality"].ToString();
+				this.txb_No.Text = sqlHelper["No"].ToString();
+				this.txb_Name.Text = sqlHelper["Name"].ToString();
+				this.rdb_Male.Checked = (bool)sqlHelper["Gender"];
+				this.rdb_Female.Checked = !(bool)sqlHelper["Gender"];
+				this.dtp_BirthDate.Value = (DateTime)sqlHelper["BirthDate"];
+				this.cmb_Class.SelectedItem = sqlHelper["Class"].ToString();
+				this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
 			}
 		}
 		/// <summary>
@@ -58,13 +62,11 @@ namespace Record_Update
 				+ $" Name='{this.txb_Name.Text.Trim()}'"
 				+ $" ,Gender='{this.rdb_Male.Checked}'"
 				+ $" ,BirthDate='{this.dtp_BirthDate.Value}'"
-				+ $" ,ClassNo={this.cmb_Class.SelectedValue}"
+				+ $" ,Class='{this.cmb_Class.SelectedItem.ToString()}'"
 				+ $" ,Speciality='{this.txb_Speciality.Text.Trim()}'"
 				+ $" WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			int rowAffected = sqlHelper
-				.NewCommand(commandText)
-				.Submit();
+			int rowAffected = sqlHelper.QuickSubmit(commandText);
 			MessageBox.Show($"更新{rowAffected}行。");
 		}
 	}

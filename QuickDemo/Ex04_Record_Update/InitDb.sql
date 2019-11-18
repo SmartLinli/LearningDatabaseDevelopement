@@ -1,5 +1,5 @@
 /*
-例4.2_记录_控件
+记录_更新
 */
 --创建数据库；
 USE master;
@@ -52,15 +52,14 @@ CREATE TABLE tb_Student
 	,BirthDate
 		DATE
 		NOT NULL
-	,ClassNo
-		INT
-		NOT NULL
-		FOREIGN KEY REFERENCES tb_Class(No)
+	,Class
+		VARCHAR(20)
+		NOT NULL		
 	,Speciality
 		VARCHAR(100)
 		NULL);
 INSERT tb_Student
-	(No,Name,Gender,BirthDate,ClassNo,Speciality)
+	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3180707001','周林好',0,'2000-04-17',2,'睡觉');
+	('3180707001','周林好',0,'2000-04-17','18信管','睡觉');
 GO

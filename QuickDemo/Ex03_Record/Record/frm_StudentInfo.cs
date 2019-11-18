@@ -13,20 +13,26 @@ namespace Record
 		/// 学号；
 		/// </summary>
 		private string _StudentNo;
-        /// <summary>
-        /// 构造函数；
-        /// </summary>
-        public frm_StudentInfo()
-        {
-            InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
-			this.FormClosing += (_, __) => Application.Exit();
-        }
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		public frm_StudentInfo()
+		{
+			InitializeComponent();
+			this.StartPosition = FormStartPosition.CenterScreen;
+			this.FormClosed += (_, __) =>
+			{
+				if (Application.OpenForms.Count == 0)
+				{
+					Application.Exit();
+				}
+			};
+		}
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
 		/// <param name="studentNo">学号</param>
-		public frm_StudentInfo(string studentNo):this()
+		public frm_StudentInfo(string studentNo) : this()
 		{
 			this._StudentNo = studentNo;
 		}
@@ -40,17 +46,16 @@ namespace Record
 			string commandText =
 				$"SELECT * FROM tb_Student WHERE No='{this._StudentNo}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			var studentReader = sqlHelper.NewCommand(commandText).ReturnReader();
-            if (studentReader.Read())                                                                      
-            {
-                this.txb_No.Text = studentReader["No"].ToString();                                         
-                this.txb_Name.Text = studentReader["Name"].ToString();
-                this.txb_Gender.Text = studentReader["Gender"].ToString();
-                this.txb_BirthDate.Text = ((DateTime)studentReader["BirthDate"]).ToShortDateString();      
-                this.txb_Class.Text = studentReader["Class"].ToString();
-                this.txb_Speciality.Text = studentReader["Speciality"].ToString();
-            }
-			studentReader.Close();                                                                         
-        }
+			sqlHelper.QuickRead(commandText);
+			if (sqlHelper.HasRecord)
+			{
+				this.txb_No.Text = sqlHelper["No"].ToString();
+				this.txb_Name.Text = sqlHelper["Name"].ToString();
+				this.txb_Gender.Text = sqlHelper["Gender"].ToString();
+				this.txb_BirthDate.Text = ((DateTime)sqlHelper["BirthDate"]).ToShortDateString();
+				this.txb_Class.Text = sqlHelper["Class"].ToString();
+				this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
+			}
+		}
     }                                                                                                    
 }

@@ -1,3 +1,6 @@
+/*
+记录
+*/
 --创建数据库；
 USE master;
 IF DB_ID('EduBaseDemo') IS NOT NULL

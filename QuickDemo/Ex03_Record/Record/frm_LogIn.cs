@@ -16,6 +16,13 @@ namespace Record
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+			this.FormClosed += (_, __) =>
+			{
+				if (Application.OpenForms.Count == 0)
+				{
+					Application.Exit();
+				}
+			};
 		}
 		/// <summary>
 		/// 单击登录按钮；
