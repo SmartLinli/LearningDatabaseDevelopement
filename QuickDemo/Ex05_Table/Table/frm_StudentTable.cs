@@ -13,7 +13,18 @@ namespace Table
         public frm_StudentTable()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;                                           
+            this.StartPosition = FormStartPosition.CenterScreen;
+			this.dgv_Student.CellClick += dgv_Student_CellClick;
+		}
+		/// <summary>
+		/// 点击学生数据网格视图的单元格；
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void dgv_Student_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			string currentStudentName = this.dgv_Student.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+			this.lbl_CurrentStudent.Text = $"当前学生：{currentStudentName}";
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -58,6 +69,6 @@ namespace Table
 				.AsDeleteCommand()
 				.Submit(studentTable);
 			MessageBox.Show($"更新{rowAffected}行。");														
-        }
-    }                                                                                                    
+        }	
+	}                                                                                                    
 }
