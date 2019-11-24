@@ -39,9 +39,9 @@ namespace Command_Insert
 			}
 			#endregion
 			string commandText =
-				$"INSERT tb_User(No,Password)"
-				+ $" VALUES"
-				+ $" ('{this.txb_UserNo.Text.Trim()}','{this.txb_Password.Text.Trim()}');";
+				$@"INSERT tb_User(No,Password)
+					VALUES
+					('{this.txb_UserNo.Text.Trim()}','{this.txb_Password.Text.Trim()}');";
 			SqlHelper sqlHelper = new SqlHelper();
 			int rowAffected = sqlHelper.QuickSubmit(commandText);
 			if (rowAffected == 1)

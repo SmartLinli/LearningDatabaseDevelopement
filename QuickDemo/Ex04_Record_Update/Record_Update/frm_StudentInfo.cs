@@ -57,14 +57,13 @@ namespace Record_Update
 		private void btn_Update_Click(object sender, EventArgs e)
 		{
 			string commandText =
-				$"UPDATE tb_Student"
-				+ $" SET"
-				+ $" Name='{this.txb_Name.Text.Trim()}'"
-				+ $" ,Gender='{this.rdb_Male.Checked}'"
-				+ $" ,BirthDate='{this.dtp_BirthDate.Value}'"
-				+ $" ,Class='{this.cmb_Class.SelectedItem.ToString()}'"
-				+ $" ,Speciality='{this.txb_Speciality.Text.Trim()}'"
-				+ $" WHERE No='{this.txb_No.Text.Trim()}';";
+				$@"UPDATE tb_Student
+					SET Name='{this.txb_Name.Text.Trim()}'
+						,Gender='{this.rdb_Male.Checked}'
+						,BirthDate='{this.dtp_BirthDate.Value}'
+						,Class='{this.cmb_Class.SelectedItem.ToString()}'
+						,Speciality='{this.txb_Speciality.Text.Trim()}'
+					WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
 			int rowAffected = sqlHelper.QuickSubmit(commandText);
 			MessageBox.Show($"更新{rowAffected}行。");

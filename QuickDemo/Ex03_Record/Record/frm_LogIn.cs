@@ -32,9 +32,9 @@ namespace Record
 		private void btn_LogIn_Click(object sender, EventArgs e)
         {
 			string commandText =
-				$"SELECT 1 FROM tb_User"
-				+ $" WHERE No='{this.txb_UserNo.Text.Trim()}'"
-				+ $" AND Password='{this.txb_Password.Text.Trim()}';";
+				$@"SELECT 1 
+					FROM tb_User
+					WHERE No='{this.txb_UserNo.Text.Trim()}' AND Password='{this.txb_Password.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
 			int result = sqlHelper.QuickReturn<int>(commandText);
             if (result == 1)                                                             

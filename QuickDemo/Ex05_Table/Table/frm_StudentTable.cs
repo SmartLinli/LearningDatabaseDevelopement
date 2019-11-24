@@ -45,16 +45,15 @@ namespace Table
         {
 			string
 				insertCommand =
-				"INSERT tb_Student"
-				+ "(No,Name,Gender,BirthDate,Class,Speciality)"
-				+ " VALUES(@No,@Name,@Gender,@BirthDate,@Class,@Speciality);"
+				@"INSERT tb_Student(No,Name,Gender,BirthDate,Class,Speciality)
+					VALUES(@No,@Name,@Gender,@BirthDate,@Class,@Speciality);"
 				, updateCommand =
-				"UPDATE tb_Student"
-				+ " SET Name=@Name,Gender=@Gender,BirthDate=@BirthDate,Class=@Class,Speciality=@Speciality"
-				+ " WHERE No=@No;"
+				@"UPDATE tb_Student
+					SET Name=@Name,Gender=@Gender,BirthDate=@BirthDate,Class=@Class,Speciality=@Speciality
+					WHERE No=@No;"
 				, deleteCommand =
-				"DELETE tb_Student"
-				+ " WHERE No=@No;";
+				@"DELETE tb_Student
+					WHERE No=@No;";
 			var studentTable = this.dgv_Student.DataSource as DataTable;
 			SqlHelper sqlHelper=new SqlHelper();
 			int rowAffected = sqlHelper
