@@ -283,7 +283,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// </summary>
 		/// <typeparam name="T">标量类型</typeparam>
 		/// <returns>标量值</returns>
-		public virtual T Return<T>() where T : struct
+		public virtual T Return<T>()
 		{
 			object result = this.Return();
 			return result == null ? default(T) : (T)result;
@@ -306,7 +306,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <typeparam name="T">标量类型</typeparam>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>标量值</returns>
-		public virtual T QuickReturn<T>(string commandText) where T : struct
+		public virtual T QuickReturn<T>(string commandText)
 		=> this.NewCommand(commandText).Return<T>();
 		/// <summary>
 		/// 执行命令，返回数据读取器；
