@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;                                                                                
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Table_Adapter
-{    
-    public partial class frm_StudentInfo : Form
+{
+	public partial class frm_StudentInfo : Form
     {
         /// <summary>
         /// 构造函数；
