@@ -40,7 +40,7 @@ namespace EntityFramework_Crud
         private void LoadEducationUnit()
         {
             this.EduBase = new EduBase();                                                           //实例化数据库上下文；
-            var departments = this.EduBase.Department.Include("Major.Class");                       //从数据库上下文读取所有院系，同时根据查询路径，预加载各院系下属的专业、班级；
+            var departments = DepartmentRepository.FindAll();										//从数据库上下文读取所有院系，同时根据查询路径，预加载各院系下属的专业、班级；
             this.trv_EducationUnit.Nodes.Clear();                                                   //树形视图的节点集合清空；
             foreach (Department department in departments)                                          //遍历所有院系；
             {
@@ -65,28 +65,20 @@ namespace EntityFramework_Crud
         /// <summary>
         /// 载入当前班级的所有学生；
         /// </summary>
-        private void LoadCurrentStudents()
+        private void LoadCurrentClassStudents()
         {
             this.dgv_Student.DataSource = null;                                                     //将数据网格视图的数据源设为空；
             this.btn_Add.Enabled = false;                                                           //添加等按钮不可用；
             this.btn_Edit.Enabled = false;
             this.btn_Delete.Enabled = false;
             if (this.trv_EducationUnit.SelectedNode.Level != 2)                                     //若树形视图的选中节点的级别不等于2，即选中的并非班级节点；
-            {
                 return;                                                                             //返回；
-            }
             this.btn_Add.Enabled = true;                                                            //添加按钮可用；
             this.ClassNo = (int)this.trv_EducationUnit.SelectedNode.Tag;                            //树形视图的选中节点的标签转为整型，即为事先保存的班级编号；
-            var students =                                                                          //声明隐式类型变量，用于保存LINQ查询结果；
-                from s in this.EduBase.Student                                                      //从数据库上下文中的学生；
-                where s.ClassNo == this.ClassNo														//筛选班级编号等于指定值的学生；
-                select new                                                                          //查询结果存入匿名类型，并将之实例化；
-                { s.No, s.Name };																	//匿名类型的成员包括学生学号、姓名；
+			var students = ClassRepository.FindMembers(this.ClassNo);																//匿名类型的成员包括学生学号、姓名；
             if (students.Count() == 0)                                                              //若查得学生人数为0；                                                  
-            {
                 return;                                                                             //返回；
-            }
-            this.dgv_Student.DataSource = students.ToList();                                        //将查得的当前班级学生转为列表后，设为数据网格视图的数据源；
+            this.dgv_Student.DataSource = students;                                        //将查得的当前班级学生转为列表后，设为数据网格视图的数据源；
             this.dgv_Student.Columns["No"].HeaderText = "学号";                                     //将数据网格视图的指定列的表头文本设为中文；
             this.dgv_Student.Columns["Name"].HeaderText = "姓名";
             this.dgv_Student.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;    //该列的自动调整列宽模式设为填充（至数据网格视图右侧边缘）；
@@ -100,7 +92,7 @@ namespace EntityFramework_Crud
         {
             frm_StudentInfo studentInfoForm = new frm_StudentInfo(null, this.ClassNo);              //声明并实例化学生信息窗体，在构造函数中传入班级编号；
             studentInfoForm.ShowDialog();                                                           //学生信息窗体以对话框方式打开；
-            this.LoadCurrentStudents();                                                             //学生信息窗体关闭后，重新载入当前班级的所有学生；
+            this.LoadCurrentClassStudents();                                                             //学生信息窗体关闭后，重新载入当前班级的所有学生；
         }
         /// <summary>
         /// 编辑学生；
@@ -108,10 +100,10 @@ namespace EntityFramework_Crud
         private void EditStudent()
         {
             string currentStudentNo =                                                               //声明字符串变量，用于保存当前选中的学生学号；
-                this.dgv_Student.CurrentRow.Cells["No"].Value.ToString();                           //数据网格视图的当前行的单元格集合中，对应学号的单元格的值即为当前选中的学生学号；
+                this.dgv_Student.CurrentCell.Value.ToString();                           //数据网格视图的当前行的单元格集合中，对应学号的单元格的值即为当前选中的学生学号；
             frm_StudentInfo studentInfoForm = new frm_StudentInfo(currentStudentNo, 0);             //声明并实例化学生信息窗体，在构造函数中传入当前选中的学生学号；
             studentInfoForm.ShowDialog();                                                           //学生信息窗体以对话框方式打开；
-            this.LoadCurrentStudents();                                                             //学生信息窗体关闭后，重新载入当前班级的所有学生；
+            this.LoadCurrentClassStudents();                                                             //学生信息窗体关闭后，重新载入当前班级的所有学生；
         }
         /// <summary>
         /// 删除学生；
@@ -119,22 +111,15 @@ namespace EntityFramework_Crud
         private void DeleteStudent()
         {
             string currentStudentNo =                                                               //声明字符串变量，用于保存当前选中的学生学号；
-                this.dgv_Student.CurrentRow.Cells["No"].Value.ToString().Trim();                    //数据网格视图的当前行的单元格集合中，对应学号的单元格的值即为当前选中的学生学号；
+                this.dgv_Student.CurrentCell.Value.ToString().Trim();                    //数据网格视图的当前行的单元格集合中，对应学号的单元格的值即为当前选中的学生学号；
             var dialogResult =                                                                      //声明隐式类型变量，用于保存对话框点击结果；
                 MessageBox.Show                                                                     //消息框显示；
                     ($"是否确认删除{currentStudentNo}号学生？"										//删除提示；
                     , "提示"                                                                        //消息框标题；
                     , MessageBoxButtons.OKCancel);                                                  //消息框包含OK、取消按钮；
             if (dialogResult != DialogResult.OK)                                                    //若对话框点击结果并非OK；
-            {
                 return;                                                                             //返回；
-            }
-            var student =                                                                           //声明隐式类型变量，用于保存LINQ查询结果；
-                (from s in this.EduBase.Student                                                     //从数据库上下文中的学生；
-                 where s.No == currentStudentNo                                                     //筛选学号等于指定值的学生；
-                 select s).First();                                                                 //由于查询返回集合，故需获取其中首个元素，即满足条件的唯一学生；
-            this.EduBase.Student.Remove(student);                                                   //从数据库上下文的学生实体集中删除该学生；
-            int rowsAffected = this.EduBase.SaveChanges();                                          //数据库上下文保存更改，返回受影响行数；
+            int rowsAffected = StudentRepository.Delete(currentStudentNo);                                          //数据库上下文保存更改，返回受影响行数；
             if (rowsAffected > 0)                                                                   //若受影响行数大于0；
             {
                 MessageBox.Show("删除成功。");														//显示消息；
@@ -143,7 +128,7 @@ namespace EntityFramework_Crud
             {
                 MessageBox.Show("删除失败！");
             }
-            this.LoadCurrentStudents();                                                             //重新载入当前班级的所有学生；
+            this.LoadCurrentClassStudents();                                                             //重新载入当前班级的所有学生；
         }
     }
 }

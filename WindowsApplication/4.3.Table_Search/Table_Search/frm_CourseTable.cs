@@ -5,26 +5,21 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace Table_Search
-{
-    
+{    
     public partial class frm_CourseTable : Form
     {
-
         /// <summary>
         /// 私有字段：课程数据表；
         /// </summary>
         private DataTable CourseTable;
-
         /// <summary>
         /// 私有字段：先修课程数据表；
         /// </summary>
         private DataTable PreCourseTable;
-
         /// <summary>
         /// 私有字段：按名称排序的课程数据视图；
         /// </summary>
         private DataView CourseViewByName;
-
         /// <summary>
         /// 公有方法：构造函数；
         /// </summary>
@@ -38,7 +33,6 @@ namespace Table_Search
             this.dgv_Course.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.AllCells;                                                   //数据网格视图的自动调整列宽模式设为显示所有单元格；
         }
-
         /// <summary>
         /// 私有方法：点击载入按钮；
         /// </summary>
@@ -85,7 +79,6 @@ namespace Table_Search
             this.dgv_Course.Columns[this.dgv_Course.Columns.Count - 2].AutoSizeMode =                       //数据网格视图的倒数第2列（即考试类型列）的自动调整列宽模式设为填充（至数据网格视图右侧边缘）；
                 DataGridViewAutoSizeColumnMode.Fill;
         }
-
         /// <summary>
         /// 私有方法：点击根据编号搜索按钮；
         /// </summary>
@@ -98,7 +91,6 @@ namespace Table_Search
             searchResultTable.ImportRow(searchResultRow);                                                   //将（复制后的）数据行导入数据表；
             this.dgv_Course.DataSource = searchResultTable;                                                 //将数据网格视图的数据源设为搜索结果数据表；
         }
-
         /// <summary>
         /// 私有方法：点击根据名称搜索按钮；
         /// </summary>
@@ -115,7 +107,6 @@ namespace Table_Search
             }
             this.dgv_Course.DataSource = searchResultTable;                                                 //将数据网格视图的数据源设为搜索结果数据表；
         }
-
         /// <summary>
         /// 私有方法：拼音文本框的文本更改；
         /// </summary>
@@ -123,8 +114,8 @@ namespace Table_Search
         /// <param name="e"></param>
         private void txb_Pinyin_TextChanged(object sender, EventArgs e)
         {
-            DataRow[] searchResultRows =
-                this.CourseTable.Select("Pinyin LIKE '%" + this.txb_Pinyin.Text.Trim() + "%'");             //借助本窗体的课程数据表的方法Select，并提供与SQL类似的谓词表达式作为查询条件，根据拼音缩写进行模糊查询（仅支持%通配符）；查询将返回数据行数组；
+			DataRow[] searchResultRows =
+				this.CourseTable.Select($"Pinyin LIKE '%{this.txb_Pinyin.Text.Trim()}%'");					//借助本窗体的课程数据表的方法Select，并提供与SQL类似的谓词表达式作为查询条件，根据拼音缩写进行模糊查询（仅支持%通配符）；查询将返回数据行数组；
             DataTable searchResultTable = this.CourseTable.Clone();                                         //借助本窗体的课程数据表的方法Clone，创建相同架构的空表，用于保存搜索结果所在数据行；
             foreach (DataRow row in searchResultRows)                                                       //遍历搜索结果所在数据行数组；
             {

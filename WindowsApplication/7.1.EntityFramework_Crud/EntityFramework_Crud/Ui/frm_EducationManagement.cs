@@ -24,7 +24,7 @@ namespace EntityFramework_Crud
         /// <param name="e"></param>
         private void trv_EducationUnit_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            this.LoadCurrentStudents();                                                             //载入相应班级；
+            this.LoadCurrentClassStudents();                                                             //载入相应班级；
         }
         /// <summary>
         /// 双击学生数据网格视图；

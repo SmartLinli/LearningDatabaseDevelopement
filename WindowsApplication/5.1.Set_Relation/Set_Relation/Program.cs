@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Table_Row
+namespace Set_Relation
 {
     static class Program
     {
@@ -13,7 +13,7 @@ namespace Table_Row
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_CourseSelection());
+            Application.Run(new frm_EducationManagement());
         }
     }
 }

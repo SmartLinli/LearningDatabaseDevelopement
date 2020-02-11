@@ -1,4 +1,4 @@
-﻿namespace Ex54_Table_Row
+﻿namespace Table_Row
 {
     partial class frm_CourseSelection
     {

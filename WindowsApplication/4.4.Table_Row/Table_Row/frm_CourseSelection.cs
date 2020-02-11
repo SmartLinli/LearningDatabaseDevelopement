@@ -4,10 +4,14 @@ using System.Data.SqlClient;                                                    
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Ex54_Table_Row
+namespace Table_Row
 {
 	public partial class frm_CourseSelection : Form
     {
+		/// <summary>
+		/// 学号；
+		/// </summary>
+		private string StudentNo = "3180707001";
         /// <summary>
         /// 课程数据表；
         /// </summary>
@@ -50,7 +54,7 @@ namespace Ex54_Table_Row
             sqlCommand.CommandText =
                 @"SELECT No,Name,Credit FROM tb_Course WHERE No NOT IN
 					(SELECT CourseNo FROM tb_SelectedCourse WHERE StudentNo=@StudentNo);";                  //指定SQL命令的命令文本；该命令查询学生尚未选修的课程，以用作数据网格视图数据源；
-            sqlCommand.Parameters.AddWithValue("@StudentNo", "3180707001");                                 //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
+            sqlCommand.Parameters.AddWithValue("@StudentNo", this.StudentNo);                               //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                           //声明并实例化SQL数据适配器；
             sqlDataAdapter.SelectCommand = sqlCommand;                                                      //将SQL数据适配器的查询命令属性指向SQL命令；
             this.CourseTable = new DataTable();                                                             //实例化本窗体的课程数据表，用于保存所有课程，以用作数据网格视图数据源；
@@ -140,7 +144,7 @@ namespace Ex54_Table_Row
             insertCommand.CommandText =
                 @"INSERT tb_SelectedCourse(StudentNo,CourseNo,OrderBook)
 					VALUES(@StudentNo,@CourseNo,@OrderBook);";                                              //指定SQL命令的命令文本；该命令插入选课记录；
-            insertCommand.Parameters.AddWithValue("@StudentNo", "3120707001");                              //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
+            insertCommand.Parameters.AddWithValue("@StudentNo", this.StudentNo);                            //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
             insertCommand.Parameters.Add("@CourseNo", SqlDbType.Char, 4, "No");
             insertCommand.Parameters.Add("@OrderBook", SqlDbType.Bit, 0, "OrderBook");
             SqlCommand updateCommand = new SqlCommand();                                                    //声明并实例化用于更新（教材订购状态）的SQL命令；
@@ -149,7 +153,7 @@ namespace Ex54_Table_Row
                 @"UPDATE tb_SelectedCourse
 					SET OrderBook=@OrderBook
 					WHERE StudentNo=@StudentNo AND CourseNo=@CourseNo;";
-            updateCommand.Parameters.AddWithValue("@StudentNo", "3120707001");                              //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
+            updateCommand.Parameters.AddWithValue("@StudentNo", this.StudentNo);                            //向SQL命令的参数集合添加参数的名称、SQL Server数据类型、长度（仅用于定长类型）、所绑定的数据表中的列名；
             updateCommand.Parameters.Add("@CourseNo", SqlDbType.Char, 4, "No");
             updateCommand.Parameters.Add("@OrderBook", SqlDbType.Bit, 0, "OrderBook");
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                           //声明并实例化SQL数据适配器；

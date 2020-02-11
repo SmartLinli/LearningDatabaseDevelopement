@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Table_Row
+namespace Table_Pagination
 {
     static class Program
     {
@@ -13,7 +13,7 @@ namespace Table_Row
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_CourseSelection());
+            Application.Run(new frm_ScoreTable());
         }
     }
 }

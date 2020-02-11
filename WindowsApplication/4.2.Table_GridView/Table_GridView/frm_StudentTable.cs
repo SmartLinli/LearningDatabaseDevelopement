@@ -6,14 +6,12 @@ using System.Windows.Forms;
 
 namespace Table_GridView
 {
-
 	public partial class frm_StudentTable : Form
     {
         /// <summary>
         /// 私有字段：学生表；
         /// </summary>
-        private DataTable StudentTable;
-        
+        private DataTable StudentTable;        
         /// <summary>
         /// 公有方法：构造函数；
         /// </summary>
@@ -27,7 +25,6 @@ namespace Table_GridView
             this.dgv_Score.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.AllCells;                                                   //数据网格视图的自动调整列宽模式设为（显示）所有单元格；
         }
-
         /// <summary>
         /// 私有方法：点击载入按钮；
         /// </summary>
@@ -73,8 +70,7 @@ namespace Table_GridView
             classColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                             //设置下拉框列的自动调整列宽模式为（显示）所有单元格；
             this.dgv_Score.Columns[this.dgv_Score.Columns.Count - 2].AutoSizeMode =                         //数据网格视图的倒数第2列（即照片列）的自动调整列宽模式设为填充（至数据网格视图右侧边缘）；
                 DataGridViewAutoSizeColumnMode.Fill;
-        }
-        
+        }        
         /// <summary>
         /// 私有方法：点击更新按钮；
         /// </summary>

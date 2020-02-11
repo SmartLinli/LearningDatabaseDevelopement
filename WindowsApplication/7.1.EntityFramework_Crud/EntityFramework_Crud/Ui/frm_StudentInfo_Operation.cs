@@ -8,6 +8,10 @@ namespace EntityFramework_Crud
 	/// </summary>
 	public partial class frm_StudentInfo : Form
     {
+		/// <summary>
+		/// 是否新建；
+		/// </summary>
+		private bool IsNew;
         /// <summary>
         /// 学生
         /// </summary>
@@ -23,11 +27,8 @@ namespace EntityFramework_Crud
         {
             this.StartPosition = FormStartPosition.CenterScreen;                                        //本窗体启动位置设为屏幕中央；
             this.EduBase = new EduBase();                                                               //实例化数据库上下文；
-            var classes =                                                                               //声明隐式类型变量，用于保存LINQ查询结果；
-                from c in this.EduBase.Class                                                            //从数据库上下文中的班级；
-                select new                                                                              //查询所有班级，结果存入匿名类型，并将之实例化；
-                { c.No, c.Name };                                                                       //匿名类型的成员包括班级编号、名称；
-            this.cmb_Class.DataSource = classes.ToArray();                                              //将所有班级转为数组，设为下拉框的数据源；
+            var classes =ClassRepository.FindAll();                                                                       //匿名类型的成员包括班级编号、名称；
+            this.cmb_Class.DataSource = classes;                                              //将所有班级转为数组，设为下拉框的数据源；
 			this.cmb_Class.DisplayMember = "Name";                                                      //将下拉框的显示成员设为班级名称；
             this.cmb_Class.ValueMember = "No";                                                          //将下拉框的值成员设为班级编号；
         }
@@ -40,19 +41,19 @@ namespace EntityFramework_Crud
         {
             if (studentNo == null)                                                                      //若传入的学号为空，即学生为新建；
             {
-                this.Student = null;                                                                    //学生设为空；
+				this.IsNew = true;
+                this.Student = new Student();                                                                    //学生设为空；
                 this.cmb_Class.SelectedValue = classNo;                                                 //将下拉框的选中值设为班级编号；
                 return;                                                                                 //返回；
             }
-            this.Student = (from s in this.EduBase.Student                                              //从数据库上下文中的学生；
-                            where s.No == studentNo                                                     //筛选学号等于指定值的学生；
-                            select s).First();                                                          //由于查询返回集合，故需获取其中首个元素，即满足条件的唯一学生；
+			this.IsNew = false;
+            this.Student = StudentRepository.Find(studentNo);                                                          //由于查询返回集合，故需获取其中首个元素，即满足条件的唯一学生；
             this.txb_No.Text = this.Student.No;                                                         //逐一将各控件的文本、值设为学生的各属性；
             this.txb_Name.Text = this.Student.Name;
             this.rdb_Male.Checked = this.Student.Gender;
             this.rdb_Female.Checked = !this.Student.Gender;
             this.dtp_BirthDate.Value = this.Student.BirthDate;
-            this.cmb_Class.SelectedValue = this.Student.Class.No;
+            this.cmb_Class.SelectedValue = this.Student.ClassNo;
             this.txb_Speciality.Text = this.Student.Speciality;
             this.ptb_Photo.Image = ImageTool.GetImage(this.Student.Photo);                                 
         }
@@ -78,18 +79,25 @@ namespace EntityFramework_Crud
         /// </summary>
         private void Submit()
         {
-            if (this.Student == null)                                                                   //若学生为空，即学生为新建；
-            {
-                this.Student = new Student();                                                           //实例化学生对象；
+            //if (this.Student == null)                                                                   //若学生为空，即学生为新建；
+            //{
+            //    this.Student = new Student();                                                           //实例化学生对象；
                 this.Student.No = this.txb_No.Text;                                                     //设置学号；
-                this.EduBase.Student.Add(this.Student);													//向数据库上下文的学生实体集添加学生；
-            }
+            //}
             this.Student.Name = this.txb_Name.Text.Trim();                                              //逐一将学生的各属性设为各控件的文本、值；
             this.Student.Gender = this.rdb_Male.Checked;
             this.Student.BirthDate = this.dtp_BirthDate.Value;
 			this.Student.ClassNo= (int)this.cmb_Class.SelectedValue;
 			this.Student.Speciality = this.txb_Speciality.Text.Trim();
-            int rowsAffected = this.EduBase.SaveChanges();                                              //数据库上下文保存更改，返回受影响行数；
+			int rowsAffected = 0;
+			if (this.IsNew)
+			{
+				rowsAffected=StudentRepository.Insert(this.Student);
+			}
+			else
+			{
+				rowsAffected=StudentRepository.Update(this.Student);
+			}
             if (rowsAffected > 0)                                                                       //若受影响行数大于0；
             {
                 MessageBox.Show("提交成功。");															//显示消息；

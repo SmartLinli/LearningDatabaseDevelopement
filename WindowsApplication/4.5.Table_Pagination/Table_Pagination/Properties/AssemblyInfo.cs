@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Table_Row")]
+[assembly: AssemblyTitle("Table_Pagination")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartStudio")]
-[assembly: AssemblyProduct("Table_Row")]
+[assembly: AssemblyProduct("Table_Pagination")]
 [assembly: AssemblyCopyright("Copyright © SmartStudio 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
