@@ -75,7 +75,7 @@ namespace EntityFramework_Crud
                 return;                                                                             //返回；
             this.btn_Add.Enabled = true;                                                            //添加按钮可用；
             this.ClassNo = (int)this.trv_EducationUnit.SelectedNode.Tag;                            //树形视图的选中节点的标签转为整型，即为事先保存的班级编号；
-			var students = ClassRepository.FindMembers(this.ClassNo);																//匿名类型的成员包括学生学号、姓名；
+			var students = StudentRepository.FindByClassNo(this.ClassNo);																//匿名类型的成员包括学生学号、姓名；
             if (students.Count() == 0)                                                              //若查得学生人数为0；                                                  
                 return;                                                                             //返回；
             this.dgv_Student.DataSource = students;                                        //将查得的当前班级学生转为列表后，设为数据网格视图的数据源；

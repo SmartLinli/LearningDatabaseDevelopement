@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace EntityFramework_Crud
 {
 	/// <summary>
-	/// 班级成员；
+	/// 学生简况；
 	/// </summary>
-	public class ClassMember
+	public class StudentBasicInfo
 	{
 		/// <summary>
 		/// 学号；

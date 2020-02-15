@@ -78,7 +78,7 @@
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\EduBase.cs" />
-    <Compile Include="Model\ClassMember.cs" />
+    <Compile Include="Model\StudentBasicInfo.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Repository\ClassRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
