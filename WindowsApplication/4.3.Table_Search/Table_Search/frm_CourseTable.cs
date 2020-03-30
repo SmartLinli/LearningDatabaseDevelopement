@@ -5,23 +5,23 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace Table_Search
-{    
-    public partial class frm_CourseTable : Form
+{
+	public partial class frm_CourseTable : Form
     {
         /// <summary>
-        /// 私有字段：课程数据表；
+        /// 课程数据表；
         /// </summary>
         private DataTable CourseTable;
         /// <summary>
-        /// 私有字段：先修课程数据表；
+        /// 先修课程数据表；
         /// </summary>
         private DataTable PreCourseTable;
         /// <summary>
-        /// 私有字段：按名称排序的课程数据视图；
+        /// 按名称排序的课程数据视图；
         /// </summary>
         private DataView CourseViewByName;
         /// <summary>
-        /// 公有方法：构造函数；
+        /// 构造函数；
         /// </summary>
         public frm_CourseTable()
         {
@@ -34,7 +34,7 @@ namespace Table_Search
                 DataGridViewAutoSizeColumnsMode.AllCells;                                                   //数据网格视图的自动调整列宽模式设为显示所有单元格；
         }
         /// <summary>
-        /// 私有方法：点击载入按钮；
+        /// 点击载入按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,7 +80,7 @@ namespace Table_Search
                 DataGridViewAutoSizeColumnMode.Fill;
         }
         /// <summary>
-        /// 私有方法：点击根据编号搜索按钮；
+        /// 点击根据编号搜索按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -92,7 +92,7 @@ namespace Table_Search
             this.dgv_Course.DataSource = searchResultTable;                                                 //将数据网格视图的数据源设为搜索结果数据表；
         }
         /// <summary>
-        /// 私有方法：点击根据名称搜索按钮；
+        /// 点击根据名称搜索按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -108,7 +108,7 @@ namespace Table_Search
             this.dgv_Course.DataSource = searchResultTable;                                                 //将数据网格视图的数据源设为搜索结果数据表；
         }
         /// <summary>
-        /// 私有方法：拼音文本框的文本更改；
+        /// 拼音文本框的文本更改；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

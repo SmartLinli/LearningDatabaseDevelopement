@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Table_Pagination
+namespace EntityFramework_Crud
 {
-    static class Program
+	static class Program
     {
         /// <summary>
         /// 应用程序的主入口点。
@@ -13,7 +13,7 @@ namespace Table_Pagination
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_StudentInfo());
+            Application.Run(new frm_EducationManagement());
         }
     }
 }

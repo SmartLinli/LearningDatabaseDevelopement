@@ -9,11 +9,11 @@ namespace Table_GridView
 	public partial class frm_StudentTable : Form
     {
         /// <summary>
-        /// 私有字段：学生表；
+        /// 学生表；
         /// </summary>
         private DataTable StudentTable;        
         /// <summary>
-        /// 公有方法：构造函数；
+        /// 构造函数；
         /// </summary>
         public frm_StudentTable()
         {
@@ -26,7 +26,7 @@ namespace Table_GridView
                 DataGridViewAutoSizeColumnsMode.AllCells;                                                   //数据网格视图的自动调整列宽模式设为（显示）所有单元格；
         }
         /// <summary>
-        /// 私有方法：点击载入按钮；
+        /// 点击载入按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -72,7 +72,7 @@ namespace Table_GridView
                 DataGridViewAutoSizeColumnMode.Fill;
         }        
         /// <summary>
-        /// 私有方法：点击更新按钮；
+        /// 点击更新按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

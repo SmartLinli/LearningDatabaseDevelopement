@@ -114,7 +114,7 @@ namespace Table_Row
         /// <param name="e"></param>
         private void btn_Remove_Click(object sender, EventArgs e)
         {
-			if (this.dgv_Course.RowCount == 0)                                                              //若课程数据网格视图内的行计数等于0；
+			if (this.dgv_SelectedCourse.RowCount == 0)                                                      //若已选课程数据网格视图内的行计数等于0；
 				return;                                                                                     //返回；
 			DataRowView selectedCourseRowView = 
 				this.dgv_SelectedCourse.CurrentRow.DataBoundItem as DataRowView;                            //将已选课程数据网格视图的当前行的数据绑定项，转换为数据行视图；
@@ -123,7 +123,7 @@ namespace Table_Row
 				return;																						//返回；
 			string courseNo = selectedCourseRow["No"].ToString();											//获取当前课程数据行的课程编号；
             DataRow deletedCourseRow =																		//声明已删课程数据行（即先前从课程数据表中删除的数据行）；
-                this.CourseTable.Select("No='" + courseNo + "'", "", DataViewRowState.Deleted)[0];			//已删课程数据行可通过课程数据表的方法Select查得，该方法接受查询条件、排序条件、行状态条件等参数，并返回数据行数组；
+                this.CourseTable.Select($"No='{courseNo}'", "", DataViewRowState.Deleted)[0];			//已删课程数据行可通过课程数据表的方法Select查得，该方法接受查询条件、排序条件、行状态条件等参数，并返回数据行数组；
             deletedCourseRow.RejectChanges();																//已删课程数据行拒绝更改，即回滚先前对其执行的删除；随后该行的状态为未更改；
             this.SelectedCourseTable.Rows.Remove(selectedCourseRow);										//从已选课程数据表的行集合中移除当前课程数据行；随后该行的状态为分离；
             this.lbl_CreditSum.Text =																		//在标签中显示已选课程的学分总和；
