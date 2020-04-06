@@ -74,7 +74,8 @@ namespace ObjectOriented_SqlHelper
 			try
 			{
 				rowAffected =
-					this._SqlHelper.NewCommand("usp_insertUser")
+					this._SqlHelper
+					.NewCommand("usp_insertUser")
 					.IsStoredProcedure()
 					.NewParameter("@No", user.No)
 					.NewParameter("@Password", user.Password)

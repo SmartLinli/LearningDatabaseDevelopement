@@ -36,9 +36,6 @@
 			this.lbl_Hint = new System.Windows.Forms.Label();
 			this.btn_SignUp = new System.Windows.Forms.Button();
 			this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-			this.ExistValidator = new ObjectOriented_Layer.ExistValidator(this.components);
-			this.LengthValidator = new ObjectOriented_Layer.LengthValidator(this.components);
-			this.RequiredInfoValidator = new ObjectOriented_Layer.RequiredInfoValidator(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -125,9 +122,6 @@
         private System.Windows.Forms.Label lbl_Hint;
         private System.Windows.Forms.Button btn_SignUp;
 		private System.Windows.Forms.ErrorProvider ErrorProvider;
-		private ExistValidator ExistValidator;
-		private LengthValidator LengthValidator;
-		private RequiredInfoValidator RequiredInfoValidator;
 	}
 }
 

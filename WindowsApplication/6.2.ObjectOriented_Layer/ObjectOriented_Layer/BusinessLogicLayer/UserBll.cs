@@ -14,7 +14,7 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 10;
+		public static readonly int UserNoMinLengh = 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
@@ -52,21 +52,7 @@ namespace ObjectOriented_Layer
 			if (user == null)
 			{
 				this.Message = "用户号不存在！";
-				throw new Exception();
-			}
-		}
-		/// <summary>
-		/// 处理用户密码错误且被冻结；
-		/// </summary>
-		/// <param name="user">用户</param>
-		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatchAndNotActivated(User user,string password)
-		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
-			if (!isPasswordMatch && !user.IsActivated)
-			{
-				this.Message = "密码错误！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -78,7 +64,7 @@ namespace ObjectOriented_Layer
 			if (!user.IsActivated)
 			{
 				this.Message = "用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -92,7 +78,7 @@ namespace ObjectOriented_Layer
 				user.IsActivated = false;
 				this._UserDal.Update(user);
 				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -105,7 +91,7 @@ namespace ObjectOriented_Layer
 			this._UserDal.Update(user);
 			this.HandleUserLoginFailTooManyTimes(user);
 			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new Exception();
+			throw new ApplicationException();
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -118,7 +104,7 @@ namespace ObjectOriented_Layer
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -152,38 +138,43 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 登录；
 		/// </summary>
-		/// <param name="user">用户</param>
-		/// <returns>是否登录成功</returns>
-		public User LogIn(string userNo, string userPassword)
+		/// <param name="userNo">用户号</param>
+		/// <param name="password">密码</param>
+		/// <returns>用户</returns>
+		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
 			User user = this._UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
-				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
-				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
+			}
+			catch (ApplicationException)
+			{
+				;
 			}
 			catch (Exception)
 			{
-				this.Message = "登录失败！"; ;
+				this.Message = "登录失败！";
 			}
 			return user;
 		}
 		/// <summary>
 		/// 注册；
 		/// </summary>
-		/// <param name="user">用户</param>
-		/// <returns>是否注册成功</returns>
-		public User SignUp(string userNo, string userPassword)
+		/// <param name="userNo">用户号</param>
+		/// <param name="password">密码</param>
+		/// <returns>用户</returns>
+		public User SignUp(string userNo, string password)
 		{
 			this.HasSignedUp = false;
 			User user = new User()
 			{
 				No = userNo,
-				Password = CrytoHelper.Md5(userPassword),
+				Password = CrytoHelper.Md5(password),
 				IsActivated = true
 			};
 			try

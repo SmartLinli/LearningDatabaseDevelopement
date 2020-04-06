@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ObjectOriented_Layer
 {
@@ -22,20 +23,8 @@ namespace ObjectOriented_Layer
 			this.StartPosition = FormStartPosition.CenterScreen;
 			this._User = new User();
 			this._UserBll = new UserBll();
-			this.txb_UserNo.Tag = "用户号";
-			this.txb_Password.Tag = "密码";
-			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password)
-				.Add(this.ErrorProvider);
-			this.LengthValidator
-				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
-			this.ExistValidator
-				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
-				.Configure(ExistValidatorReturnError.IfExist);
+			this.txb_UserNo.Validating += this.ValidateUserNo;
+			this.txb_Password.Validating += this.ValidatePassword;
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;
 		}
@@ -50,6 +39,49 @@ namespace ObjectOriented_Layer
 			string userPassword = this.txb_Password.Text.Trim();
 			this._User = this._UserBll.SignUp(userNo, userPassword);
 			MessageBox.Show(this._UserBll.Message);
+		}
+		/// <summary>
+		/// 验证用户号；
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ValidateUserNo(object sender, CancelEventArgs e)
+		{
+			string userNo = this.txb_UserNo.Text;
+			bool isEmpty = string.IsNullOrEmpty(userNo);
+			if (isEmpty)
+			{
+				this.ErrorProvider.SetError(this.txb_UserNo, "用户号不能为空");
+				return;
+			}
+			bool isLengthValid =
+				userNo.Length >= UserBll.UserNoMinLengh
+				&& userNo.Length <= UserBll.UserNoMaxLengh;
+			if (!isLengthValid)
+			{
+				this.ErrorProvider.SetError
+					(this.txb_UserNo,
+					$"用户号长度应为{UserBll.UserNoMinLengh}~{UserBll.UserNoMaxLengh}");
+				return;
+			}
+			bool isExisting = this._UserBll.CheckExist(userNo);
+			if (isExisting)
+			{
+				this.ErrorProvider.SetError(this.txb_UserNo, "用户号已存在");
+				return;
+			}
+		}
+		/// <summary>
+		/// 验证密码；
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ValidatePassword(object sender, CancelEventArgs e)
+		{
+			string password = this.txb_Password.Text;
+			bool isEmpty = string.IsNullOrEmpty(password);
+			if (isEmpty)
+				this.ErrorProvider.SetError(this.txb_Password, "密码不能为空");
 		}
 	}
 }

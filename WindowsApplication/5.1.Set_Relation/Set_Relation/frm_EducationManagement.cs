@@ -78,7 +78,7 @@ namespace Set_Relation
                     {
                         TreeNode classNode = new TreeNode();                                            //声明并实例化班级节点，该节点对应当前某个班级；
                         classNode.Text = classRow["Name"].ToString();                                   //班级节点的文本设为当前班级的名称；
-                        classNode.Tag = classRow["No"];                                                 //班级节点的标签设为当前班级的编号；
+                        classNode.Tag = classRow["No"];													//班级节点的标签设为当前班级的编号；
                         majorNode.Nodes.Add(classNode);                                                 //班级节点加入当前专业节点的节点集合，成为第2级节点之一；
                     }
                 }
@@ -91,9 +91,9 @@ namespace Set_Relation
         /// <param name="e"></param>
         private void trv_EducationUnit_AfterSelect(object sender, TreeViewEventArgs e)
         {
-			if (this.trv_EducationUnit.SelectedNode.Level == 2)                                         //若树形视图的选中节点的级别不为3，即未选中班级节点；
+			if (this.trv_EducationUnit.SelectedNode.Level != 2)                                         //若树形视图的选中节点的级别不为3，即未选中班级节点；
 				return;																					//则返回；
-            int classNo = (int)this.trv_EducationUnit.SelectedNode.Tag;                                 //将树形视图的选中节点的标签转为整型，即可获得事先保存的班级编号；
+            int classNo = (int)this.trv_EducationUnit.SelectedNode.Tag;									//将树形视图的选中节点的标签转为整型，即可获得事先保存的班级编号；
             SqlConnection sqlConnection = new SqlConnection();                                          //声明并实例化SQL连接；
             sqlConnection.ConnectionString =
                 "Server=(local);Database=EduBaseDemo;Integrated Security=sspi";                         //在字符串变量中，描述连接字符串所需的服务器地址、数据库名称、集成安全性（即是否使用Windows验证）；

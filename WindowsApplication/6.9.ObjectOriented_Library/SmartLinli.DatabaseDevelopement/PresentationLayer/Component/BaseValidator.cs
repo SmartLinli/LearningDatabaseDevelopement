@@ -103,7 +103,21 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <summary>
 		/// 验证单元；
 		/// </summary>
-		internal List<BaseValidatingUnit<TSpec>> ValidatingUnits = new List<BaseValidatingUnit<TSpec>>();		
+		internal List<BaseValidatingUnit<TSpec>> ValidatingUnits = new List<BaseValidatingUnit<TSpec>>();
+		/// <summary>
+		/// 获取默认错误提供器；
+		/// （组件所在窗体应包含错误提供器，并作为第1个组件）
+		/// </summary>
+		private void GetDefaultErrorProvider()
+		{
+			foreach (var validatingUnit in this.ValidatingUnits)
+			{
+				if (validatingUnit.ErrorProvider != null)
+					return;
+				if (this.Container.Components[0] is ErrorProvider errorProvider)
+					validatingUnit.ErrorProvider = errorProvider;
+			}
+		}
 		/// <summary>
 		/// 添加（需要验证的控件）；
 		/// </summary>
@@ -116,6 +130,7 @@ namespace SmartLinli.DatabaseDevelopement
 				BaseValidatingUnit<TSpec> validatingUnit = new BaseValidatingUnit<TSpec>(control);
 				this.ValidatingUnits.Add(validatingUnit);
 			}
+			this.GetDefaultErrorProvider();
 			return this;
 		}
 		/// <summary>

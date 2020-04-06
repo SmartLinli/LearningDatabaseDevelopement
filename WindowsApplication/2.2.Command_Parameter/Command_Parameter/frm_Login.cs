@@ -8,7 +8,7 @@ namespace Command_Parameter
 	public partial class frm_Login : Form
     {
         /// <summary>
-        /// 公有方法：构造函数；
+        /// 构造函数；
         /// </summary>
         public frm_Login()
         {
@@ -16,7 +16,7 @@ namespace Command_Parameter
             this.StartPosition = FormStartPosition.CenterScreen;                                        //本窗体启动位置设为屏幕中央； 
         }
         /// <summary>
-        /// 私有方法：单击登录按钮；
+        /// 单击登录按钮；
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

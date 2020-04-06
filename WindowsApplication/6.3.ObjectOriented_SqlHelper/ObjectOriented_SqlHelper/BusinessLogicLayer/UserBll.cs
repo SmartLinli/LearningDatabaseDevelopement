@@ -52,21 +52,7 @@ namespace ObjectOriented_SqlHelper
 			if (user == null)
 			{
 				this.Message = "用户号不存在！";
-				throw new Exception();
-			}
-		}
-		/// <summary>
-		/// 处理用户密码错误且被冻结；
-		/// </summary>
-		/// <param name="user">用户</param>
-		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatchAndNotActivated(User user,string password)
-		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
-			if (!isPasswordMatch && !user.IsActivated)
-			{
-				this.Message = "密码错误！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -78,7 +64,7 @@ namespace ObjectOriented_SqlHelper
 			if (!user.IsActivated)
 			{
 				this.Message = "用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -92,7 +78,7 @@ namespace ObjectOriented_SqlHelper
 				user.IsActivated = false;
 				this._UserDal.Update(user);
 				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -105,7 +91,7 @@ namespace ObjectOriented_SqlHelper
 			this._UserDal.Update(user);
 			this.HandleUserLoginFailTooManyTimes(user);
 			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new Exception();
+			throw new ApplicationException();
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -118,7 +104,7 @@ namespace ObjectOriented_SqlHelper
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
-				throw new Exception();
+				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -161,14 +147,13 @@ namespace ObjectOriented_SqlHelper
 			try
 			{
 				this.HandleUserNotExist(user);
-				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
 				this.HandleUserPasswordNotMatch(user, userPassword);
 				this.HandleUserLoginOk(user);
 			}
-			catch (Exception)
+			catch (ApplicationException)
 			{
-				this.Message = "登录失败！"; ;
+				;
 			}
 			return user;
 		}
