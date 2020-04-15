@@ -1,24 +1,31 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ObjectOriented_Layer
 {
 	/// <summary>
 	/// 用户（业务逻辑层）；
 	/// </summary>
-	public class UserBll
+	public class UserBll : IUserBll
 	{
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private UserDal _UserDal;
+		private IUserDal _UserDal;
+		/// <summary>
+		/// 登录失败次数上限；
+		/// </summary>
+		private int LogInFailCountMax => 3;
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 7;
+		public int UserNoMinLength => 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
-		public static readonly int UserNoMaxLengh = 10;
+		public int UserNoMaxLength => 10;
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
@@ -44,6 +51,26 @@ namespace ObjectOriented_Layer
 			private set;
 		}
 		/// <summary>
+		/// MD5加密；
+		/// </summary>
+		/// <param name="plainText">明文</param>
+		/// <returns>密文</returns>
+		private byte[] Md5(string plainText)
+		{
+			byte[] plainBytes = Encoding.Default.GetBytes(plainText);
+			MD5 md5 = new MD5CryptoServiceProvider();
+			byte[] cryptedBytes = md5.ComputeHash(plainBytes);
+			return cryptedBytes;
+		}
+		/// <summary>
+		/// MD5值是否相等；
+		/// </summary>
+		/// <param name="md5">MD5值</param>
+		/// <param name="otherPlainText">另一明文</param>
+		/// <returns>是否相等</returns>
+		private bool Md5Equal(byte[] md5, string otherPlainText)
+		=>	md5.SequenceEqual(this.Md5(otherPlainText));
+		/// <summary>
 		/// 处理用户不存在；
 		/// </summary>
 		/// <param name="user">用户</param>
@@ -51,8 +78,8 @@ namespace ObjectOriented_Layer
 		{
 			if (user == null)
 			{
-				this.Message = "用户号不存在！";
-				throw new ApplicationException();
+				string errorMessage = "用户号不存在！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -63,8 +90,8 @@ namespace ObjectOriented_Layer
 		{
 			if (!user.IsActivated)
 			{
-				this.Message = "用户已被冻结，需要手机验证！";
-				throw new ApplicationException();
+				string errorMessage = "用户已被冻结，需要手机验证！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -73,12 +100,10 @@ namespace ObjectOriented_Layer
 		/// <param name="user">用户</param>
 		private void HandleUserLoginFailTooManyTimes(User user)
 		{
-			if (user.LoginFailCount >= 3)
+			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
 				this._UserDal.Update(user);
-				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -89,22 +114,24 @@ namespace ObjectOriented_Layer
 		{
 			user.LoginFailCount++;
 			this._UserDal.Update(user);
-			this.HandleUserLoginFailTooManyTimes(user);
-			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new ApplicationException();
 		}
 		/// <summary>
 		/// 处理用户密码错误；
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatch(User user,string password)
+		private void HandleUserPasswordNotMatch(User user, string password)
 		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
+			bool isPasswordMatch = this.Md5Equal(user.Password, password);
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
-				throw new ApplicationException();
+				this.HandleUserLoginFailTooManyTimes(user);
+				string errorMessage =
+					user.IsActivated ?
+					$"密码错误，请重新输入！\n您还有{this.LogInFailCountMax - user.LoginFailCount}次机会！"
+					: $"密码错误已达{this.LogInFailCountMax}次上限！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -126,14 +153,14 @@ namespace ObjectOriented_Layer
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExist(string userNo) 
+		public bool CheckExist(string userNo)
 		=>	this._UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
-		public bool CheckNotExist(string userNo) 
+		public bool CheckNotExist(string userNo)
 		=>	!this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
@@ -152,9 +179,9 @@ namespace ObjectOriented_Layer
 				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
 			}
-			catch (ApplicationException)
+			catch (ApplicationException ex)
 			{
-				;
+				this.Message = ex.Message;
 			}
 			catch (Exception)
 			{
@@ -174,7 +201,7 @@ namespace ObjectOriented_Layer
 			User user = new User()
 			{
 				No = userNo,
-				Password = CrytoHelper.Md5(password),
+				Password = Md5(password),
 				IsActivated = true
 			};
 			try

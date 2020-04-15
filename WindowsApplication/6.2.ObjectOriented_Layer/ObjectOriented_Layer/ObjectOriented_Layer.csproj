@@ -57,8 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayer\IUserBll.cs" />
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
-    <Compile Include="Common\CrytoHelper.cs" />
+    <Compile Include="DataAccessLayer\IUserDal.cs" />
     <Compile Include="DataAccessLayer\UserDal.cs" />
     <Compile Include="PresentationLayer\frm_LogIn.cs">
       <SubType>Form</SubType>

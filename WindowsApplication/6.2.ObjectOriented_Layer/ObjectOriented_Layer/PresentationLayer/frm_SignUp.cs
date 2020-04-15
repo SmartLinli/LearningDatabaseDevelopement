@@ -13,7 +13,7 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private UserBll _UserBll;
+		private IUserBll _UserBll;
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -55,13 +55,13 @@ namespace ObjectOriented_Layer
 				return;
 			}
 			bool isLengthValid =
-				userNo.Length >= UserBll.UserNoMinLengh
-				&& userNo.Length <= UserBll.UserNoMaxLengh;
+				userNo.Length >= this._UserBll.UserNoMinLength
+				&& userNo.Length <= this._UserBll.UserNoMaxLength;
 			if (!isLengthValid)
 			{
 				this.ErrorProvider.SetError
 					(this.txb_UserNo,
-					$"用户号长度应为{UserBll.UserNoMinLengh}~{UserBll.UserNoMaxLengh}");
+					$"用户号长度应为{this._UserBll.UserNoMinLength}~{this._UserBll.UserNoMaxLength}");
 				return;
 			}
 			bool isExisting = this._UserBll.CheckExist(userNo);

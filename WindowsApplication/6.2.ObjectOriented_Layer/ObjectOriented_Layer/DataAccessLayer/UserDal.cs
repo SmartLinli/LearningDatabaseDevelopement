@@ -8,7 +8,7 @@ namespace ObjectOriented_Layer
 	/// <summary>
 	/// 用户（数据访问层）；
 	/// </summary>
-	public class UserDal
+	public class UserDal : IUserDal
 	{
 		/// <summary>
 		/// 查询用户计数;
