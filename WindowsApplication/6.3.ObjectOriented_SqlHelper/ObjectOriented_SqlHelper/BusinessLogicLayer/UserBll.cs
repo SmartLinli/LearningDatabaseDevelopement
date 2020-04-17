@@ -12,6 +12,10 @@ namespace ObjectOriented_SqlHelper
 		/// </summary>
 		private UserDal _UserDal;
 		/// <summary>
+		/// 登录失败次数上限；
+		/// </summary>
+		private int LogInFailCountMax => 3;
+		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
 		public static readonly int UserNoMinLengh = 10;
@@ -51,8 +55,8 @@ namespace ObjectOriented_SqlHelper
 		{
 			if (user == null)
 			{
-				this.Message = "用户号不存在！";
-				throw new ApplicationException();
+				string errorMessage = "用户号不存在！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -63,8 +67,8 @@ namespace ObjectOriented_SqlHelper
 		{
 			if (!user.IsActivated)
 			{
-				this.Message = "用户已被冻结，需要手机验证！";
-				throw new ApplicationException();
+				string errorMessage = "用户已被冻结，需要手机验证！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -73,12 +77,10 @@ namespace ObjectOriented_SqlHelper
 		/// <param name="user">用户</param>
 		private void HandleUserLoginFailTooManyTimes(User user)
 		{
-			if (user.LoginFailCount >= 3)
+			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
 				this._UserDal.Update(user);
-				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new ApplicationException();
 			}
 		}
 		/// <summary>
@@ -89,22 +91,24 @@ namespace ObjectOriented_SqlHelper
 		{
 			user.LoginFailCount++;
 			this._UserDal.Update(user);
-			this.HandleUserLoginFailTooManyTimes(user);
-			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new ApplicationException();
 		}
 		/// <summary>
 		/// 处理用户密码错误；
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatch(User user,string password)
+		private void HandleUserPasswordNotMatch(User user, string password)
 		{
 			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
-				throw new ApplicationException();
+				this.HandleUserLoginFailTooManyTimes(user);
+				string errorMessage =
+					user.IsActivated ?
+					$"密码错误，请重新输入！\n您还有{this.LogInFailCountMax - user.LoginFailCount}次机会！"
+					: $"密码错误已达{this.LogInFailCountMax}次上限！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -140,7 +144,7 @@ namespace ObjectOriented_SqlHelper
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <returns>是否登录成功</returns>
-		public User LogIn(string userNo, string userPassword)
+		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
 			User user = this._UserDal.Select(userNo);
@@ -148,12 +152,16 @@ namespace ObjectOriented_SqlHelper
 			{
 				this.HandleUserNotExist(user);
 				this.HandleUserNotActivated(user);
-				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
 			}
-			catch (ApplicationException)
+			catch (ApplicationException ex)
 			{
-				;
+				this.Message = ex.Message;
+			}
+			catch (Exception)
+			{
+				this.Message = "登录失败！";
 			}
 			return user;
 		}
