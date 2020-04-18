@@ -23,25 +23,26 @@ namespace ObjectOriented_Dapper
 		/// <param name="user">用户号</param>
 		/// <returns>用户</returns>
 		public User Select(string userNo)
-		=>	DapperPgsqlHelper.GetQueryResultFromSp<dynamic>
+		{
+			dynamic u = DapperPgsqlHelper.GetScalarFromSp<dynamic>
 				("usp_select_user"
-				, new { p_no = userNo })
-				.Select
-					(u => new User()
-					{
-						No = u.no,
-						Password = u.password,
-						IsActivated = u.is_activated,
-						LoginFailCount = u.login_fail_count
-					})
-				.FirstOrDefault();
+				, new { p_no = userNo });
+			User user = new User()
+				{
+					No = u.no,
+					Password = u.password,
+					IsActivated = u.is_activated,
+					LoginFailCount = u.login_fail_count
+				};
+			return user;
+		}
 		/// <summary>
 		/// 更新用户；
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <returns>受影响行数</returns>
 		public int Update(User user)
-		=> DapperPgsqlHelper.GetScalarFromSp<int>
+		=>	DapperPgsqlHelper.GetScalarFromSp<int>
 				("usp_update_user"
 				, new
 				{
@@ -60,15 +61,14 @@ namespace ObjectOriented_Dapper
 			int rowAffected = 0;
 			try
 			{
-				rowAffected =
-					DapperPgsqlHelper.GetScalarFromSp<int>
-						("usp_insert_user"
-						, new
-						{
-							p_no = user.No,
-							p_password = user.Password,
-							p_is_activated = user.IsActivated,
-						});
+				rowAffected = DapperPgsqlHelper.GetScalarFromSp<int>
+					("usp_insert_user"
+					, new
+					{
+						p_no = user.No,
+						p_password = user.Password,
+						p_is_activated = user.IsActivated,
+					});
 			}
 			catch (NotUniqueException)
 			{

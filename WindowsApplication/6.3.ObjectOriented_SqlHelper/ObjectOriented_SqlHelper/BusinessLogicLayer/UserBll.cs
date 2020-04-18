@@ -5,12 +5,12 @@ namespace ObjectOriented_SqlHelper
 	/// <summary>
 	/// 用户（业务逻辑层）；
 	/// </summary>
-	public class UserBll
+	public class UserBll : IUserBll
 	{
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private UserDal _UserDal;
+		private IUserDal _UserDal;
 		/// <summary>
 		/// 登录失败次数上限；
 		/// </summary>
@@ -18,11 +18,11 @@ namespace ObjectOriented_SqlHelper
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 10;
+		public int UserNoMinLength => 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
-		public static readonly int UserNoMaxLengh = 10;
+		public int UserNoMaxLength => 10;
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
@@ -130,7 +130,7 @@ namespace ObjectOriented_SqlHelper
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExist(string userNo) 
+		public bool CheckExist(string userNo)
 		=>	this._UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；

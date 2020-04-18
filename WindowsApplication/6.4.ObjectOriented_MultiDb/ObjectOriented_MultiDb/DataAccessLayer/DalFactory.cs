@@ -31,18 +31,18 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 创建数据访问层；
 		/// </summary>
-		/// <typeparam name="T">实体类型</typeparam>
+		/// <typeparam name="TDal">数据访问层类型</typeparam>
 		/// <returns>数据访问层</returns>
-		public static TResult Create<TResult>()
+		public static TDal Create<TDal>()
 		{
 			string currentNamespace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-			Type dalInterface = typeof(TResult);
+			Type dalInterface = typeof(TDal);
 			string dalInterfaceName = dalInterface.Name;
 			string modelTypeName = dalInterfaceName.Replace("Dal", "").Substring(1);
 			string dalTypeNameSuffix = ConfigurationManager.AppSettings["DalType"];
 			string dalFullTypeName = $"{currentNamespace}.{modelTypeName}Dal{dalTypeNameSuffix}";
 			Type dalType = Type.GetType(dalFullTypeName);
-			TResult dal = (TResult)Activator.CreateInstance(dalType);
+			TDal dal = (TDal)Activator.CreateInstance(dalType);
 			return dal;
 		}
 	}

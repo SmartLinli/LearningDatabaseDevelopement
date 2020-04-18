@@ -30,7 +30,7 @@ namespace ObjectOriented_SqlHelper
 			this.LengthValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMinLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)

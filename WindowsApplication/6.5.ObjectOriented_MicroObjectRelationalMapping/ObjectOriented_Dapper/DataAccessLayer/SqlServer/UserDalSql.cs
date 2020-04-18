@@ -44,10 +44,9 @@ namespace ObjectOriented_Dapper
 			int rowAffected = 0;
 			try
 			{
-				rowAffected =
-					DapperSqlHelper.GetScalarFromSp<int>
-						("usp_insertUser"
-						, new { user.No, user.Password, user.IsActivated });
+				rowAffected = DapperSqlHelper.GetScalarFromSp<int>
+					("usp_insertUser"
+					, new { user.No, user.Password, user.IsActivated });
 			}
 			catch (NotUniqueException)
 			{

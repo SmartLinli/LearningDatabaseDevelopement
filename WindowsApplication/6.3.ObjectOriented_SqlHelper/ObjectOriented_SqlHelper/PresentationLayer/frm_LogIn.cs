@@ -12,7 +12,7 @@ namespace ObjectOriented_SqlHelper
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private UserBll _UserBll;
+		private IUserBll _UserBll;
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -27,7 +27,7 @@ namespace ObjectOriented_SqlHelper
 				.Add(this.txb_UserNo, this.txb_Password);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMaxLengh);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMaxLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Configure((Func<string, bool>)this._UserBll.CheckExist)

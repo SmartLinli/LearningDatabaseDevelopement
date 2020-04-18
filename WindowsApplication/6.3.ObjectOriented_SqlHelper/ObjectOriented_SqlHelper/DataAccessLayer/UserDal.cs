@@ -6,7 +6,7 @@ namespace ObjectOriented_SqlHelper
 	/// <summary>
 	/// 用户（数据访问层）；
 	/// </summary>
-	public class UserDal
+	public class UserDal : IUserDal
 	{
 		/// <summary>
 		/// SQL助手；
@@ -30,7 +30,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>用户</returns>
 		public User Select(string userNo)
 		{
-			IDataReader dataReader=
+			IDataReader dataReader =
 				this._SqlHelper
 				.NewCommand("usp_selectUser")
 				.IsStoredProcedure()
@@ -82,7 +82,7 @@ namespace ObjectOriented_SqlHelper
 					.NewParameter("@IsActivated", user.IsActivated)
 					.NonQuery();
 			}
-			catch(NotUniqueException)
+			catch (NotUniqueException)
 			{
 				throw new ApplicationException("您提交的用户号已存在");
 			}
