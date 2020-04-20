@@ -6,7 +6,7 @@ namespace ObjectOriented_MultiDb
 	/// <summary>
 	/// 存在验证器返回错误的条件为；
 	/// </summary>
-	public class ExistValidatorReturnError
+	public class ExistValidatorReturnsError
 	{
 		/// <summary>
 		/// 对象存在；
@@ -25,11 +25,12 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 存在则有误；
 		/// </summary>
-		private bool _HasErrorIfExist = false;
+		private bool _HasErrorIfExist;
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
-		protected override string ErrorMessage => this._HasErrorIfExist ? "已存在" : "不存在";
+		protected override string ErrorMessage
+		=>	this._HasErrorIfExist == ExistValidatorReturnsError.IfExist ? "已存在" : "不存在";
 		/// <summary>
 		/// 定义；
 		/// </summary>

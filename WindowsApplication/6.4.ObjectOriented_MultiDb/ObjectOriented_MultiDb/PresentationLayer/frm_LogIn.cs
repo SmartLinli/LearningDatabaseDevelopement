@@ -12,7 +12,7 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private UserBll _UserBll;
+		private IUserBll _UserBll;
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -29,7 +29,7 @@ namespace ObjectOriented_MultiDb
 			this.LengthValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMinLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
 				.Add(this.ErrorProvider)

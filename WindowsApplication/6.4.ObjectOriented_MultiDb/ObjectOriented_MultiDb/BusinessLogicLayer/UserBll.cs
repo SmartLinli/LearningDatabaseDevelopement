@@ -5,20 +5,24 @@ namespace ObjectOriented_MultiDb
 	/// <summary>
 	/// 用户（业务逻辑层）；
 	/// </summary>
-	public class UserBll
+	public class UserBll : IUserBll
 	{
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
 		private IUserDal _UserDal;
 		/// <summary>
+		/// 登录失败次数上限；
+		/// </summary>
+		private int LogInFailCountMax => 3;
+		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 10;
+		public int UserNoMinLength => 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
-		public static readonly int UserNoMaxLengh = 10;
+		public int UserNoMaxLength => 10;
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
@@ -51,22 +55,8 @@ namespace ObjectOriented_MultiDb
 		{
 			if (user == null)
 			{
-				this.Message = "用户号不存在！";
-				throw new Exception();
-			}
-		}
-		/// <summary>
-		/// 处理用户密码错误且被冻结；
-		/// </summary>
-		/// <param name="user">用户</param>
-		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatchAndNotActivated(User user, string password)
-		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
-			if (!isPasswordMatch && !user.IsActivated)
-			{
-				this.Message = "密码错误！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户号不存在！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -77,8 +67,8 @@ namespace ObjectOriented_MultiDb
 		{
 			if (!user.IsActivated)
 			{
-				this.Message = "用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户已被冻结，需要手机验证！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -87,12 +77,10 @@ namespace ObjectOriented_MultiDb
 		/// <param name="user">用户</param>
 		private void HandleUserLoginFailTooManyTimes(User user)
 		{
-			if (user.LoginFailCount >= 3)
+			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
 				this._UserDal.Update(user);
-				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
 			}
 		}
 		/// <summary>
@@ -103,9 +91,6 @@ namespace ObjectOriented_MultiDb
 		{
 			user.LoginFailCount++;
 			this._UserDal.Update(user);
-			this.HandleUserLoginFailTooManyTimes(user);
-			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new Exception();
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -118,6 +103,12 @@ namespace ObjectOriented_MultiDb
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
+				this.HandleUserLoginFailTooManyTimes(user);
+				string errorMessage =
+					user.IsActivated ?
+					$"密码错误，请重新输入！\n您还有{this.LogInFailCountMax - user.LoginFailCount}次机会！"
+					: $"密码错误已达{this.LogInFailCountMax}次上限！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -126,7 +117,7 @@ namespace ObjectOriented_MultiDb
 		/// <param name="user">用户</param>
 		private void HandleUserLoginOk(User user)
 		{
-			if (user.LoginFailCount!=0)
+			if (user.LoginFailCount != 0)
 			{
 				user.LoginFailCount = 0;
 				this._UserDal.Update(user);
@@ -139,35 +130,38 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExist(string userNo) 
-		=>	this._UserDal.SelectCount(userNo) == 1;
+		public bool CheckExist(string userNo)
+		=> this._UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
-		public bool CheckNotExist(string userNo) 
-		=>	!this.CheckExist(userNo);
+		public bool CheckNotExist(string userNo)
+		=> !this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <returns>是否登录成功</returns>
-		public User LogIn(string userNo, string userPassword)
+		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
 			User user = this._UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
-				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
-				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
+			}
+			catch (ApplicationException ex)
+			{
+				this.Message = ex.Message;
 			}
 			catch (Exception)
 			{
-				this.Message = "登录失败！"; ;
+				this.Message = "登录失败！";
 			}
 			return user;
 		}

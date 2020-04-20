@@ -1,1 +1,1 @@
-SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE datname='EduBaseDemo' AND pid<>pg_backend_pid();
+SELECT pg_terminate_backend(A.pid) FROM pg_stat_activity AS A WHERE A.datname='EduBaseDemo' AND A.pid<>pg_backend_pid();

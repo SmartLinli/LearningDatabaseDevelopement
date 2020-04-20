@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayer\IUserBll.cs" />
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
     <Compile Include="Common\CrytoHelper.cs" />
     <Compile Include="DataAccessLayer\IUserDal.cs" />
