@@ -20,22 +20,18 @@ namespace ObjectOriented_MultiDb
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this._User = new User();
 			this._UserBll = new UserBll();
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
 			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password)
-				.Add(this.ErrorProvider);
+				.Add(this.txb_UserNo, this.txb_Password);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMinLength);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMaxLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
 				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
-				.Configure(false);
+				.Configure(ExistValidatorReturnsError.IfExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;
 		}
@@ -50,6 +46,7 @@ namespace ObjectOriented_MultiDb
 			string userPassword = this.txb_Password.Text.Trim();
 			this._User = this._UserBll.SignUp(userNo, userPassword);
 			MessageBox.Show(this._UserBll.Message);
+			this.Close();
 		}
 	}
 }

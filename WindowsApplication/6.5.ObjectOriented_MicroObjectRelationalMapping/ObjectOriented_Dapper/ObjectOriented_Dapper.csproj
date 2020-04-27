@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayer\IUserBll.cs" />
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
     <Compile Include="Common\CrytoHelper.cs" />
     <Compile Include="DataAccessLayer\IUserDal.cs" />
@@ -108,9 +109,7 @@
     <Compile Include="PresentationLayer\Component\BaseValidator.Designer.cs">
       <DependentUpon>BaseValidator.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Component\ExistValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PresentationLayer\Component\ExistValidator.cs" />
     <Compile Include="PresentationLayer\Component\ExistValidator.Designer.cs">
       <DependentUpon>ExistValidator.cs</DependentUpon>
     </Compile>

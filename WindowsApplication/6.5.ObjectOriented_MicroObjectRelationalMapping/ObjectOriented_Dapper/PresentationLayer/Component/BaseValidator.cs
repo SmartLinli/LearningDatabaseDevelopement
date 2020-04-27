@@ -31,6 +31,23 @@ namespace ObjectOriented_Dapper
 		/// </summary>
 		protected virtual string ErrorMessage => "输入无效";
 		/// <summary>
+		/// 获取默认错误提供器；
+		/// （组件所在窗体应包含错误提供器）
+		/// </summary>
+		private void GetDefaultErrorProvider()
+		{
+			if (this._ErrorProvider != null)
+				return;
+			foreach (var component in this.Container.Components)
+			{
+				if (component is ErrorProvider errorProvider)
+				{
+					this._ErrorProvider = errorProvider;
+					break;
+				}
+			}
+		}
+		/// <summary>
 		/// 添加（控件）；
 		/// </summary>
 		/// <param name="controls">控件</param>
@@ -42,6 +59,7 @@ namespace ObjectOriented_Dapper
 				control.Validating += this.Validate;
 			}
 			this._Controls.AddRange(controls);
+			this.GetDefaultErrorProvider();
 			return this;
 		}
 		/// <summary>
@@ -72,8 +90,8 @@ namespace ObjectOriented_Dapper
 				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString()
 				, currentValidatorMessage = $"{controlDescription}{this.ErrorMessage}"
 				, errorProviderMessage = this._ErrorProvider.GetError(control);
-			bool errorProviderHasErrorFromOtherValidator = 
-					errorProviderMessage != string.Empty 
+			bool errorProviderHasErrorFromOtherValidator =
+					errorProviderMessage != string.Empty
 					&& errorProviderMessage != currentValidatorMessage;
 			if (errorProviderHasErrorFromOtherValidator)
 			{

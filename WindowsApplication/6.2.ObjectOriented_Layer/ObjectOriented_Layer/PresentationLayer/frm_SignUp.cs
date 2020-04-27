@@ -39,6 +39,7 @@ namespace ObjectOriented_Layer
 			string userPassword = this.txb_Password.Text.Trim();
 			this._User = this._UserBll.SignUp(userNo, userPassword);
 			MessageBox.Show(this._UserBll.Message);
+			this.Close();
 		}
 		/// <summary>
 		/// 验证用户号；
@@ -70,6 +71,7 @@ namespace ObjectOriented_Layer
 				this.ErrorProvider.SetError(this.txb_UserNo, "用户号已存在");
 				return;
 			}
+			this.ErrorProvider.SetError(this.txb_UserNo, "");
 		}
 		/// <summary>
 		/// 验证密码；

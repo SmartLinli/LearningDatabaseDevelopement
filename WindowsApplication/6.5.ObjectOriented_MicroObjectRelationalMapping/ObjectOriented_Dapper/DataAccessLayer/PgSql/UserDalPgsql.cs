@@ -27,13 +27,17 @@ namespace ObjectOriented_Dapper
 			dynamic u = DapperPgsqlHelper.GetScalarFromSp<dynamic>
 				("usp_select_user"
 				, new { p_no = userNo });
-			User user = new User()
+			User user = null;
+			if (u != null)
+			{
+				user = new User()
 				{
 					No = u.no,
 					Password = u.password,
 					IsActivated = u.is_activated,
 					LoginFailCount = u.login_fail_count
 				};
+			}
 			return user;
 		}
 		/// <summary>

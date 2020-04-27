@@ -8,11 +8,11 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 用户；
 		/// </summary>
-		private User User;
+		private User _User;
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private UserBll UserBll;
+		private IUserBll _UserBll;
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -20,22 +20,18 @@ namespace ObjectOriented_EntityFramework
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this.User = new User();
-			this.UserBll = new UserBll();
+			this._UserBll = new UserBll();
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
 			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password)
-				.Add(this.ErrorProvider);
+				.Add(this.txb_UserNo, this.txb_Password);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMaxLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this.UserBll.CheckNotExist)
-				.Configure(false);
+				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
+				.Configure(ExistValidatorReturnsError.IfExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_SignUp;
 		}
@@ -48,8 +44,9 @@ namespace ObjectOriented_EntityFramework
 		{
 			string userNo = this.txb_UserNo.Text.Trim();
 			string userPassword = this.txb_Password.Text.Trim();
-			this.User = this.UserBll.SignUp(userNo, userPassword);
-			MessageBox.Show(this.UserBll.Message);
+			this._User = this._UserBll.SignUp(userNo, userPassword);
+			MessageBox.Show(this._UserBll.Message);
+			this.Close();
 		}
 	}
 }

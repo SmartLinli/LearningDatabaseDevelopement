@@ -20,7 +20,7 @@ namespace ObjectOriented_EntityFramework
 		/// </summary>
 		/// <returns></returns>
 		private static MyDbContext GetDbContext()
-		=>	new EduBaseSql();
+		=>	new EduBasePgsql();
 		/// <summary>
 		/// 预热；
 		/// </summary>

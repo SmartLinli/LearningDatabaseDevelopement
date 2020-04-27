@@ -24,16 +24,14 @@ namespace ObjectOriented_MultiDb
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
 			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password)
-				.Add(this.ErrorProvider);
+				.Add(this.txb_UserNo, this.txb_Password);
 			this.LengthValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMinLength);
+				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMaxLength);
 			this.ExistValidator
 				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this._UserBll.CheckExist);
+				.Configure((Func<string, bool>)this._UserBll.CheckExist)
+				.Configure(ExistValidatorReturnsError.IfNotExist);
 			this.ErrorProvider.BlinkRate = 500;
 			this.AcceptButton = this.btn_LogIn;
 		}
@@ -52,7 +50,9 @@ namespace ObjectOriented_MultiDb
 			{
 				this.txb_Password.Focus();
 				this.txb_Password.SelectAll();
+				return;
 			}
+			MessageBox.Show($"即将打开{this._User.No}的主界面。");
 		}
 		/// <summary>
 		/// 点击注册按钮；

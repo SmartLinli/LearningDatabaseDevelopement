@@ -50,7 +50,9 @@ namespace ObjectOriented_SqlHelper
 			{
 				this.txb_Password.Focus();
 				this.txb_Password.SelectAll();
+				return;
 			}
+			MessageBox.Show($"即将打开{this._User.No}的主界面。");
 		}
 		/// <summary>
 		/// 点击注册按钮；

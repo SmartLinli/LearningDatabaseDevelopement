@@ -13,11 +13,11 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 控件列表；
 		/// </summary>
-		private List<Control> Controls = new List<Control>();
+		private List<Control> _Controls = new List<Control>();
 		/// <summary>
 		/// 错误提供器；
 		/// </summary>
-		private ErrorProvider ErrorProvider;
+		private ErrorProvider _ErrorProvider;
 		/// <summary>
 		/// 匹配条件；
 		/// </summary>
@@ -31,6 +31,23 @@ namespace ObjectOriented_EntityFramework
 		/// </summary>
 		protected virtual string ErrorMessage => "输入无效";
 		/// <summary>
+		/// 获取默认错误提供器；
+		/// （组件所在窗体应包含错误提供器）
+		/// </summary>
+		private void GetDefaultErrorProvider()
+		{
+			if (this._ErrorProvider != null)
+				return;
+			foreach (var component in this.Container.Components)
+			{
+				if (component is ErrorProvider errorProvider)
+				{
+					this._ErrorProvider = errorProvider;
+					break;
+				}
+			}
+		}
+		/// <summary>
 		/// 添加（控件）；
 		/// </summary>
 		/// <param name="controls">控件</param>
@@ -41,7 +58,8 @@ namespace ObjectOriented_EntityFramework
 			{
 				control.Validating += this.Validate;
 			}
-			this.Controls.AddRange(controls);
+			this._Controls.AddRange(controls);
+			this.GetDefaultErrorProvider();
 			return this;
 		}
 		/// <summary>
@@ -51,7 +69,7 @@ namespace ObjectOriented_EntityFramework
 		/// <returns>验证器</returns>
 		public BaseValidator Add(ErrorProvider errorProvider)
 		{
-			this.ErrorProvider = errorProvider;
+			this._ErrorProvider = errorProvider;
 			return this;
 		}
 		/// <summary>
@@ -71,9 +89,9 @@ namespace ObjectOriented_EntityFramework
 			string
 				controlDescription = control.Tag == null ? control.Name : control.Tag.ToString()
 				, currentValidatorMessage = $"{controlDescription}{this.ErrorMessage}"
-				, errorProviderMessage = this.ErrorProvider.GetError(control);
-			bool errorProviderHasErrorFromOtherValidator = 
-					errorProviderMessage != string.Empty 
+				, errorProviderMessage = this._ErrorProvider.GetError(control);
+			bool errorProviderHasErrorFromOtherValidator =
+					errorProviderMessage != string.Empty
 					&& errorProviderMessage != currentValidatorMessage;
 			if (errorProviderHasErrorFromOtherValidator)
 			{
@@ -82,10 +100,10 @@ namespace ObjectOriented_EntityFramework
 			bool controlTextMatchesRule = this.Match(control.Text.Trim());
 			if (!controlTextMatchesRule)
 			{
-				this.ErrorProvider.SetError(control, currentValidatorMessage);
+				this._ErrorProvider.SetError(control, currentValidatorMessage);
 				return;
 			}
-			this.ErrorProvider.SetError(control, string.Empty);
+			this._ErrorProvider.SetError(control, string.Empty);
 		}
 		#region 组件设计器生成的代码
 		public BaseValidator()
