@@ -13,7 +13,7 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private IUserDal _UserDal;
+		private IUserDal UserDal { get; set; }
 		/// <summary>
 		/// 登录失败次数上限；
 		/// </summary>
@@ -103,7 +103,7 @@ namespace ObjectOriented_Layer
 			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
 		}
 		/// <summary>
@@ -113,7 +113,7 @@ namespace ObjectOriented_Layer
 		private void HandleUserLoginFail(User user)
 		{
 			user.LoginFailCount++;
-			this._UserDal.Update(user);
+			this.UserDal.Update(user);
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -143,7 +143,7 @@ namespace ObjectOriented_Layer
 			if (user.LoginFailCount != 0)
 			{
 				user.LoginFailCount = 0;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
 			this.HasLoggedIn = true;
 			this.Message = "登录成功。";
@@ -154,7 +154,7 @@ namespace ObjectOriented_Layer
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
 		public bool CheckExist(string userNo)
-		=>	this._UserDal.SelectCount(userNo) == 1;
+		=>	this.UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
@@ -171,7 +171,7 @@ namespace ObjectOriented_Layer
 		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
-			User user = this._UserDal.Select(userNo);
+			User user = this.UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
@@ -206,7 +206,7 @@ namespace ObjectOriented_Layer
 			};
 			try
 			{
-				this._UserDal.Insert(user);
+				this.UserDal.Insert(user);
 				this.HasSignedUp = true;
 				this.Message = "注册成功。";
 			}
@@ -225,7 +225,7 @@ namespace ObjectOriented_Layer
 		/// </summary>
 		public UserBll()
 		{
-			this._UserDal = new UserDal();
+			this.UserDal = new UserDal();
 		}
 	}
 }

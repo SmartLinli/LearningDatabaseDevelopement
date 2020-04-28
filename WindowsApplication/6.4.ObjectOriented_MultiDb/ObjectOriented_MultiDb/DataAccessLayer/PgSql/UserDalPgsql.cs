@@ -11,14 +11,14 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// SQL助手；
 		/// </summary>
-		private PgsqlHelper _PgsqlHelper;
+		private PgsqlHelper PgsqlHelper { get; set; }
 		/// <summary>
 		/// 查询用户计数;
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>计数</returns>
 		public int SelectCount(string userNo)
-		=>	this._PgsqlHelper
+		=>	this.PgsqlHelper
 			.NewCommand("usp_select_user_count")
 			.IsStoredProcedure()
 			.NewParameter("p_no", userNo)
@@ -31,7 +31,7 @@ namespace ObjectOriented_MultiDb
 		public User Select(string userNo)
 		{
 			IDataReader dataReader =
-				this._PgsqlHelper
+				this.PgsqlHelper
 				.NewCommand("usp_select_user")
 				.IsStoredProcedure()
 				.NewParameter("p_no", userNo)
@@ -55,7 +55,7 @@ namespace ObjectOriented_MultiDb
 		/// <param name="user">用户</param>
 		/// <returns>受影响行数</returns>
 		public int Update(User user)
-		=>	this._PgsqlHelper
+		=>	this.PgsqlHelper
 			.NewCommand("usp_update_user")
 			.IsStoredProcedure()
 			.NewParameter("p_no", user.No)
@@ -74,7 +74,7 @@ namespace ObjectOriented_MultiDb
 			try
 			{
 				rowAffected =
-					this._PgsqlHelper.NewCommand("usp_insert_user")
+					this.PgsqlHelper.NewCommand("usp_insert_user")
 					.IsStoredProcedure()
 					.NewParameter("p_no", user.No)
 					.NewParameter("p_password", user.Password)
@@ -96,7 +96,7 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		public UserDalPgsql()
 		{
-			this._PgsqlHelper = new PgsqlHelper();
+			this.PgsqlHelper = new PgsqlHelper();
 		}
 	}
 }

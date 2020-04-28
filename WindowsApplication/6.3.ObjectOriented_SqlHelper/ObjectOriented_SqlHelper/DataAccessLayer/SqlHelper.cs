@@ -21,11 +21,11 @@ namespace ObjectOriented_SqlHelper
 		/// <summary>
 		/// SQL命令；
 		/// </summary>
-		private SqlCommand _SqlCommand;
+		private SqlCommand SqlCommand { get; set; }
 		/// <summary>
 		/// SQL参数；
 		/// </summary>
-		private SqlParameter _SqlParameter;
+		private SqlParameter SqlParameter { get; set; }
 		/// <summary>
 		/// 新建SQL命令；
 		/// </summary>
@@ -34,7 +34,7 @@ namespace ObjectOriented_SqlHelper
 		{
 			SqlConnection sqlConnection = new SqlConnection();
 			sqlConnection.ConnectionString = ConfigurationManager.ConnectionStrings["Sql"].ToString();
-			this._SqlCommand = sqlConnection.CreateCommand();
+			this.SqlCommand = sqlConnection.CreateCommand();
 			return this;
 		}
 		/// <summary>
@@ -54,7 +54,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper CommandText(string commandText)
 		{
-			this._SqlCommand.CommandText = commandText;
+			this.SqlCommand.CommandText = commandText;
 			return this;
 		}
 		/// <summary>
@@ -64,7 +64,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper IsStoredProcedure(bool isStoredProcedure = true)
 		{
-			this._SqlCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
+			this.SqlCommand.CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text;
 			return this;
 		}
 		/// <summary>
@@ -74,9 +74,9 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper NewParameter(string parameterName)
 		{
-			this._SqlParameter = new SqlParameter();
-			this._SqlParameter.ParameterName = parameterName;
-			this._SqlCommand.Parameters.Add(this._SqlParameter);
+			this.SqlParameter = new SqlParameter();
+			this.SqlParameter.ParameterName = parameterName;
+			this.SqlCommand.Parameters.Add(this.SqlParameter);
 			return this;
 		}
 		/// <summary>
@@ -88,7 +88,7 @@ namespace ObjectOriented_SqlHelper
 		public SqlHelper NewParameter(string parameterName, object value)
 		{
 			this.NewParameter(parameterName);
-			this._SqlParameter.Value = value;
+			this.SqlParameter.Value = value;
 			return this;
 		}
 		/// <summary>
@@ -98,7 +98,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper ParameterType(SqlDbType sqlDbType)
 		{
-			this._SqlParameter.SqlDbType = sqlDbType;
+			this.SqlParameter.SqlDbType = sqlDbType;
 			return this;
 		}
 		/// <summary>
@@ -108,7 +108,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper ParameterSize(int size)
 		{
-			this._SqlParameter.Size = size;
+			this.SqlParameter.Size = size;
 			return this;
 		}
 		/// <summary>
@@ -118,7 +118,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper ParameterValue(object value)
 		{
-			this._SqlParameter.Value = value;
+			this.SqlParameter.Value = value;
 			return this;
 		}
 		/// <summary>
@@ -128,7 +128,7 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>SQL助手</returns>
 		public SqlHelper ParameterDirection(ParameterDirection parameterDirection)
 		{
-			this._SqlParameter.Direction = parameterDirection;
+			this.SqlParameter.Direction = parameterDirection;
 			return this;
 		}
 		/// <summary>
@@ -139,9 +139,9 @@ namespace ObjectOriented_SqlHelper
 		public T GetScalar<T>()
 		{
 			object result = null;
-			this._SqlCommand.Connection.Open();
-			result = this._SqlCommand.ExecuteScalar();
-			this._SqlCommand.Connection.Close();
+			this.SqlCommand.Connection.Open();
+			result = this.SqlCommand.ExecuteScalar();
+			this.SqlCommand.Connection.Close();
 			return (T)result;
 		}
 		/// <summary>
@@ -151,8 +151,8 @@ namespace ObjectOriented_SqlHelper
 		/// <returns>数据读取器</returns>
 		public IDataReader GetReader()
 		{
-			this._SqlCommand.Connection.Open();
-			SqlDataReader sqlDataReader = this._SqlCommand.ExecuteReader();
+			this.SqlCommand.Connection.Open();
+			SqlDataReader sqlDataReader = this.SqlCommand.ExecuteReader();
 			return sqlDataReader;
 		}
 		/// <summary>
@@ -164,8 +164,8 @@ namespace ObjectOriented_SqlHelper
 			int rowAffected = 0;
 			try
 			{
-				this._SqlCommand.Connection.Open();
-				rowAffected = this._SqlCommand.ExecuteNonQuery();
+				this.SqlCommand.Connection.Open();
+				rowAffected = this.SqlCommand.ExecuteNonQuery();
 			}
 			catch (SqlException sqlEx)
 			{
@@ -177,7 +177,7 @@ namespace ObjectOriented_SqlHelper
 			}
 			finally
 			{
-				this._SqlCommand.Connection.Close();
+				this.SqlCommand.Connection.Close();
 			}
 			return rowAffected;
 		}

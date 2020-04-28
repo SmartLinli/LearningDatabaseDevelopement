@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartLinli.DatabaseDevelopement;
+using System;
 
 namespace ObjectOriented_MultiDb
 {
@@ -10,7 +11,7 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private IUserDal _UserDal;
+		private IUserDal UserDal { get; set; }
 		/// <summary>
 		/// 登录失败次数上限；
 		/// </summary>
@@ -18,11 +19,19 @@ namespace ObjectOriented_MultiDb
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public int UserNoMinLength => 7;
+		public int UserNoMinLength => 10;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
 		public int UserNoMaxLength => 10;
+		/// <summary>
+		/// 密码最小长度；
+		/// </summary>
+		public int PasswordMinLengh => 6;
+		/// <summary>
+		/// 密码最大长度；
+		/// </summary>
+		public int PasswordMaxLengh => 20;
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
@@ -80,7 +89,7 @@ namespace ObjectOriented_MultiDb
 			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
 		}
 		/// <summary>
@@ -90,7 +99,7 @@ namespace ObjectOriented_MultiDb
 		private void HandleUserLoginFail(User user)
 		{
 			user.LoginFailCount++;
-			this._UserDal.Update(user);
+			this.UserDal.Update(user);
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -120,7 +129,7 @@ namespace ObjectOriented_MultiDb
 			if (user.LoginFailCount != 0)
 			{
 				user.LoginFailCount = 0;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
 			this.HasLoggedIn = true;
 			this.Message = "登录成功。";
@@ -131,14 +140,14 @@ namespace ObjectOriented_MultiDb
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
 		public bool CheckExist(string userNo)
-		=> this._UserDal.SelectCount(userNo) == 1;
+		=>	this.UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
 		public bool CheckNotExist(string userNo)
-		=> !this.CheckExist(userNo);
+		=>	!this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
 		/// </summary>
@@ -147,7 +156,7 @@ namespace ObjectOriented_MultiDb
 		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
-			User user = this._UserDal.Select(userNo);
+			User user = this.UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
@@ -181,7 +190,7 @@ namespace ObjectOriented_MultiDb
 			};
 			try
 			{
-				this._UserDal.Insert(user);
+				this.UserDal.Insert(user);
 				this.HasSignedUp = true;
 				this.Message = "注册成功。";
 			}
@@ -200,7 +209,7 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		public UserBll()
 		{
-			this._UserDal = DalFactory.Create<IUserDal>();
+			this.UserDal = new UserDalPgsql();
 		}
 	}
 }

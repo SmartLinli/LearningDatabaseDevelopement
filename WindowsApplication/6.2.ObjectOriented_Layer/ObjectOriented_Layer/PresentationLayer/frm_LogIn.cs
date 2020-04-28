@@ -12,11 +12,11 @@ namespace ObjectOriented_Layer
 		/// <summary>
 		/// 用户；
 		/// </summary>
-		private User _User;
+		private User User { get; set; }
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private IUserBll _UserBll;
+		private IUserBll UserBll { get; set; }
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -24,7 +24,7 @@ namespace ObjectOriented_Layer
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this._UserBll = new UserBll();
+			this.UserBll = new UserBll();
 			this.txb_UserNo.Validating += this.ValidateUserNo;
 			this.txb_Password.Validating += this.ValidatePassword;
 			this.ErrorProvider.BlinkRate = 500;
@@ -39,15 +39,15 @@ namespace ObjectOriented_Layer
 		{
 			string userNo = this.txb_UserNo.Text.Trim();
 			string userPassword = this.txb_Password.Text.Trim();
-			this._User = this._UserBll.LogIn(userNo, userPassword);
-			MessageBox.Show(this._UserBll.Message);
-			if (!this._UserBll.HasLoggedIn)
+			this.User = this.UserBll.LogIn(userNo, userPassword);
+			MessageBox.Show(this.UserBll.Message);
+			if (!this.UserBll.HasLoggedIn)
 			{
 				this.txb_Password.Focus();
 				this.txb_Password.SelectAll();
 				return;
 			}
-			MessageBox.Show($"即将打开{this._User.No}的主界面。");
+			MessageBox.Show($"即将打开{this.User.No}的主界面。");
 		}
 		/// <summary>
 		/// 点击注册按钮；
@@ -74,16 +74,16 @@ namespace ObjectOriented_Layer
 				return;
 			}
 			bool isLengthValid =
-				userNo.Length >= this._UserBll.UserNoMinLength
-				&& userNo.Length <= this._UserBll.UserNoMaxLength;
+				userNo.Length >= this.UserBll.UserNoMinLength
+				&& userNo.Length <= this.UserBll.UserNoMaxLength;
 			if (!isLengthValid)
 			{
 				this.ErrorProvider.SetError
 					(this.txb_UserNo,
-					$"用户号长度应为{this._UserBll.UserNoMinLength}~{this._UserBll.UserNoMaxLength}");
+					$"用户号长度应为{this.UserBll.UserNoMinLength}~{this.UserBll.UserNoMaxLength}");
 				return;
 			}
-			bool isExisting = this._UserBll.CheckExist(userNo);
+			bool isExisting = this.UserBll.CheckExist(userNo);
 			if (!isExisting)
 			{
 				this.ErrorProvider.SetError(this.txb_UserNo, "用户号不存在");

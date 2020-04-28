@@ -36,11 +36,7 @@
 			this.lbl_Hint = new System.Windows.Forms.Label();
 			this.btn_LogIn = new System.Windows.Forms.Button();
 			this.btn_SignUp = new System.Windows.Forms.Button();
-			this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-			this.RequiredInfoValidator = new ObjectOriented_MultiDb.RequiredInfoValidator(this.components);
-			this.LengthValidator = new ObjectOriented_MultiDb.LengthValidator(this.components);
-			this.ExistValidator = new ObjectOriented_MultiDb.ExistValidator(this.components);
-			((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
+			this.ValidatorComponent = new SmartLinli.DatabaseDevelopement.ValidatorComponent(this.components);
 			this.SuspendLayout();
 			// 
 			// txb_UserNo
@@ -104,10 +100,6 @@
 			this.btn_SignUp.UseVisualStyleBackColor = true;
 			this.btn_SignUp.Click += new System.EventHandler(this.btn_SignUp_Click);
 			// 
-			// ErrorProvider
-			// 
-			this.ErrorProvider.ContainerControl = this;
-			// 
 			// frm_LogIn
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -122,7 +114,6 @@
 			this.Controls.Add(this.txb_UserNo);
 			this.Name = "frm_LogIn";
 			this.Text = "登录";
-			((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -137,10 +128,7 @@
         private System.Windows.Forms.Label lbl_Hint;
         private System.Windows.Forms.Button btn_LogIn;
         private System.Windows.Forms.Button btn_SignUp;
-		private System.Windows.Forms.ErrorProvider ErrorProvider;
-		private RequiredInfoValidator RequiredInfoValidator;
-		private LengthValidator LengthValidator;
-		private ExistValidator ExistValidator;
+		private SmartLinli.DatabaseDevelopement.ValidatorComponent ValidatorComponent;
 	}
 }
 

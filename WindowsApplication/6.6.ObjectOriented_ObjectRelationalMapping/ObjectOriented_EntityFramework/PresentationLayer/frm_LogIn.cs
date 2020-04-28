@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SmartLinli.DatabaseDevelopement;
 
 namespace ObjectOriented_EntityFramework
 {
@@ -8,11 +9,11 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 用户；
 		/// </summary>
-		private User _User;
+		private User User { get; set; }
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private IUserBll _UserBll;
+		private IUserBll UserBll { get; set; }
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -20,19 +21,21 @@ namespace ObjectOriented_EntityFramework
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this._UserBll = new UserBll();
+			this.UserBll = new UserBll();
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
-			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password);
-			this.LengthValidator
-				.Add(this.txb_UserNo)
-				.Configure(this._UserBll.UserNoMinLength, this._UserBll.UserNoMaxLength);
-			this.ExistValidator
-				.Add(this.txb_UserNo)
-				.Configure((Func<string, bool>)this._UserBll.CheckExist)
-				.Configure(ExistValidatorReturnsError.IfNotExist);
-			this.ErrorProvider.BlinkRate = 500;
+			this.ValidatorComponent
+				.Add<RequiredInfoValidator>
+					(v => v.For(this.txb_UserNo, this.txb_Password))
+				.Add<LengthValidator>
+					(v => v.For(txb_UserNo)
+						   .Between(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength),
+					 v => v.For(txb_Password)
+						   .Between(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh))
+				.Add<ExistValidator>
+					(v => v.For(txb_UserNo)
+						   .By(this.UserBll.CheckExist)
+						   .ShowErrorIfNotExist());
 			this.AcceptButton = this.btn_LogIn;
 		}
 		/// <summary>
@@ -44,15 +47,15 @@ namespace ObjectOriented_EntityFramework
 		{
 			string userNo = this.txb_UserNo.Text.Trim();
 			string userPassword = this.txb_Password.Text.Trim();
-			this._User = this._UserBll.LogIn(userNo, userPassword);
-			MessageBox.Show(this._UserBll.Message);
-			if (!this._UserBll.HasLoggedIn)
+			this.User = this.UserBll.LogIn(userNo, userPassword);
+			MessageBox.Show(this.UserBll.Message);
+			if (!this.UserBll.HasLoggedIn)
 			{
 				this.txb_Password.Focus();
 				this.txb_Password.SelectAll();
 				return;
 			}
-			MessageBox.Show($"即将打开{this._User.No}的主界面。");
+			MessageBox.Show($"即将打开{this.User.No}的主界面。");
 		}
 		/// <summary>
 		/// 点击注册按钮；

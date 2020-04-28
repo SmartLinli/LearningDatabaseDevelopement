@@ -14,6 +14,14 @@
 		/// </summary>
 		int UserNoMaxLength { get; }
 		/// <summary>
+		/// 密码最小长度；
+		/// </summary>
+		int PasswordMinLengh { get; }
+		/// <summary>
+		/// 密码最大长度；
+		/// </summary>
+		int PasswordMaxLengh { get; }
+		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
 		bool HasLoggedIn { get; }

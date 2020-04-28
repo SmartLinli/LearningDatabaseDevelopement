@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartLinli.DatabaseDevelopement</name>
+    </assembly>
+    <members>
+        <member name="T:SmartLinli.DatabaseDevelopement.CrytoHelper">
+            <summary>
+            加密助手；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.CrytoHelper.Md5(System.String)">
+            <summary>
+            MD5加密；
+            </summary>
+            <param name="plainText">明文</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.CrytoHelper.Md5Equal(System.Byte[],System.String)">
+            <summary>
+            MD5值是否相等；
+            </summary>
+            <param name="md5">MD5值</param>
+            <param name="otherPlainText">另一明文</param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="T:SmartLinli.DatabaseDevelopement.BaseValidator">
+            <summary>
+            验证器基类；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.BaseValidator.Controls">
+            <summary>
+            控件列表；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.BaseValidator.ErrorProvider">
+            <summary>
+            错误提供器；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.BaseValidator.Match">
+            <summary>
+            匹配条件；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.BaseValidator.ErrorMessage">
+            <summary>
+            错误消息；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.SetErrorProvider(System.Windows.Forms.ErrorProvider)">
+            <summary>
+            设置错误提供器；
+            </summary>
+            <param name="errorProvider">错误提供器</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.Add(System.Windows.Forms.Control[])">
+            <summary>
+            添加控件；
+            </summary>
+            <param name="controls">控件</param>
+            <returns>验证器</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.Validate(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            验证；
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:SmartLinli.DatabaseDevelopement.BaseValidator.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:SmartLinli.DatabaseDevelopement.ExistValidator">
+            <summary>
+            存在验证器；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.ExistValidator.HasErrorIfExist">
+            <summary>
+            存在则有误；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.ExistValidator.ErrorMessage">
+            <summary>
+            错误消息；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.For(System.Windows.Forms.Control[])">
+            <summary>
+            用于控件；
+            </summary>
+            <param name="controls">控件</param>
+            <returns>存在验证器</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.By(System.Func{System.String,System.Boolean})">
+            <summary>
+            基于验证方法；
+            </summary>
+            <param name="match">验证方法</param>
+            <returns>存在验证器</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.ShowErrorIfExist">
+            <summary>
+            若存在则显示错误；
+            </summary>
+            <returns>存在验证器</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.ShowErrorIfNotExist">
+            <summary>
+            若不存在则显示错误；
+            </summary>
+            <returns>存在验证器</returns>
+        </member>
+        <member name="F:SmartLinli.DatabaseDevelopement.ExistValidator.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:SmartLinli.DatabaseDevelopement.LengthValidator">
+            <summary>
+            长度验证器；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.LengthValidator.MinLength">
+            <summary>
+            最小长度；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.LengthValidator.MaxLength">
+            <summary>
+            最大长度；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.LengthValidator.Match">
+            <summary>
+            匹配条件；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.LengthValidator.ErrorMessage">
+            <summary>
+            错误消息；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.For(System.Windows.Forms.Control[])">
+            <summary>
+            用于控件；
+            </summary>
+            <param name="controls">控件</param>
+            <returns>长度验证器</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.Between(System.Int32,System.Int32)">
+            <summary>
+            长度介于；
+            </summary>
+            <param name="minLength">最小长度</param>
+            <param name="maxLength">最大长度</param>
+            <returns>长度验证器</returns>
+        </member>
+        <member name="F:SmartLinli.DatabaseDevelopement.LengthValidator.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:SmartLinli.DatabaseDevelopement.RequiredInfoValidator">
+            <summary>
+            必填信息验证器；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.Match">
+            <summary>
+            匹配条件；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.ErrorMessage">
+            <summary>
+            错误消息；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.For(System.Windows.Forms.Control[])">
+            <summary>
+            用于控件；
+            </summary>
+            <param name="controls">控件</param>
+            <returns>必填信息验证器</returns>
+        </member>
+        <member name="F:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:SmartLinli.DatabaseDevelopement.ValidatorComponent">
+            <summary>
+            验证器组件；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.ValidatorComponent.Validators">
+            <summary>
+            验证器列表；
+            </summary>
+        </member>
+        <member name="P:SmartLinli.DatabaseDevelopement.ValidatorComponent.ErrorProvider">
+            <summary>
+            错误提供器；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.InitializeMembers">
+            <summary>
+            初始化成员；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.Add``1(System.Func{``0,``0})">
+            <summary>
+            添加验证器；
+            </summary>
+            <typeparam name="T">验证器类型</typeparam>
+            <param name="configValidator">调用验证器中的方法，对验证器进行配置</param>
+            <returns>验证器组件</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.Add``1(System.Func{``0,``0}[])">
+            <summary>
+            添加多个验证器；
+            </summary>
+            <typeparam name="T">验证器类型</typeparam>
+            <param name="configValidators">调用验证器中的方法，对验证器进行配置</param>
+            <returns>验证器组件</returns>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.#ctor">
+            <summary>
+            构造函数；
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="container">容器</param>
+        </member>
+        <member name="F:SmartLinli.DatabaseDevelopement.ValidatorComponent.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:SmartLinli.DatabaseDevelopement.ValidatorComponent.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+    </members>
+</doc>

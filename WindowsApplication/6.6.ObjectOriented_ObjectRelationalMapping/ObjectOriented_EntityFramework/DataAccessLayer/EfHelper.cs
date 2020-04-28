@@ -14,7 +14,7 @@ namespace ObjectOriented_EntityFramework
 		/// <summary>
 		/// 是否已预热；
 		/// </summary>
-		private static bool _HasWarmedUp = false;
+		private static bool HasWarmedUp { get; set; }
 		/// <summary>
 		/// 获取数据库上下文；
 		/// </summary>
@@ -26,7 +26,7 @@ namespace ObjectOriented_EntityFramework
 		/// </summary>
 		public static async void WarmUp()
 		{
-			if (_HasWarmedUp)
+			if (HasWarmedUp)
 			{
 				return;
 			}
@@ -89,6 +89,13 @@ namespace ObjectOriented_EntityFramework
 				eduBase.Entry(entity).State = entityState;
 				return eduBase.SaveChanges(message);
 			}
+		}
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		static EfHelper()
+		{
+			HasWarmedUp = false;
 		}
 	}
 }
