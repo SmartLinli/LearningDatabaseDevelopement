@@ -67,7 +67,7 @@ namespace ObjectOriented_EntityFramework
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="match">匹配条件</param>
 		/// <returns>实体</returns>
-		public static IQueryable<T> Select<T>(Expression<Func<T, bool>> match) where T : class
+		public static IQueryable<T> SelectMany<T>(Expression<Func<T, bool>> match) where T : class
 		{
 			using (MyDbContext eduBase = GetDbContext())
 			{
