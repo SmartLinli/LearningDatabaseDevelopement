@@ -94,6 +94,9 @@
     <Reference Include="Npgsql, Version=4.0.10.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.4.0.10\lib\net451\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="SmartLinli.DatabaseDevelopement">
+      <HintPath>Library\SmartLinli.DatabaseDevelopement.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -161,13 +164,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayer\IUserBll.cs" />
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
     <Compile Include="Common\AutofacHelper.cs" />
     <Compile Include="Common\AutoMapperHelper.cs" />
-    <Compile Include="Common\CrytoHelper.cs" />
-    <Compile Include="DataAccessLayer\DalBase.cs" />
+    <Compile Include="DataAccessLayer\InterfaceAndBase\DalBase.cs" />
     <Compile Include="DataAccessLayer\DbContext\MyDbContext.cs" />
-    <Compile Include="DataAccessLayer\EfHelper.cs" />
+    <Compile Include="DataAccessLayer\DbContext\EfHelper.cs" />
+    <Compile Include="DataAccessLayer\InterfaceAndBase\IRoleDal.cs" />
+    <Compile Include="DataAccessLayer\InterfaceAndBase\IUserDal.cs" />
     <Compile Include="DataAccessLayer\RoleDal.cs" />
     <Compile Include="DataAccessLayer\UserDal.cs" />
     <Compile Include="DataAccessLayer\DbContext\EduBasePgsql.cs" />
@@ -175,18 +180,6 @@
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserDto.cs" />
-    <Compile Include="PresentationLayer\Component\BaseValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\BaseValidator.Designer.cs">
-      <DependentUpon>BaseValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\ExistValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\ExistValidator.Designer.cs">
-      <DependentUpon>ExistValidator.cs</DependentUpon>
-    </Compile>
     <Compile Include="PresentationLayer\frm_LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,18 +191,6 @@
     </Compile>
     <Compile Include="PresentationLayer\frm_SignUp.designer.cs">
       <DependentUpon>frm_SignUp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\RequiredInfoValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\RequiredInfoValidator.Designer.cs">
-      <DependentUpon>RequiredInfoValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\LengthValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\LengthValidator.Designer.cs">
-      <DependentUpon>LengthValidator.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,7 +232,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties autofac_1json__JSONSchema="http://json.schemastore.org/2.0.0-csd.2.beta.2018-10-10.json" />
+      <UserProperties autofac_1json__JSONSchema="http://json.schemastore.org/apple-app-site-association" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

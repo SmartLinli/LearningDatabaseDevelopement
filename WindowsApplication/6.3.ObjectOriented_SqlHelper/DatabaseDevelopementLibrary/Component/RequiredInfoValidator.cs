@@ -13,7 +13,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 匹配条件；
 		/// </summary>
 		protected override Func<string, bool> Match
-		=>	(s => !string.IsNullOrEmpty(s));
+		=>	s => !string.IsNullOrEmpty(s);
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
@@ -28,19 +28,12 @@ namespace SmartLinli.DatabaseDevelopement
 			this.Add(controls);
 			return this;
 		}
-		#region 组件设计器生成的代码
-		public RequiredInfoValidator()
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		public RequiredInfoValidator() : base()
 		{
-			InitializeComponent();
 
 		}
-
-		public RequiredInfoValidator(IContainer container)
-		{
-			container.Add(this);
-
-			InitializeComponent();
-		}
-		#endregion
 	}
 }

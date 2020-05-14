@@ -8,7 +8,7 @@ namespace SmartLinli.DatabaseDevelopement
 	/// <summary>
 	/// 验证器基类；
 	/// </summary>
-	public abstract partial class BaseValidator : Component
+	public abstract partial class BaseValidator
 	{
 		/// <summary>
 		/// 控件列表；
@@ -77,20 +77,12 @@ namespace SmartLinli.DatabaseDevelopement
 			}
 			this.ErrorProvider.SetError(control, string.Empty);
 		}
-		#region 组件设计器生成的代码
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
 		public BaseValidator()
 		{
-			InitializeComponent();
 			this.Controls = new List<Control>();
 		}
-
-		public BaseValidator(IContainer container)
-		{
-			container.Add(this);
-
-			InitializeComponent();
-			this.Controls = new List<Control>();
-		}
-		#endregion
 	}
 }

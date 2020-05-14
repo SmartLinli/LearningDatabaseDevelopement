@@ -1,44 +1,65 @@
 ﻿using System;
+using SmartLinli.DatabaseDevelopement;
 
 namespace ObjectOriented_DataTransferObject
 {
 	/// <summary>
 	/// 用户（业务逻辑层）；
 	/// </summary>
-	public class UserBll
+	public class UserBll : IUserBll
 	{
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private UserDal _UserDal;
+		private IUserDal UserDal { get; set; }
 		/// <summary>
 		/// 角色（数据访问层）；
 		/// </summary>
-		private RoleDal _RoleDal;
+		private IRoleDal RoleDal { get; set; }
 		/// <summary>
-		/// 是否完成登录；
+		/// 登录失败次数上限；
 		/// </summary>
-		private bool _HasLoggedIn;
-		/// <summary>
-		/// 是否完成注册；
-		/// </summary>
-		private bool _HasSignedUp;
-		/// <summary>
-		/// 消息；
-		/// </summary>
-		private string _Message;
-		/// <summary>
-		/// 默认角色名称；
-		/// </summary>
-		private readonly string _DefaultRoleName = "学生";
+		private int LogInFailCountMax => 3;
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 7;
+		public int UserNoMinLength => 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
-		public static readonly int UserNoMaxLengh = 10;
+		public int UserNoMaxLength => 10;
+		/// <summary>
+		/// 密码最小长度；
+		/// </summary>
+		public int PasswordMinLengh => 4;
+		/// <summary>
+		/// 密码最大长度；
+		/// </summary>
+		public int PasswordMaxLengh => 20;
+		/// <summary>
+		/// 是否完成登录；
+		/// </summary>
+		public bool HasLoggedIn
+		{
+			get;
+			private set;
+		}
+		/// <summary>
+		/// 是否完成注册；
+		/// </summary>
+		public bool HasSignedUp
+		{
+			get;
+			private set;
+		}
+		/// <summary>
+		/// 消息；
+		/// </summary>
+		public string Message
+		{
+			get;
+			private set;
+		}
 		/// <summary>
 		/// 处理用户不存在；
 		/// </summary>
@@ -47,22 +68,8 @@ namespace ObjectOriented_DataTransferObject
 		{
 			if (user == null)
 			{
-				this._Message = "用户号不存在！";
-				throw new Exception();
-			}
-		}
-		/// <summary>
-		/// 处理用户密码错误且被冻结；
-		/// </summary>
-		/// <param name="user">用户</param>
-		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatchAndNotActivated(User user, string password)
-		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
-			if (!isPasswordMatch && !user.IsActivated)
-			{
-				this._Message = "密码错误！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户号不存在！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -73,8 +80,8 @@ namespace ObjectOriented_DataTransferObject
 		{
 			if (!user.IsActivated)
 			{
-				this._Message = "用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户已被冻结，需要手机验证！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -83,12 +90,10 @@ namespace ObjectOriented_DataTransferObject
 		/// <param name="user">用户</param>
 		private void HandleUserLoginFailTooManyTimes(User user)
 		{
-			if (user.LoginFailCount >= 3)
+			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
-				this._UserDal.Update(user);
-				this._Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				this.UserDal.Update(user);
 			}
 		}
 		/// <summary>
@@ -98,10 +103,7 @@ namespace ObjectOriented_DataTransferObject
 		private void HandleUserLoginFail(User user)
 		{
 			user.LoginFailCount++;
-			this._UserDal.Update(user);
-			this.HandleUserLoginFailTooManyTimes(user);
-			this._Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new Exception();
+			this.UserDal.Update(user);
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -114,6 +116,12 @@ namespace ObjectOriented_DataTransferObject
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
+				this.HandleUserLoginFailTooManyTimes(user);
+				string errorMessage =
+					user.IsActivated ?
+					$"密码错误，请重新输入！\n您还有{this.LogInFailCountMax - user.LoginFailCount}次机会！"
+					: $"密码错误已达{this.LogInFailCountMax}次上限！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -122,35 +130,21 @@ namespace ObjectOriented_DataTransferObject
 		/// <param name="user">用户</param>
 		private void HandleUserLoginOk(User user)
 		{
-			if (user.LoginFailCount!=0)
+			if (user.LoginFailCount != 0)
 			{
 				user.LoginFailCount = 0;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
-			this._HasLoggedIn = true;
-			this._Message = "登录成功。";
-		}
-		/// <summary>
-		/// 获取角色；
-		/// </summary>
-		/// <param name="userNo">用户号</param>
-		/// <returns>角色</returns>
-		private Role GetRole(string userNo)
-		{
-			string roleName = this._DefaultRoleName;
-			if (userNo.Length == 7)
-			{
-				roleName = "教师";
-			}
-			return this._RoleDal.Select(roleName);
+			this.HasLoggedIn = true;
+			this.Message = "登录成功。";
 		}
 		/// <summary>
 		/// 检查是否存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExist(string userNo) 
-		=>	this._UserDal.SelectCount(userNo) == 1;
+		public bool CheckExist(string userNo)
+		=>	this.UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
@@ -163,25 +157,28 @@ namespace ObjectOriented_DataTransferObject
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <returns>是否登录成功</returns>
-		public UserDto LogIn(string userNo, string userPassword)
+		public UserDto LogIn(string userNo, string password)
 		{
-			this._HasLoggedIn = false;
-			User user = this._UserDal.Select(userNo);
+			this.HasLoggedIn = false;
+			User user = this.UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
-				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
-				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
+			}
+			catch (ApplicationException ex)
+			{
+				this.Message = ex.Message;
 			}
 			catch (Exception)
 			{
-				this._Message = "登录失败！"; ;
+				this.Message = "登录失败！";
 			}
 			UserDto userDto = AutoMapperHelper.Get<User, UserDto>(user);
-			userDto.HasLoggedIn = this._HasLoggedIn;
-			userDto.Message = this._Message;
+			userDto.HasLoggedIn = this.HasLoggedIn;
+			userDto.Message = this.Message;
 			return userDto;
 		}
 		/// <summary>
@@ -191,31 +188,30 @@ namespace ObjectOriented_DataTransferObject
 		/// <returns>是否注册成功</returns>
 		public UserDto SignUp(string userNo, string userPassword)
 		{
-			this._HasSignedUp = false;
+			this.HasSignedUp = false;
 			User user = new User()
 			{
 				No = userNo,
 				Password = CrytoHelper.Md5(userPassword),
-				IsActivated = true,
-				RoleNo = this.GetRole(userNo).No
+				IsActivated = true
 			};
 			try
 			{
-				this._UserDal.Insert(user);
-				this._HasSignedUp = true;
-				this._Message = "注册成功。";
+				this.UserDal.Insert(user);
+				this.HasSignedUp = true;
+				this.Message = "注册成功。";
 			}
 			catch (ApplicationException ex)
 			{
-				this._Message = $"{ex.Message}\n注册失败！";
+				this.Message = $"{ex.Message}\n注册失败！";
 			}
 			catch (Exception)
 			{
-				this._Message = "注册失败！";
+				this.Message = "注册失败！";
 			}
 			UserDto userDto = AutoMapperHelper.Get<User, UserDto>(user);
-			userDto.HasSignedUp = this._HasSignedUp;
-			userDto.Message = this._Message;
+			userDto.HasSignedUp = this.HasSignedUp;
+			userDto.Message = this.Message;
 			return userDto;
 		}
 		/// <summary>
@@ -223,8 +219,8 @@ namespace ObjectOriented_DataTransferObject
 		/// </summary>
 		public UserBll()
 		{
-			this._UserDal = new UserDal();
-			this._RoleDal = new RoleDal();
+			this.UserDal = new UserDal();
+			this.RoleDal = new RoleDal();
 		}
 	}
 }

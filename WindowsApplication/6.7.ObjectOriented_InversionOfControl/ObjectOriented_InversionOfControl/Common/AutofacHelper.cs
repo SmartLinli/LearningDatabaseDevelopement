@@ -12,7 +12,7 @@ namespace ObjectOriented_InversionOfControl
 		/// <summary>
 		/// 容器；
 		/// </summary>
-		private static IContainer _Container;
+		private static IContainer Container { get; set; }
 		/// <summary>
 		/// 初始化Autofac；
 		/// </summary>
@@ -24,14 +24,14 @@ namespace ObjectOriented_InversionOfControl
 			var configModule = new ConfigurationModule(config);
 			var containerBuilder = new ContainerBuilder();
 			containerBuilder.RegisterModule(configModule);
-			_Container = containerBuilder.Build();
+			Container = containerBuilder.Build();
 		}
 		/// <summary>
 		/// 获取实例；
 		/// </summary>
 		/// <typeparam name="T">类型</typeparam>
 		public static T Get<T>()
-		=>	_Container.Resolve<T>();
+		=>	Container.Resolve<T>();
 		/// <summary>
 		/// 构造函数；
 		/// </summary>

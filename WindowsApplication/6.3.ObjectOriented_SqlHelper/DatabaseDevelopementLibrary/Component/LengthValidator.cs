@@ -21,7 +21,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// 匹配条件；
 		/// </summary>
 		protected override Func<string, bool> Match
-		=>	(s => s.Length >= this.MinLength && s.Length <= this.MaxLength);
+		=>	s => s.Length >= this.MinLength && s.Length <= this.MaxLength;
 		/// <summary>
 		/// 错误消息；
 		/// </summary>
@@ -49,19 +49,12 @@ namespace SmartLinli.DatabaseDevelopement
 			this.MaxLength = maxLength;
 			return this;
 		}
-		#region 组件设计器生成的代码
-		public LengthValidator()
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		public LengthValidator() : base()
 		{
-			InitializeComponent();
 
 		}
-
-		public LengthValidator(IContainer container)
-		{
-			container.Add(this);
-
-			InitializeComponent();
-		}
-		#endregion
 	}
 }

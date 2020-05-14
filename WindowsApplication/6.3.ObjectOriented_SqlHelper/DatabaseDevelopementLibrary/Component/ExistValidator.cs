@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SmartLinli.DatabaseDevelopement
@@ -55,18 +54,12 @@ namespace SmartLinli.DatabaseDevelopement
 			this.HasErrorIfExist = false;
 			return this;
 		}
-		#region 组件设计器生成的代码
-		public ExistValidator()
+		/// <summary>
+		/// 构造函数；
+		/// </summary>
+		public ExistValidator() : base()
 		{
-			InitializeComponent();
-		}
 
-		public ExistValidator(IContainer container)
-		{
-			container.Add(this);
-
-			InitializeComponent();
 		}
-		#endregion
 	}
 }

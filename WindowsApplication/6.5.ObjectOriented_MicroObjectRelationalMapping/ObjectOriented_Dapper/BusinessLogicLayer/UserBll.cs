@@ -27,7 +27,7 @@ namespace ObjectOriented_Dapper
 		/// <summary>
 		/// 密码最小长度；
 		/// </summary>
-		public int PasswordMinLengh => 6;
+		public int PasswordMinLengh => 4;
 		/// <summary>
 		/// 密码最大长度；
 		/// </summary>

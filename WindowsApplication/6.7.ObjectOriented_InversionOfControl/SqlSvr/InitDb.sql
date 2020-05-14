@@ -22,7 +22,7 @@ GO
 USE EduBaseDemo;
 --创建表；
 ----用户表；
-CREATE TABLE [User]
+CREATE TABLE tb_User
 	(No
 		CHAR(10)
 		NOT NULL
@@ -37,7 +37,7 @@ CREATE TABLE [User]
 		INT
 		NOT NULL
 		DEFAULT 0);
-INSERT [User]
+INSERT tb_User
 	(No,Password,IsActivated)
 	VALUES
 	('3180707001',HASHBYTES('MD5','7001'),1);

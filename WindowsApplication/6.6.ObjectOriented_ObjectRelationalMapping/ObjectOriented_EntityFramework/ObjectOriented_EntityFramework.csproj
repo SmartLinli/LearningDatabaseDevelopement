@@ -98,7 +98,7 @@
     <Compile Include="BusinessLogicLayer\IUserBll.cs" />
     <Compile Include="BusinessLogicLayer\UserBll.cs" />
     <Compile Include="DataAccessLayer\DbContext\MyDbContext.cs" />
-    <Compile Include="DataAccessLayer\EfHelper.cs" />
+    <Compile Include="DataAccessLayer\DbContext\EfHelper.cs" />
     <Compile Include="DataAccessLayer\IUserDal.cs" />
     <Compile Include="DataAccessLayer\UserDal.cs" />
     <Compile Include="DataAccessLayer\DbContext\EduBasePgsql.cs" />

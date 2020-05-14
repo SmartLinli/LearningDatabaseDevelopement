@@ -1,24 +1,37 @@
 ﻿using System;
+using SmartLinli.DatabaseDevelopement;
 
 namespace ObjectOriented_InversionOfControl
 {
 	/// <summary>
 	/// 用户（业务逻辑层）；
 	/// </summary>
-	public class UserBll
+	public class UserBll : IUserBll
 	{
 		/// <summary>
 		/// 用户（数据访问层）；
 		/// </summary>
-		private UserDal _UserDal;
+		private IUserDal UserDal { get; set; }
+		/// <summary>
+		/// 登录失败次数上限；
+		/// </summary>
+		private int LogInFailCountMax => 3;
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public static readonly int UserNoMinLengh = 10;
+		public int UserNoMinLength => 10;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
-		public static readonly int UserNoMaxLengh = 10;
+		public int UserNoMaxLength => 10;
+		/// <summary>
+		/// 密码最小长度；
+		/// </summary>
+		public int PasswordMinLengh => 4;
+		/// <summary>
+		/// 密码最大长度；
+		/// </summary>
+		public int PasswordMaxLengh => 20;
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
@@ -51,22 +64,8 @@ namespace ObjectOriented_InversionOfControl
 		{
 			if (user == null)
 			{
-				this.Message = "用户号不存在！";
-				throw new Exception();
-			}
-		}
-		/// <summary>
-		/// 处理用户密码错误且被冻结；
-		/// </summary>
-		/// <param name="user">用户</param>
-		/// <param name="password">密码</param>
-		private void HandleUserPasswordNotMatchAndNotActivated(User user, string password)
-		{
-			bool isPasswordMatch = CrytoHelper.Md5Equal(user.Password, password);
-			if (!isPasswordMatch && !user.IsActivated)
-			{
-				this.Message = "密码错误！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户号不存在！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -77,8 +76,8 @@ namespace ObjectOriented_InversionOfControl
 		{
 			if (!user.IsActivated)
 			{
-				this.Message = "用户已被冻结，需要手机验证！";
-				throw new Exception();
+				string errorMessage = "用户已被冻结，需要手机验证！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -87,12 +86,10 @@ namespace ObjectOriented_InversionOfControl
 		/// <param name="user">用户</param>
 		private void HandleUserLoginFailTooManyTimes(User user)
 		{
-			if (user.LoginFailCount >= 3)
+			if (user.LoginFailCount >= this.LogInFailCountMax)
 			{
 				user.IsActivated = false;
-				this._UserDal.Update(user);
-				this.Message = "密码错误达3次！\n用户已被冻结，需要手机验证！";
-				throw new Exception();
+				this.UserDal.Update(user);
 			}
 		}
 		/// <summary>
@@ -102,10 +99,7 @@ namespace ObjectOriented_InversionOfControl
 		private void HandleUserLoginFail(User user)
 		{
 			user.LoginFailCount++;
-			this._UserDal.Update(user);
-			this.HandleUserLoginFailTooManyTimes(user);
-			this.Message = $"密码错误，请重新输入！\n您还有{3 - user.LoginFailCount}次机会！";
-			throw new Exception();
+			this.UserDal.Update(user);
 		}
 		/// <summary>
 		/// 处理用户密码错误；
@@ -118,6 +112,12 @@ namespace ObjectOriented_InversionOfControl
 			if (!isPasswordMatch)
 			{
 				this.HandleUserLoginFail(user);
+				this.HandleUserLoginFailTooManyTimes(user);
+				string errorMessage =
+					user.IsActivated ?
+					$"密码错误，请重新输入！\n您还有{this.LogInFailCountMax - user.LoginFailCount}次机会！"
+					: $"密码错误已达{this.LogInFailCountMax}次上限！";
+				throw new ApplicationException(errorMessage);
 			}
 		}
 		/// <summary>
@@ -126,10 +126,10 @@ namespace ObjectOriented_InversionOfControl
 		/// <param name="user">用户</param>
 		private void HandleUserLoginOk(User user)
 		{
-			if (user.LoginFailCount!=0)
+			if (user.LoginFailCount != 0)
 			{
 				user.LoginFailCount = 0;
-				this._UserDal.Update(user);
+				this.UserDal.Update(user);
 			}
 			this.HasLoggedIn = true;
 			this.Message = "登录成功。";
@@ -139,31 +139,34 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否存在</returns>
-		public bool CheckExist(string userNo) 
-		=>	this._UserDal.SelectCount(userNo) == 1;
+		public bool CheckExist(string userNo)
+		=>	this.UserDal.SelectCount(userNo) == 1;
 		/// <summary>
 		/// 检查是否不存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
 		/// <returns>是否不存在</returns>
-		public bool CheckNotExist(string userNo) 
+		public bool CheckNotExist(string userNo)
 		=>	!this.CheckExist(userNo);
 		/// <summary>
 		/// 登录；
 		/// </summary>
 		/// <param name="user">用户</param>
 		/// <returns>是否登录成功</returns>
-		public User LogIn(string userNo, string userPassword)
+		public User LogIn(string userNo, string password)
 		{
 			this.HasLoggedIn = false;
-			User user = this._UserDal.Select(userNo);
+			User user = this.UserDal.Select(userNo);
 			try
 			{
 				this.HandleUserNotExist(user);
-				this.HandleUserPasswordNotMatchAndNotActivated(user, userPassword);
 				this.HandleUserNotActivated(user);
-				this.HandleUserPasswordNotMatch(user, userPassword);
+				this.HandleUserPasswordNotMatch(user, password);
 				this.HandleUserLoginOk(user);
+			}
+			catch (ApplicationException ex)
+			{
+				this.Message = ex.Message;
 			}
 			catch (Exception)
 			{
@@ -187,7 +190,7 @@ namespace ObjectOriented_InversionOfControl
 			};
 			try
 			{
-				this._UserDal.Insert(user);
+				this.UserDal.Insert(user);
 				this.HasSignedUp = true;
 				this.Message = "注册成功。";
 			}
@@ -206,7 +209,7 @@ namespace ObjectOriented_InversionOfControl
 		/// </summary>
 		public UserBll()
 		{
-			this._UserDal = new UserDal();
+			this.UserDal = new UserDal();
 		}
 	}
 }

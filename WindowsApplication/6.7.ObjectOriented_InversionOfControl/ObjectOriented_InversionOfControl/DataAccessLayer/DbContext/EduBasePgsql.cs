@@ -26,11 +26,21 @@ namespace ObjectOriented_InversionOfControl
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("public");
-
+			modelBuilder.Entity<User>().ToTable("tb_user");
 			modelBuilder.Entity<User>()
 				.Property(e => e.No)
 				.IsFixedLength()
-				.IsUnicode(false);
+				.IsUnicode(false)
+				.HasColumnName("no");
+			modelBuilder.Entity<User>()
+				.Property(e => e.Password)
+				.HasColumnName("password");
+			modelBuilder.Entity<User>()
+				.Property(e => e.IsActivated)
+				.HasColumnName("is_activated");
+			modelBuilder.Entity<User>()
+				.Property(e => e.LoginFailCount)
+				.HasColumnName("login_fail_count");
 		}
 		/// <summary>
 		/// ±£´æ¸ü¸Ä£»

@@ -26,7 +26,7 @@ namespace ObjectOriented_InversionOfControl
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("dbo");
-
+			modelBuilder.Entity<User>().ToTable("tb_User");
 			modelBuilder.Entity<User>()
 				.Property(e => e.No)
 				.IsFixedLength()

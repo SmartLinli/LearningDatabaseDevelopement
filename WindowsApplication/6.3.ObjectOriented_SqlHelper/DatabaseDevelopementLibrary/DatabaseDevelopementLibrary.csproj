@@ -47,26 +47,14 @@
     <Compile Include="Component\BaseValidator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Component\BaseValidator.Designer.cs">
-      <DependentUpon>BaseValidator.cs</DependentUpon>
-    </Compile>
     <Compile Include="Component\ExistValidator.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Component\ExistValidator.Designer.cs">
-      <DependentUpon>ExistValidator.cs</DependentUpon>
     </Compile>
     <Compile Include="Component\LengthValidator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Component\LengthValidator.Designer.cs">
-      <DependentUpon>LengthValidator.cs</DependentUpon>
-    </Compile>
     <Compile Include="Component\RequiredInfoValidator.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Component\RequiredInfoValidator.Designer.cs">
-      <DependentUpon>RequiredInfoValidator.cs</DependentUpon>
     </Compile>
     <Compile Include="Component\ValidatorComponent.cs">
       <SubType>Component</SubType>

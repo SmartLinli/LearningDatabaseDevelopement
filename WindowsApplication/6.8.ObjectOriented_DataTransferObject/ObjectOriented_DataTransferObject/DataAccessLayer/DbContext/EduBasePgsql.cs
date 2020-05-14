@@ -30,21 +30,37 @@ namespace ObjectOriented_DataTransferObject
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("public");
-
+			modelBuilder.Entity<Role>().ToTable("tb_role");
+			modelBuilder.Entity<User>().ToTable("tb_user");
+			modelBuilder.Entity<Role>()
+				.Property(e => e.No)
+				.HasColumnName("no");
+			modelBuilder.Entity<Role>()
+				.Property(e => e.Name)
+				.HasColumnName("name");
+			modelBuilder.Entity<User>()
+				.Property(e => e.No)
+				.IsFixedLength()
+				.IsUnicode(false)
+				.HasColumnName("no");
+			modelBuilder.Entity<User>()
+				.Property(e => e.Password)
+				.HasColumnName("password");
+			modelBuilder.Entity<User>()
+				.Property(e => e.IsActivated)
+				.HasColumnName("is_activated");
+			modelBuilder.Entity<User>()
+				.Property(e => e.LoginFailCount)
+				.HasColumnName("login_fail_count");
+			modelBuilder.Entity<User>()
+				.Property(e => e.RoleNo)
+				.HasColumnName("role_no");
 			modelBuilder.Entity<Role>()
 				.HasMany(r => r.User)
 				.WithRequired(u => u.Role);
 			//modelBuilder.Entity<User>()
 			//	.HasRequired(u => u.Role)
 			//	.WithMany(r => r.User);
-
-			modelBuilder.Entity<Role>()
-				.Property(e => e.Name)
-				.IsUnicode(false);
-			modelBuilder.Entity<User>()
-				.Property(e => e.No)
-				.IsFixedLength()
-				.IsUnicode(false);
 		}
 		/// <summary>
 		/// ±£´æ¸ü¸Ä£»

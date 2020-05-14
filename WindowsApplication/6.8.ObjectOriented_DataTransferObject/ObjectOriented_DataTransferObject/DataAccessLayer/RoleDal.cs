@@ -3,7 +3,7 @@
 	/// <summary>
 	/// 角色（基于EntityFramwork的数据访问层）；
 	/// </summary>
-	public class RoleDal : DalBase
+	public class RoleDal : DalBase, IRoleDal
 	{
 		/// <summary>
 		/// 查询角色；

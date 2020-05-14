@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SmartLinli.DatabaseDevelopement;
 
 namespace ObjectOriented_InversionOfControl
 {
@@ -8,11 +9,11 @@ namespace ObjectOriented_InversionOfControl
 		/// <summary>
 		/// 用户；
 		/// </summary>
-		private User _User;
+		private User User { get; set; }
 		/// <summary>
 		/// 用户（业务逻辑层）；
 		/// </summary>
-		private UserBll _UserBll;
+		private IUserBll UserBll { get; set; }
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -20,23 +21,22 @@ namespace ObjectOriented_InversionOfControl
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this._User = new User();
-			this._UserBll = new UserBll();
+			this.User = new User();
+			this.UserBll = new UserBll();
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
-			this.RequiredInfoValidator
-				.Add(this.txb_UserNo, this.txb_Password)
-				.Add(this.ErrorProvider);
-			this.LengthValidator
-				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure(UserBll.UserNoMinLengh, UserBll.UserNoMinLengh);
-			this.ExistValidator
-				.Add(this.txb_UserNo)
-				.Add(this.ErrorProvider)
-				.Configure((Func<string, bool>)this._UserBll.CheckNotExist)
-				.Configure(false);
-			this.ErrorProvider.BlinkRate = 500;
+			this.ValidatorComponent
+				.Add<RequiredInfoValidator>
+					(v => v.For(this.txb_UserNo, this.txb_Password))
+				.Add<LengthValidator>
+					(v => v.For(txb_UserNo)
+						   .Between(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength),
+					 v => v.For(txb_Password)
+						   .Between(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh))
+				.Add<ExistValidator>
+					(v => v.For(txb_UserNo)
+						   .By(this.UserBll.CheckExist)
+						   .ShowErrorIfNotExist());
 			this.AcceptButton = this.btn_SignUp;
 		}
 		/// <summary>
@@ -48,8 +48,9 @@ namespace ObjectOriented_InversionOfControl
 		{
 			string userNo = this.txb_UserNo.Text.Trim();
 			string userPassword = this.txb_Password.Text.Trim();
-			this._User = this._UserBll.SignUp(userNo, userPassword);
-			MessageBox.Show(this._UserBll.Message);
+			this.User = this.UserBll.SignUp(userNo, userPassword);
+			MessageBox.Show(this.UserBll.Message);
+			this.Close();
 		}
 	}
 }

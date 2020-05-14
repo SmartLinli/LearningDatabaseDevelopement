@@ -1,21 +1,21 @@
-DROP TABLE IF EXISTS "User" CASCADE;
---ç”¨æˆ·è¡¨ï¼›
-CREATE TABLE "User"
-	("No"
+DROP TABLE IF EXISTS tb_user CASCADE;
+--ÓÃ»§±í£»
+CREATE TABLE tb_user
+	(no
 		CHAR(10)
 		NOT NULL
 		PRIMARY KEY
-	,"Password"
+	,password
 		BYTEA
 		NOT NULL
-	,"IsActivated"
+	,is_activated
 		BOOLEAN
 	 	NOT NULL
-	,"LoginFailCount"
+	,login_fail_count
 		INTEGER
 		NOT NULL
 		DEFAULT 0);
-INSERT INTO "User"
-	("No","Password","IsActivated")
+INSERT INTO tb_user
+	(no,password,is_activated)
 	VALUES
 	('3180707001',DECODE(MD5('7001'),'HEX'),TRUE);

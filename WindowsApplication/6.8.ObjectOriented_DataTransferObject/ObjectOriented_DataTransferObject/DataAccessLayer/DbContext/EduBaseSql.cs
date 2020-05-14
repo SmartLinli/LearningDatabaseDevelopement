@@ -30,7 +30,8 @@ namespace ObjectOriented_DataTransferObject
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("dbo");
-
+			modelBuilder.Entity<Role>().ToTable("tb_Role");
+			modelBuilder.Entity<User>().ToTable("tb_User");
 			modelBuilder.Entity<Role>()
 				.HasMany(r => r.User)
 				.WithRequired(u => u.Role);

@@ -5,7 +5,7 @@ namespace ObjectOriented_InversionOfControl
 	/// <summary>
 	/// 用户（基于EntityFramwork的数据访问层）；
 	/// </summary>
-	public class UserDal
+	public class UserDal : IUserDal
 	{
 		/// <summary>
 		/// 查询用户计数;

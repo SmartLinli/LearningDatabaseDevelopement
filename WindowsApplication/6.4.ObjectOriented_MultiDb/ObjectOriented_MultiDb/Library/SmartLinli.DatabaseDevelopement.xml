@@ -69,21 +69,9 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="F:SmartLinli.DatabaseDevelopement.BaseValidator.components">
+        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.#ctor">
             <summary>
-            必需的设计器变量。
-            </summary>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.Dispose(System.Boolean)">
-            <summary> 
-            清理所有正在使用的资源。
-            </summary>
-            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.BaseValidator.InitializeComponent">
-            <summary>
-            设计器支持所需的方法 - 不要修改
-            使用代码编辑器修改此方法的内容。
+            构造函数；
             </summary>
         </member>
         <member name="T:SmartLinli.DatabaseDevelopement.ExistValidator">
@@ -127,21 +115,9 @@
             </summary>
             <returns>存在验证器</returns>
         </member>
-        <member name="F:SmartLinli.DatabaseDevelopement.ExistValidator.components">
+        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.#ctor">
             <summary>
-            必需的设计器变量。
-            </summary>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.Dispose(System.Boolean)">
-            <summary> 
-            清理所有正在使用的资源。
-            </summary>
-            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.ExistValidator.InitializeComponent">
-            <summary>
-            设计器支持所需的方法 - 不要修改
-            使用代码编辑器修改此方法的内容。
+            构造函数；
             </summary>
         </member>
         <member name="T:SmartLinli.DatabaseDevelopement.LengthValidator">
@@ -184,21 +160,9 @@
             <param name="maxLength">最大长度</param>
             <returns>长度验证器</returns>
         </member>
-        <member name="F:SmartLinli.DatabaseDevelopement.LengthValidator.components">
+        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.#ctor">
             <summary>
-            必需的设计器变量。
-            </summary>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.Dispose(System.Boolean)">
-            <summary> 
-            清理所有正在使用的资源。
-            </summary>
-            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.LengthValidator.InitializeComponent">
-            <summary>
-            设计器支持所需的方法 - 不要修改
-            使用代码编辑器修改此方法的内容。
+            构造函数；
             </summary>
         </member>
         <member name="T:SmartLinli.DatabaseDevelopement.RequiredInfoValidator">
@@ -223,21 +187,9 @@
             <param name="controls">控件</param>
             <returns>必填信息验证器</returns>
         </member>
-        <member name="F:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.components">
+        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.#ctor">
             <summary>
-            必需的设计器变量。
-            </summary>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.Dispose(System.Boolean)">
-            <summary> 
-            清理所有正在使用的资源。
-            </summary>
-            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        </member>
-        <member name="M:SmartLinli.DatabaseDevelopement.RequiredInfoValidator.InitializeComponent">
-            <summary>
-            设计器支持所需的方法 - 不要修改
-            使用代码编辑器修改此方法的内容。
+            构造函数；
             </summary>
         </member>
         <member name="T:SmartLinli.DatabaseDevelopement.ValidatorComponent">

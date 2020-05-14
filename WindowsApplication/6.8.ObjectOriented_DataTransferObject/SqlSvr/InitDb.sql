@@ -22,7 +22,7 @@ GO
 USE EduBaseDemo;
 --创建表；
 ----角色表；
-CREATE TABLE Role
+CREATE TABLE tb_Role
 	(No
 		INT
 		IDENTITY(1,1)
@@ -32,13 +32,13 @@ CREATE TABLE Role
 		VARCHAR(10)
 		NOT NULL
 		UNIQUE);
-INSERT Role
+INSERT tb_Role
 	(Name)
 	VALUES
 	('学生')
 	,('教师');
 ----用户表；
-CREATE TABLE [User]
+CREATE TABLE tb_User
 	(No
 		CHAR(10)
 		NOT NULL
@@ -56,9 +56,10 @@ CREATE TABLE [User]
 	,RoleNo
 		INT
 		NOT NULL
-		FOREIGN KEY REFERENCES Role(No));
-INSERT [User]
+		FOREIGN KEY REFERENCES tb_Role(No));
+INSERT tb_User
 	(No,Password,IsActivated,RoleNo)
 	VALUES
-	('3180707001',HASHBYTES('MD5','7001'),1,1);
+	('3180707001',HASHBYTES('MD5','7001'),1,1)
+	,('2004034',HASHBYTES('MD5','1234'),1,2);
 GO
