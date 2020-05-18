@@ -99,7 +99,7 @@ namespace Table_GridView
             sqlConnection.Open();                                                                           //打开SQL连接；
             int rowAffected = sqlDataAdapter.Update(studentTable);                                          //SQL数据适配器根据学生数据表提交更新，并返回受影响行数；
             sqlConnection.Close();                                                                          //关闭SQL连接；
-            MessageBox.Show("更新" + rowAffected.ToString() + "行。");                                      //在消息框显示受影响行数；
-        }
+			MessageBox.Show($"更新{rowAffected}行。");														//在消息框显示受影响行数；
+		}
     }                                                                                                    
 }

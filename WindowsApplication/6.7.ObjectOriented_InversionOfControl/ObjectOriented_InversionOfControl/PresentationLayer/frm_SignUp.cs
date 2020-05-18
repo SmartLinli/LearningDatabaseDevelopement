@@ -35,8 +35,8 @@ namespace ObjectOriented_InversionOfControl
 						   .Between(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh))
 				.Add<ExistValidator>
 					(v => v.For(txb_UserNo)
-						   .By(this.UserBll.CheckExist)
-						   .ShowErrorIfNotExist());
+						   .By(this.UserBll.CheckNotExist)
+						   .ShowErrorIfExist());
 			this.AcceptButton = this.btn_SignUp;
 		}
 		/// <summary>

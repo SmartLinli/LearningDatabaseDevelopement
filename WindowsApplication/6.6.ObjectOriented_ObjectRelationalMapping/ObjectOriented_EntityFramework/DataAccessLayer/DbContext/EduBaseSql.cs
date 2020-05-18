@@ -12,7 +12,7 @@ namespace ObjectOriented_EntityFramework
 		/// ¹¹Ôìº¯Êý
 		/// </summary>
 		public EduBaseSql()
-			: base("name=Sql")
+			: base("name=EduBaseSql")
 		{
 		}
 		/// <summary>

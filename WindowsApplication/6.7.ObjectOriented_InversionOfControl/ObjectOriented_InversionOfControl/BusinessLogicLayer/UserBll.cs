@@ -35,27 +35,15 @@ namespace ObjectOriented_InversionOfControl
 		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
-		public bool HasLoggedIn
-		{
-			get;
-			private set;
-		}
+		public bool HasLoggedIn { get; private set; }
 		/// <summary>
 		/// 是否完成注册；
 		/// </summary>
-		public bool HasSignedUp
-		{
-			get;
-			private set;
-		}
+		public bool HasSignedUp { get; private set; }
 		/// <summary>
 		/// 消息；
 		/// </summary>
-		public string Message
-		{
-			get;
-			private set;
-		}
+		public string Message { get; private set; }
 		/// <summary>
 		/// 处理用户不存在；
 		/// </summary>

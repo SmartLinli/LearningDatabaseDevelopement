@@ -16,7 +16,6 @@ namespace ObjectOriented_DataTransferObject
 		/// 角色（数据访问层）；
 		/// </summary>
 		private IRoleDal RoleDal { get; set; }
-		/// <summary>
 		/// 登录失败次数上限；
 		/// </summary>
 		private int LogInFailCountMax => 3;
@@ -37,29 +36,21 @@ namespace ObjectOriented_DataTransferObject
 		/// </summary>
 		public int PasswordMaxLengh => 20;
 		/// <summary>
+		/// 默认角色名称；
+		/// </summary>
+		private string DefaultRoleName => "学生";
+		/// <summary>
 		/// 是否完成登录；
 		/// </summary>
-		public bool HasLoggedIn
-		{
-			get;
-			private set;
-		}
+		public bool HasLoggedIn { get; private set; }
 		/// <summary>
 		/// 是否完成注册；
 		/// </summary>
-		public bool HasSignedUp
-		{
-			get;
-			private set;
-		}
+		public bool HasSignedUp { get; private set; }
 		/// <summary>
 		/// 消息；
 		/// </summary>
-		public string Message
-		{
-			get;
-			private set;
-		}
+		public string Message { get; private set; }
 		/// <summary>
 		/// 处理用户不存在；
 		/// </summary>
@@ -139,6 +130,20 @@ namespace ObjectOriented_DataTransferObject
 			this.Message = "登录成功。";
 		}
 		/// <summary>
+		/// 获取角色；
+		/// </summary>
+		/// <param name="userNo">用户号</param>
+		/// <returns>角色</returns>
+		private Role GetRole(string userNo)
+		{
+			string roleName = this.DefaultRoleName;
+			if (userNo.Length == 7)
+			{
+				roleName = "教师";
+			}
+			return this.RoleDal.Select(roleName);
+		}
+		/// <summary>
 		/// 检查是否存在；
 		/// </summary>
 		/// <param name="userNo">用户号</param>
@@ -193,7 +198,8 @@ namespace ObjectOriented_DataTransferObject
 			{
 				No = userNo,
 				Password = CrytoHelper.Md5(userPassword),
-				IsActivated = true
+				IsActivated = true,
+				RoleNo = this.GetRole(userNo).No
 			};
 			try
 			{

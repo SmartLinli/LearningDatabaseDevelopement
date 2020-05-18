@@ -12,28 +12,16 @@ namespace ObjectOriented_Class
         /// <summary>
         /// 用户号；
         /// </summary>
-        public string No
-        {
-            get;
-            set;
-        }
+        public string No { get; set; }
         /// <summary>
         /// 密码；
         /// </summary>
-        public string Password
-        {
-			private get;
-			set;
-        }
+        public string Password { private get; set; }
         /// <summary>
         /// 消息；
         /// （用于返回验证结果）
         /// </summary>
-        public string Message
-        {
-			get;
-			private set;
-        }
+        public string Message { get; private set; }
         /// <summary>
         /// 登录；
         /// </summary>
