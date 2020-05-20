@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EntityFramework_Projection
 {
@@ -12,6 +13,13 @@ namespace EntityFramework_Projection
 		/// </summary>
 		/// <returns>学院列表</returns>
 		public static List<Department> FindAll()
-		=>	EfHelper.SelectAll<Department>("Major.Class");
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				var departments = from d in eduBase.Department.Include("Major.Class")
+								  select d;
+				return departments.ToList();
+			}
+		}
 	}
 }

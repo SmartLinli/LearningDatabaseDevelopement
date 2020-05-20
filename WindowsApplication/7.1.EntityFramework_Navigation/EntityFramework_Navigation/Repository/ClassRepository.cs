@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EntityFramework_Navigation
 {
@@ -12,6 +13,13 @@ namespace EntityFramework_Navigation
 		/// </summary>
 		/// <returns>班级列表</returns>
 		public static List<Class> FindAll()
-		=>	EfHelper.SelectAll<Class>();
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				var classes = from c in eduBase.Class
+							  select c;
+				return classes.ToList();
+			}
+		}
 	}
 }

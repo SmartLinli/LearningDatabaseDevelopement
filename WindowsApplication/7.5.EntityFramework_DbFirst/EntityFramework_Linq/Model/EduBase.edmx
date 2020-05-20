@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EduBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pinyin" Type="varchar" MaxLength="50" />
+          <Property Name="PreCourseNo" Type="char" MaxLength="4" />
+          <Property Name="Credit" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="StudyType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ExamType" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SelectedCourse">
+          <Key>
+            <PropertyRef Name="StudentNo" />
+            <PropertyRef Name="CourseNo" />
+          </Key>
+          <Property Name="StudentNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CourseNo" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="OrderBook" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“EduBaseDemo.dbo.SelectedCourseInfo”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="SelectedCourseInfo">
+          <Key>
+            <PropertyRef Name="StudentNo" />
+            <PropertyRef Name="CourseNo" />
+          </Key>
+          <Property Name="StudentNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CourseNo" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Credit" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="OrderBook" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__SelectedC__Cours__3A81B327">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="SelectedCourse" Type="Self.SelectedCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="SelectedCourse">
+              <PropertyRef Name="CourseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_Insert_SelectedCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentNo" Type="char" Mode="In" />
+          <Parameter Name="CourseNo" Type="char" Mode="In" />
+          <Parameter Name="OrderBook" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="usp_Update_SelectedCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentNo" Type="char" Mode="In" />
+          <Parameter Name="CourseNo" Type="char" Mode="In" />
+          <Parameter Name="OrderBook" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="EduBaseModelStoreContainer">
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectedCourse" EntityType="Self.SelectedCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectedCourseInfo" EntityType="Self.SelectedCourseInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SelectedCourseInfo].[StudentNo] AS [StudentNo], 
+    [SelectedCourseInfo].[CourseNo] AS [CourseNo], 
+    [SelectedCourseInfo].[CourseName] AS [CourseName], 
+    [SelectedCourseInfo].[Credit] AS [Credit], 
+    [SelectedCourseInfo].[OrderBook] AS [OrderBook]
+    FROM [dbo].[SelectedCourseInfo] AS [SelectedCourseInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__SelectedC__Cours__3A81B327" Association="Self.FK__SelectedC__Cours__3A81B327">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="SelectedCourse" EntitySet="SelectedCourse" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EduBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pinyin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreCourseNo" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Credit" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="StudyType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExamType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SelectedCourse" Relationship="Self.FK__SelectedC__Cours__3A81B327" FromRole="Course" ToRole="SelectedCourse" />
+        </EntityType>
+        <EntityType Name="SelectedCourse">
+          <Key>
+            <PropertyRef Name="StudentNo" />
+            <PropertyRef Name="CourseNo" />
+          </Key>
+          <Property Name="StudentNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CourseNo" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="OrderBook" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK__SelectedC__Cours__3A81B327" FromRole="SelectedCourse" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="SelectedCourseInfo">
+          <Key>
+            <PropertyRef Name="StudentNo" />
+            <PropertyRef Name="CourseNo" />
+          </Key>
+          <Property Name="StudentNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CourseNo" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Credit" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="OrderBook" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__SelectedC__Cours__3A81B327">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="SelectedCourse" Type="Self.SelectedCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="SelectedCourse">
+              <PropertyRef Name="CourseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EduBase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Course" EntityType="Self.Course" />
+          <EntitySet Name="SelectedCourse" EntityType="Self.SelectedCourse" />
+          <EntitySet Name="SelectedCourseInfo" EntityType="Self.SelectedCourseInfo" />
+          <AssociationSet Name="FK__SelectedC__Cours__3A81B327" Association="Self.FK__SelectedC__Cours__3A81B327">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="SelectedCourse" EntitySet="SelectedCourse" />
+          </AssociationSet>
+          <FunctionImport Name="usp_Insert_SelectedCourse">
+            <Parameter Name="StudentNo" Mode="In" Type="String" />
+            <Parameter Name="CourseNo" Mode="In" Type="String" />
+            <Parameter Name="OrderBook" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Update_SelectedCourse">
+            <Parameter Name="StudentNo" Mode="In" Type="String" />
+            <Parameter Name="CourseNo" Mode="In" Type="String" />
+            <Parameter Name="OrderBook" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EduBaseModelStoreContainer" CdmEntityContainer="EduBase">
+          <EntitySetMapping Name="Course">
+            <EntityTypeMapping TypeName="EduBaseModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pinyin" ColumnName="Pinyin" />
+                <ScalarProperty Name="PreCourseNo" ColumnName="PreCourseNo" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="StudyType" ColumnName="StudyType" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectedCourse">
+            <EntityTypeMapping TypeName="EduBaseModel.SelectedCourse">
+              <MappingFragment StoreEntitySet="SelectedCourse">
+                <ScalarProperty Name="StudentNo" ColumnName="StudentNo" />
+                <ScalarProperty Name="CourseNo" ColumnName="CourseNo" />
+                <ScalarProperty Name="OrderBook" ColumnName="OrderBook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectedCourseInfo">
+            <EntityTypeMapping TypeName="EduBaseModel.SelectedCourseInfo">
+              <MappingFragment StoreEntitySet="SelectedCourseInfo">
+                <ScalarProperty Name="StudentNo" ColumnName="StudentNo" />
+                <ScalarProperty Name="CourseNo" ColumnName="CourseNo" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="OrderBook" ColumnName="OrderBook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="EduBaseModel.SelectedCourseInfo">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="EduBaseModel.Store.usp_Insert_SelectedCourse">
+                  <ScalarProperty Name="OrderBook" ParameterName="OrderBook" />
+                  <ScalarProperty Name="CourseNo" ParameterName="CourseNo" />
+                  <ScalarProperty Name="StudentNo" ParameterName="StudentNo" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="EduBaseModel.Store.usp_Update_SelectedCourse">
+                  <ScalarProperty Name="OrderBook" ParameterName="OrderBook" Version="Current" />
+                  <ScalarProperty Name="CourseNo" ParameterName="CourseNo" Version="Current" />
+                  <ScalarProperty Name="StudentNo" ParameterName="StudentNo" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_Insert_SelectedCourse" FunctionName="EduBaseModel.Store.usp_Insert_SelectedCourse" />
+          <FunctionImportMapping FunctionImportName="usp_Update_SelectedCourse" FunctionName="EduBaseModel.Store.usp_Update_SelectedCourse" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

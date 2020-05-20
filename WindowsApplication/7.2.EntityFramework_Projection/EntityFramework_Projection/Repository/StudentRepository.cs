@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace EntityFramework_Projection
 {
@@ -14,38 +15,69 @@ namespace EntityFramework_Projection
 		/// <param name="studentNo">学号</param>
 		/// <returns>学生</returns>
 		public static Student Find(string studentNo)
-		=>	EfHelper.SelectById<string, Student>(studentNo);
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				var student = from s in eduBase.Student
+							  where s.No == studentNo
+							  select s;
+				return student.FirstOrDefault();
+			}
+		}
 		/// <summary>
 		/// 查找指定班级的学生；
 		/// </summary>
 		/// <param name="classNo">班级编号</param>
 		/// <returns>学生简况列表</returns>
 		public static List<StudentBasicInfo> FindByClassNo(int classNo)
-		=>	EfHelper.Select<Student, StudentBasicInfo>
-			(s => s.ClassNo == classNo
-			,s => new StudentBasicInfo { No = s.No, Name = s.Name });
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				var students = from s in eduBase.Student
+							   where s.ClassNo == classNo
+							   select new StudentBasicInfo { No = s.No, Name = s.Name };
+				return students.ToList();
+			}
+		}
 		/// <summary>
 		/// 添加；
 		/// </summary>
 		/// <param name="student">学生</param>
 		/// <returns>受影响行数</returns>
 		public static int Add(Student student)
-		=>	EfHelper.Save(student, EntityState.Added);
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				eduBase.Student.Add(student);
+				return eduBase.SaveChanges();
+			}
+		}
 		/// <summary>
 		/// 更新；
 		/// </summary>
 		/// <param name="student">学生</param>
 		/// <returns>受影响行数</returns>
 		public static int Update(Student student)
-		=>	EfHelper.Save(student, EntityState.Modified);
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				eduBase.Entry(student).State = EntityState.Modified;
+				return eduBase.SaveChanges();
+			}
+		}
 		/// <summary>
 		/// 删除；
 		/// </summary>
 		/// <param name="studentNo">学号</param>
 		/// <returns>受影响行数</returns>
 		public static int Delete(string studentNo)
-		=>	EfHelper.Save
-			(EfHelper.SelectById<string, Student>(studentNo),
-			 EntityState.Deleted);
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				var student = eduBase.Student.Find(studentNo);
+				eduBase.Student.Remove(student);
+				return eduBase.SaveChanges();
+			}
+		}
 	}
 }

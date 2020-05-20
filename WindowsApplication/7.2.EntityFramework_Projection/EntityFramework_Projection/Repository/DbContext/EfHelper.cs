@@ -15,8 +15,8 @@ namespace EntityFramework_Projection
 		/// 获取数据库上下文；
 		/// </summary>
 		/// <returns></returns>
-		public static DbContext DbContext
-		=>	new EduBase();
+		public static EduBase GetDbContext()
+		=> new EduBase();
 		/// <summary>
 		/// 查询计数；
 		/// </summary>
@@ -25,7 +25,7 @@ namespace EntityFramework_Projection
 		/// <returns>计数</returns>
 		public static int SelectCount<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<T>().Where(match).Count();
 			}
@@ -39,7 +39,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体</returns>
 		public static TEntity SelectById<TId, TEntity>(TId id) where TEntity : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<TEntity>().Find(id);
 			}
@@ -52,7 +52,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体</returns>
 		public static T SelectOne<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<T>().Where(match).FirstOrDefault();
 			}
@@ -65,7 +65,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体列表</returns>
 		public static List<T> Select<T>(Expression<Func<T, bool>> match) where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<T>().Where(match).ToList();
 			}
@@ -80,7 +80,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体列表</returns>
 		public static List<TResult> Select<TEntity, TResult>(Expression<Func<TEntity, bool>> match, Expression<Func<TEntity, TResult>> project) where TEntity : class where TResult : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<TEntity>().Where(match).Select(project).ToList();
 			}
@@ -92,7 +92,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体列表</returns>
 		public static List<T> SelectAll<T>() where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<T>().ToList();
 			}
@@ -105,7 +105,7 @@ namespace EntityFramework_Projection
 		/// <returns>实体列表</returns>
 		public static List<T> SelectAll<T>(string path) where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				return dbContext.Set<T>().Include(path).ToList();
 			}
@@ -119,7 +119,7 @@ namespace EntityFramework_Projection
 		/// <returns>受影响行数</returns>
 		public static int Save<T>(T entity, EntityState entityState) where T : class
 		{
-			using (var dbContext = DbContext)
+			using (var dbContext = GetDbContext())
 			{
 				dbContext.Entry(entity).State = entityState;
 				return dbContext.SaveChanges();
