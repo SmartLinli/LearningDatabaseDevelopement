@@ -17,7 +17,7 @@ namespace EntityFramework_Navigation
 			this.InitializeControls();
 			this.BackgroundWorker.DoWork += this.LoadEducationUnitNodes;
 			this.BackgroundWorker.RunWorkerCompleted += FillEducationUnitTree;
-			//this.BackgroundWorker.RunWorkerAsync();
+			this.BackgroundWorker.RunWorkerAsync();
 		}
 		/// <summary>
 		/// 选择教学单位树形视图；
