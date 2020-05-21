@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace EntityFramework_DbContext
 {
@@ -10,6 +11,10 @@ namespace EntityFramework_DbContext
 		/// 学生仓储；
 		/// </summary>
 		private StudentRepository StudentRepository { get; set; }
+		/// <summary>
+		/// 当前页码；
+		/// </summary>
+		private int currentPageIndex { get; set; }
 		/// <summary>
 		/// 构造函数；
 		/// </summary>
@@ -22,7 +27,10 @@ namespace EntityFramework_DbContext
 			this.dgv_Score.BackgroundColor = Color.White;
 			this.dgv_Score.AutoSizeColumnsMode =
 				DataGridViewAutoSizeColumnsMode.AllCells;
+			this.btn_PreviousPage.Enabled = false;
+			this.btn_NextPage.Enabled = false;
 			this.StudentRepository = new StudentRepository();
+			this.currentPageIndex = 1;
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -32,7 +40,7 @@ namespace EntityFramework_DbContext
 		private void btn_Load_Click(object sender, EventArgs e)
 		{
 			var classes = ClassRepository.FindAll();
-			var students = this.StudentRepository.FindAll();
+			var students = this.StudentRepository.FindAll(this.currentPageIndex);
 			this.dgv_Score.Columns.Clear();
 			this.dgv_Score.DataSource = students;
 			this.dgv_Score.Columns["No"].ReadOnly = true;
@@ -56,6 +64,8 @@ namespace EntityFramework_DbContext
 			classColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 			this.dgv_Score.Columns[this.dgv_Score.Columns.Count - 2].AutoSizeMode =
 				DataGridViewAutoSizeColumnMode.Fill;
+			this.btn_PreviousPage.Enabled = true;
+			this.btn_NextPage.Enabled = true;
 		}
 		/// <summary>
 		/// 点击更新按钮；
@@ -87,6 +97,28 @@ namespace EntityFramework_DbContext
 			{
 				MessageBox.Show("数据库初始化完毕。");
 			}
+		}
+		/// <summary>
+		/// 点击下一页；
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void btn_NextPage_Click(object sender, EventArgs e)
+		{
+			if (this.dgv_Score.RowCount == this.StudentRepository.PageSize)
+				this.currentPageIndex++;
+			this.dgv_Score.DataSource = this.StudentRepository.FindAll(this.currentPageIndex);
+		}
+		/// <summary>
+		/// 点击上一页；
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void btn_PreviousPage_Click(object sender, EventArgs e)
+		{
+			if (this.currentPageIndex>1)
+				this.currentPageIndex--;
+			this.dgv_Score.DataSource = this.StudentRepository.FindAll(this.currentPageIndex);
 		}
 	}
 }

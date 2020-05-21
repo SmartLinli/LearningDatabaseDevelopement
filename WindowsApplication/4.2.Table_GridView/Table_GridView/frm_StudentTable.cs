@@ -19,10 +19,10 @@ namespace Table_GridView
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;                                            
-            this.dgv_Score.AllowUserToAddRows = false;                                                      
-            this.dgv_Score.RowHeadersVisible = false;                                                       
-            this.dgv_Score.BackgroundColor = Color.White;                                                   
-            this.dgv_Score.AutoSizeColumnsMode =
+            this.dgv_Student.AllowUserToAddRows = false;                                                      
+            this.dgv_Student.RowHeadersVisible = false;                                                       
+            this.dgv_Student.BackgroundColor = Color.White;                                                   
+            this.dgv_Student.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.AllCells;                                                   
         }
         /// <summary>
@@ -48,18 +48,18 @@ namespace Table_GridView
             sqlDataAdapter.Fill(studentTable);                                                              
             sqlConnection.Close();                                                                          
             this.StudentTable = studentTable;                                                               
-            this.dgv_Score.Columns.Clear();                                                                 
-            this.dgv_Score.DataSource = studentTable;                                                       
-            this.dgv_Score.Columns["No"].ReadOnly = true;                                                   
-            this.dgv_Score.Columns["No"].HeaderText = "学号";                                               
-            this.dgv_Score.Columns["Name"].HeaderText = "姓名";
-            this.dgv_Score.Columns["Gender"].HeaderText = "性别";
-            this.dgv_Score.Columns["BirthDate"].HeaderText = "生日";
-            this.dgv_Score.Columns["Speciality"].HeaderText = "特长";
-            this.dgv_Score.Columns["Photo"].HeaderText = "照片";
-            this.dgv_Score.Columns["ClassNo"].Visible = false;                                              
+            this.dgv_Student.Columns.Clear();                                                                 
+            this.dgv_Student.DataSource = studentTable;                                                       
+            this.dgv_Student.Columns["No"].ReadOnly = true;                                                   
+            this.dgv_Student.Columns["No"].HeaderText = "学号";                                               
+            this.dgv_Student.Columns["Name"].HeaderText = "姓名";
+            this.dgv_Student.Columns["Gender"].HeaderText = "性别";
+            this.dgv_Student.Columns["BirthDate"].HeaderText = "生日";
+            this.dgv_Student.Columns["Speciality"].HeaderText = "特长";
+            this.dgv_Student.Columns["Photo"].HeaderText = "照片";
+            this.dgv_Student.Columns["ClassNo"].Visible = false;                                              
             DataGridViewComboBoxColumn classColumn = new DataGridViewComboBoxColumn();                      
-            this.dgv_Score.Columns.Add(classColumn);                                                        
+            this.dgv_Student.Columns.Add(classColumn);                                                        
             classColumn.Name = "Class";                                                                     
             classColumn.HeaderText = "班级";                                                                
             classColumn.DataSource = classTable;                                                            
@@ -68,7 +68,7 @@ namespace Table_GridView
             classColumn.DataPropertyName = "ClassNo";                                                       
             classColumn.DisplayIndex = 4;                                                                   
             classColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                             
-            this.dgv_Score.Columns[this.dgv_Score.Columns.Count - 2].AutoSizeMode =                         
+            this.dgv_Student.Columns[this.dgv_Student.Columns.Count - 2].AutoSizeMode =                         
                 DataGridViewAutoSizeColumnMode.Fill;
         }        
         /// <summary>

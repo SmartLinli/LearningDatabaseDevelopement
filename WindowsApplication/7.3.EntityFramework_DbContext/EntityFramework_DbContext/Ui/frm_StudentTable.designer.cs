@@ -32,6 +32,8 @@
 			this.dgv_Score = new System.Windows.Forms.DataGridView();
 			this.btn_Load = new System.Windows.Forms.Button();
 			this.btn_InitDb = new System.Windows.Forms.Button();
+			this.btn_PreviousPage = new System.Windows.Forms.Button();
+			this.btn_NextPage = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Score)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -74,11 +76,33 @@
 			this.btn_InitDb.UseVisualStyleBackColor = true;
 			this.btn_InitDb.Click += new System.EventHandler(this.btn_InitDb_Click);
 			// 
+			// btn_PreviousPage
+			// 
+			this.btn_PreviousPage.Location = new System.Drawing.Point(185, 219);
+			this.btn_PreviousPage.Name = "btn_PreviousPage";
+			this.btn_PreviousPage.Size = new System.Drawing.Size(23, 23);
+			this.btn_PreviousPage.TabIndex = 52;
+			this.btn_PreviousPage.Text = "<";
+			this.btn_PreviousPage.UseVisualStyleBackColor = true;
+			this.btn_PreviousPage.Click += new System.EventHandler(this.btn_PreviousPage_Click);
+			// 
+			// btn_NextPage
+			// 
+			this.btn_NextPage.Location = new System.Drawing.Point(207, 219);
+			this.btn_NextPage.Name = "btn_NextPage";
+			this.btn_NextPage.Size = new System.Drawing.Size(23, 23);
+			this.btn_NextPage.TabIndex = 53;
+			this.btn_NextPage.Text = ">";
+			this.btn_NextPage.UseVisualStyleBackColor = true;
+			this.btn_NextPage.Click += new System.EventHandler(this.btn_NextPage_Click);
+			// 
 			// frm_StudentTable
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(454, 254);
+			this.Controls.Add(this.btn_NextPage);
+			this.Controls.Add(this.btn_PreviousPage);
 			this.Controls.Add(this.btn_InitDb);
 			this.Controls.Add(this.btn_Load);
 			this.Controls.Add(this.dgv_Score);
@@ -96,5 +120,7 @@
         private System.Windows.Forms.DataGridView dgv_Score;
         private System.Windows.Forms.Button btn_Load;
 		private System.Windows.Forms.Button btn_InitDb;
+		private System.Windows.Forms.Button btn_PreviousPage;
+		private System.Windows.Forms.Button btn_NextPage;
 	}
 }
