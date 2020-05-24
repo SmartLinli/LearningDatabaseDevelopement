@@ -93,7 +93,7 @@ namespace EntityFramework_DbContext
 			{
 				return;
 			}
-			if (EfHelper.InitDb())
+			if (EduBase.InitDb())
 			{
 				MessageBox.Show("数据库初始化完毕。");
 			}

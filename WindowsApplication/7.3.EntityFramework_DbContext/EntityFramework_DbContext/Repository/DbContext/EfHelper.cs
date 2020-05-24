@@ -16,7 +16,7 @@ namespace EntityFramework_DbContext
 		/// </summary>
 		/// <returns></returns>
 		public static EduBase GetDbContext()
-		=> new EduBaseSql();
+		=> new EduBasePgsql();
 		/// <summary>
 		/// 查询计数；
 		/// </summary>
@@ -123,13 +123,6 @@ namespace EntityFramework_DbContext
 			{
 				dbContext.Entry(entity).State = entityState;
 				return dbContext.SaveChanges();
-			}
-		}
-		public static bool InitDb()
-		{
-			using (var dbContext = GetDbContext())
-			{
-				return dbContext.Database.CreateIfNotExists();
 			}
 		}
 	}

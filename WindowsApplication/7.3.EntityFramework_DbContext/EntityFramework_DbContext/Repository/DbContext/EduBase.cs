@@ -5,7 +5,7 @@ namespace EntityFramework_DbContext
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Linq;
 	/// <summary>
-	/// EduBase数据库上下文（SQL Server）
+	/// EduBase数据库上下文（基类）
 	/// </summary>
 	public abstract partial class EduBase : DbContext
 	{
@@ -69,6 +69,22 @@ namespace EntityFramework_DbContext
 			modelBuilder.Entity<Student>()
 				.Property(e => e.Speciality)
 				.IsUnicode(false);
+		}
+		/// <summary>
+		/// 初始化数据库；
+		/// </summary>
+		/// <returns></returns>
+		public static bool InitDb()
+		{
+			using (var eduBase = EfHelper.GetDbContext())
+			{
+				if (eduBase.Database.Exists())
+				{
+					eduBase.Database.ExecuteSqlCommand("SELECT pg_terminate_backend(A.pid) FROM pg_stat_activity AS A WHERE A.datname='EduBaseDemo' AND A.pid<>pg_backend_pid();");
+				}
+				eduBase.Database.Delete();
+				return eduBase.Database.CreateIfNotExists();
+			}
 		}
 	}
 }
