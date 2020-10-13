@@ -307,7 +307,10 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="commandText">命令文本</param>
 		/// <returns>标量值</returns>
 		public virtual T QuickReturn<T>(string commandText)
-		=> this.NewCommand(commandText).Return<T>();
+		{
+			object result = this.NewCommand(commandText).Return();
+			return result == null ? default(T) : (T)result;
+		}
 		/// <summary>
 		/// 执行命令，返回数据读取器；
 		/// 完成读取后，请手动关闭数据读取器；

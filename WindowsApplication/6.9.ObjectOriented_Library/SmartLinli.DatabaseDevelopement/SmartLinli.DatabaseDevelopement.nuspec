@@ -2,16 +2,16 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement</id>
-    <version>0.0.0.46-alpha</version>
+    <version>0.0.0.48-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/SmartLinli/LearningDatabaseDevelopement/master/WindowsApplication/Ex69_ObjectOriented_Library/design_art_King_of_Trash_Avatar_Big_32.jpg</iconUrl>
+    <icon>design_art_King_of_Trash_Avatar_Big_32.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Basic functions for database developement</description>
-    <releaseNotes>Npgsql package 4.0.9 required.</releaseNotes>
+    <description>Including SqlHelper,PgsqlHelper.</description>
+    <releaseNotes>Couple of bugs fixed.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Database</tags>
     <dependencies>
@@ -57,6 +57,7 @@
     <files>
       <file src="bin\Debug\SmartLinli.DatabaseDevelopement.dll" target="lib\net472\SmartLinli.DatabaseDevelopement.dll"/>
       <file src="bin\Debug\SmartLinli.DatabaseDevelopement.xml" target="lib\net472\SmartLinli.DatabaseDevelopement.xml"/>
+      <file src="design_art_King_of_Trash_Avatar_Big_32.jpg" target=""/>
       <file src="content\**" target="content"/>
     </files>
 </package>

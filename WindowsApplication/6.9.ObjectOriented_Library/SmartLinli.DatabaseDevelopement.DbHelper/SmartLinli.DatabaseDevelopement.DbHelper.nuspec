@@ -2,17 +2,17 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement.DbHelper</id>
-    <version>0.0.0.37-alpha</version>
+    <version>0.0.0.39-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/SmartLinli/LearningDatabaseDevelopement/master/WindowsApplication/Ex69_ObjectOriented_Library/design_art_King_of_Trash_Avatar_Big_32.jpg</iconUrl>
+    <icon>design_art_King_of_Trash_Avatar_Big_32.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Including SqlHelper,PgsqlHelper currently.</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>Copyright 2019</copyright>
+    <description>Including SqlHelper,PgsqlHelper.</description>
+    <releaseNotes>Couple of bugs fixed.</releaseNotes>
+    <copyright>Copyright 2020</copyright>
     <tags>SqlHelper PgsqlHelper</tags>
     <dependencies>
       <group targetFramework="net472">
@@ -32,6 +32,7 @@
   <files>
     <file src="bin\Debug\SmartLinli.DatabaseDevelopement.DbHelper.dll" target="lib\net472\SmartLinli.DatabaseDevelopement.DbHelper.dll"/>
 	  <file src="bin\Debug\SmartLinli.DatabaseDevelopement.DbHelper.xml" target="lib\net472\SmartLinli.DatabaseDevelopement.DbHelper.xml"/>
+    <file src="design_art_King_of_Trash_Avatar_Big_32.jpg" target=""/>
     <file src="content\**" target="content"/>
   </files>
 </package>

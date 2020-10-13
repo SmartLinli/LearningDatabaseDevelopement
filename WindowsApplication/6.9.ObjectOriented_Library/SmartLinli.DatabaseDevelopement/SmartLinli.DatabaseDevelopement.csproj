@@ -183,11 +183,11 @@
     <Compile Include="PresentationLayer\Component\ExistValidator.Designer.cs">
       <DependentUpon>ExistValidator.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Component\InputValidator\ConfirmValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\Component\InputValidator\DescriptionExtension.cs" />
-    <Compile Include="PresentationLayer\Component\InputValidator\ExistValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\Component\InputValidator\LengthValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\Component\InputValidator\RequiredInfoValidatingExtension.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\ConfirmValidatingExtension.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\DescriptionExtension.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\ExistValidatingExtension.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\LengthValidatingExtension.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\RequiredInfoValidatingExtension.cs" />
     <Compile Include="PresentationLayer\Component\LengthValidator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -200,7 +200,7 @@
     <Compile Include="PresentationLayer\Component\RequiredInfoValidator.Designer.cs">
       <DependentUpon>RequiredInfoValidator.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Component\InputValidator\ValidatingUnit.cs" />
+    <Compile Include="PresentationLayer\ControlExtension\ValidatingUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
