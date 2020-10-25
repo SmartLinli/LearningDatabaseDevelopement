@@ -15,7 +15,8 @@ namespace Command_Query
         public frm_SignUp()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;                                       
+			this.AcceptButton = this.btn_SignUp;
+			this.StartPosition = FormStartPosition.CenterScreen;                                       
         }
         /// <summary>
         /// 私有方法：单击注册按钮；

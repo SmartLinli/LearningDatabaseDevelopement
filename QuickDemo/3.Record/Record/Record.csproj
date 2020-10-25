@@ -104,12 +104,6 @@
     <Compile Include="frm_LogIn.Designer.cs">
       <DependentUpon>frm_LogIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_SignUp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_SignUp.designer.cs">
-      <DependentUpon>frm_SignUp.cs</DependentUpon>
-    </Compile>
     <Compile Include="frm_StudentInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,9 +114,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frm_LogIn.resx">
       <DependentUpon>frm_LogIn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_SignUp.resx">
-      <DependentUpon>frm_SignUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_StudentInfo.resx">
       <DependentUpon>frm_StudentInfo.cs</DependentUpon>

@@ -47,15 +47,12 @@ namespace Record
 				$"SELECT * FROM tb_Student WHERE No='{this._StudentNo}';";
 			SqlHelper sqlHelper = new SqlHelper();
 			sqlHelper.QuickRead(commandText);
-			if (sqlHelper.HasRecord)
-			{
-				this.txb_No.Text = sqlHelper["No"].ToString();
-				this.txb_Name.Text = sqlHelper["Name"].ToString();
-				this.txb_Gender.Text = sqlHelper["Gender"].ToString();
-				this.txb_BirthDate.Text = ((DateTime)sqlHelper["BirthDate"]).ToShortDateString();
-				this.txb_Class.Text = sqlHelper["Class"].ToString();
-				this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
-			}
+			this.txb_No.Text = sqlHelper["No"].ToString();
+			this.txb_Name.Text = sqlHelper["Name"].ToString();
+			this.txb_Gender.Text = sqlHelper["Gender"].ToString();
+			this.txb_BirthDate.Text = ((DateTime)sqlHelper["BirthDate"]).ToShortDateString();
+			this.txb_Class.Text = sqlHelper["Class"].ToString();
+			this.txb_Speciality.Text = sqlHelper["Speciality"].ToString();
 		}
     }                                                                                                    
 }

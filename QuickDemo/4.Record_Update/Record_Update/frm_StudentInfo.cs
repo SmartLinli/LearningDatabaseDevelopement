@@ -12,6 +12,7 @@ namespace Record_Update
 		public frm_StudentInfo()
 		{
 			InitializeComponent();
+            this.AcceptButton = this.btn_Load;
 			this.StartPosition = FormStartPosition.CenterScreen;
 			this.LoadClasses();
 		}

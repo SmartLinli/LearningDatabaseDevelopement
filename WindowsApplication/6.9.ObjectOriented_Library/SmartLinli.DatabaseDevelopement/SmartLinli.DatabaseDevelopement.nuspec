@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement</id>
-    <version>0.0.0.48-alpha</version>
+    <version>0.0.49-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
     <icon>design_art_King_of_Trash_Avatar_Big_32.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Including SqlHelper,PgsqlHelper.</description>
+    <description>Basic tools for database developement.</description>
     <releaseNotes>Couple of bugs fixed.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Database</tags>

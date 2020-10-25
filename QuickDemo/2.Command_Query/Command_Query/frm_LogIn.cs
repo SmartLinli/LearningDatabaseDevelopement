@@ -15,7 +15,8 @@ namespace Command_Query
         public frm_LogIn()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+			this.AcceptButton = this.btn_LogIn;
+			this.StartPosition = FormStartPosition.CenterScreen;
 		}
 		/// <summary>
 		/// 单击登录按钮；
@@ -24,7 +25,21 @@ namespace Command_Query
 		/// <param name="e"></param>
 		private void btn_LogIn_Click(object sender, EventArgs e)
         {
-			string commandText =
+            #region 验证输入
+            if (this.txb_UserNo.Text.Trim() == "")
+            {
+                MessageBox.Show("用户号不能为空！");
+                this.txb_UserNo.Focus();
+                return;
+            }
+            if (this.txb_Password.Text.Trim() == "")
+            {
+                MessageBox.Show("密码不能为空！");
+                this.txb_Password.Focus();
+                return;
+            }
+            #endregion
+            string commandText =
 				$@"SELECT 1 
 					FROM tb_User
 					WHERE No='{this.txb_UserNo.Text.Trim()}' AND Password='{this.txb_Password.Text.Trim()}';";

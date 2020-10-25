@@ -2,18 +2,18 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement.DbHelper</id>
-    <version>0.0.0.39-alpha</version>
+    <version>0.0.46-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/SmartLinli/Learningdatabasedevelopement</projectUrl>
-    <icon>design_art_King_of_Trash_Avatar_Big_32.jpg</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <icon>design_art_King_of_Trash_Avatar_Big_32.jpg</icon>
     <description>Including SqlHelper,PgsqlHelper.</description>
     <releaseNotes>Couple of bugs fixed.</releaseNotes>
     <copyright>Copyright 2020</copyright>
-    <tags>SqlHelper PgsqlHelper</tags>
+    <tags>Database SQLServer PostgreSQL</tags>
     <dependencies>
       <group targetFramework="net472">
         <dependency id="Microsoft.Bcl.AsyncInterfaces" version="1.0.0"/>

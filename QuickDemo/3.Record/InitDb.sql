@@ -33,7 +33,7 @@ CREATE TABLE tb_User
 INSERT tb_User
 	(No,Password)
 	VALUES
-	('3180707001','7001');
+	('3190707001','7001');
 ----学生表；
 CREATE TABLE tb_Student
 	(No
@@ -58,4 +58,5 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3180707001','周林好','女','2000-04-17','18信管','睡觉');
+	('3190707001','贾雨晗','女','2001-05-08','19信管','睡觉');
+GO

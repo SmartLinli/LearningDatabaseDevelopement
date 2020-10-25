@@ -15,6 +15,7 @@ namespace Command_Insert
         public frm_SignUp()
         {
             InitializeComponent();
+            this.AcceptButton = this.btn_SignUp;
             this.StartPosition = FormStartPosition.CenterScreen;                                       
         }
         /// <summary>
@@ -37,9 +38,9 @@ namespace Command_Insert
 				this.txb_Password.Focus();
 				return;
 			}
-			#endregion
-			string commandText =
-				$@"INSERT tb_User(No,Password)
+            #endregion
+            string commandText =
+                $@"INSERT tb_User(No,Password)
 					VALUES
 					('{this.txb_UserNo.Text.Trim()}','{this.txb_Password.Text.Trim()}');";
 			SqlHelper sqlHelper = new SqlHelper();

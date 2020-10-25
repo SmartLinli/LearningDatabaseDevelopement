@@ -15,6 +15,7 @@ namespace Record
         public frm_LogIn()
         {
             InitializeComponent();
+            this.AcceptButton = this.btn_LogIn;
             this.StartPosition = FormStartPosition.CenterScreen;
 			this.FormClosed += (_, __) =>
 			{
@@ -31,7 +32,21 @@ namespace Record
 		/// <param name="e"></param>
 		private void btn_LogIn_Click(object sender, EventArgs e)
         {
-			string commandText =
+            #region 验证输入
+            if (this.txb_UserNo.Text.Trim() == "")
+            {
+                MessageBox.Show("用户号不能为空！");
+                this.txb_UserNo.Focus();
+                return;
+            }
+            if (this.txb_Password.Text.Trim() == "")
+            {
+                MessageBox.Show("密码不能为空！");
+                this.txb_Password.Focus();
+                return;
+            }
+            #endregion
+            string commandText =
 				$@"SELECT 1 
 					FROM tb_User
 					WHERE No='{this.txb_UserNo.Text.Trim()}' AND Password='{this.txb_Password.Text.Trim()}';";
@@ -51,15 +66,5 @@ namespace Record
                 this.txb_Password.SelectAll();                                             
             }
         }
-		/// <summary>
-		/// 点击注册按钮；
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void btn_SignUp_Click(object sender, EventArgs e)
-		{
-			frm_SignUp signUpForm = new frm_SignUp();
-			signUpForm.ShowDialog();
-		}
 	}
 }
