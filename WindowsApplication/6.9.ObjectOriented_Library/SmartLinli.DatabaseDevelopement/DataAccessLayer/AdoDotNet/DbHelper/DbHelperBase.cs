@@ -329,7 +329,7 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据读取器助手</returns>
 		public virtual IDataReaderHelper QuickReturnReader(string commandText)
-		=> new DataReaderHelper(this.NewCommand(commandText).ReturnReader());
+		=>  new DataReaderHelper(this.NewCommand(commandText).ReturnReader());
 		/// <summary>
 		/// 初始记录序号；
 		/// </summary>
@@ -376,13 +376,13 @@ namespace SmartLinli.DatabaseDevelopement
 				return this.Records[CurrentRecordIndex][name];
 			}
 		}
-		/// <summary>
-		/// 快速执行命令，并读取一行或多行记录；
-		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录的指定列；
-		/// </summary>
-		/// <param name="commandText">命令文本</param>
-		/// <returns>数据库助手</returns>
-		public DbHelperBase QuickRead(string commandText)
+        /// <summary>
+        /// 快速执行命令，并读取一行或多行记录；
+        /// 随后判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录的指定列；
+        /// </summary>
+        /// <param name="commandText">命令文本</param>
+        /// <returns>数据库助手</returns>
+        public DbHelperBase QuickRead(string commandText)
 		{
 			this.MaxRecordIndex = this.InitialRecordIndex;
 			var dataReader = this.NewCommand(commandText).ReturnReader();
@@ -453,14 +453,14 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <param name="commandText">命令文本</param>
 		/// <returns>受影响行数</returns>
 		public virtual int QuickSubmit(string commandText)
-		=> this.NewCommand(commandText).Submit();
+		=>  this.NewCommand(commandText).Submit();
 		/// <summary>
 		/// 执行命令，提交数据；
 		/// </summary>
 		/// <param name="dataTable">数据表</param>
 		/// <returns>受影响行数</returns>
 		public virtual int Submit(DataTable dataTable)
-		=> this.DbDataAdapter.Update(dataTable);
+		=>  this.DbDataAdapter.Update(dataTable);
 		/// <summary>
 		/// 转换可空值；
 		/// </summary>

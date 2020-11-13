@@ -378,7 +378,7 @@ namespace SmartLinli.DatabaseDevelopement
 		}
 		/// <summary>
 		/// 快速执行命令，并读取一行或多行记录；
-		/// 应先判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录的指定列；
+		/// 随后判断数据库助手是否读得记录，再通过数据库助手的索引器访问该行记录的指定列；
 		/// </summary>
 		/// <param name="commandText">命令文本</param>
 		/// <returns>数据库助手</returns>
