@@ -461,13 +461,13 @@ namespace SmartLinli.DatabaseDevelopement
 		/// <returns>受影响行数</returns>
 		public virtual int Submit(DataTable dataTable)
 		=>  this.DbDataAdapter.Update(dataTable);
-		/// <summary>
-		/// 转换可空值；
-		/// </summary>
-		/// <typeparam name="T">结果类型</typeparam>
-		/// <param name="value">值</param>
-		/// <returns>结果</returns>
-		public virtual T ConvertNullable<T>(object value)
+        /// <summary>
+        /// 转换可空值；
+        /// </summary>
+        /// <typeparam name="T">结果类型</typeparam>
+        /// <param name="value">值</param>
+        /// <returns>结果</returns>
+        public virtual T ConvertNullable<T>(object value)
 		{
 			T result = default(T);
 			if (value != DBNull.Value)

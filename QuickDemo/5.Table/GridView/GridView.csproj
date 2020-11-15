@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B2A3129C-0792-4883-8763-86711C46FC83}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartLinli.DatabaseDevelopement</RootNamespace>
-    <AssemblyName>SmartLinli.DatabaseDevelopement</AssemblyName>
+    <ProjectGuid>{C1BC64FE-70A5-4633-AA14-B2A05A227977}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GridView</RootNamespace>
+    <AssemblyName>GridView</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,9 +22,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\SmartLinli.DatabaseDevelopement.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -83,8 +84,11 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.3.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql, Version=4.0.9.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.4.0.9\lib\net451\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.1.0\lib\net461\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartLinli.DatabaseDevelopement.DbHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SmartLinli.DatabaseDevelopement.DbHelper.0.0.48-alpha\lib\net472\SmartLinli.DatabaseDevelopement.DbHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -94,7 +98,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IO, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.1.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -143,90 +146,51 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AutofacHelper.cs" />
-    <Compile Include="Common\AutoMapperHelper.cs" />
-    <Compile Include="Common\CrytoHelper.cs" />
-    <Compile Include="Common\ImageHelper.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\DataReaderHelper\IDataReaderHelper.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\DataReaderHelper\DataReaderHelper.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\DbHelperBase.cs" />
-    <Compile Include="DataAccessLayer\EntityFramework\DalBase.cs" />
-    <Compile Include="DataAccessLayer\EntityFramework\DbContext\SmartDbContext.cs" />
-    <Compile Include="DataAccessLayer\EntityFramework\DbContext\PgsqlContext.cs" />
-    <Compile Include="DataAccessLayer\EntityFramework\DbContext\SqlContext.cs" />
-    <Compile Include="DataAccessLayer\EntityFramework\EfHelper.cs" />
-    <Compile Include="DataAccessLayer\Exception.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\PgsqlHelper.cs" />
-    <Compile Include="DataAccessLayer\AdoDotNet\DbHelper\SqlHelper.cs" />
-    <Compile Include="PresentationLayer\Component\BaseValidator.cs" />
-    <Compile Include="PresentationLayer\Component\BaseValidator.Designer.cs">
-      <DependentUpon>BaseValidator.cs</DependentUpon>
+    <Compile Include="CourseSelection.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Component\ConfirmValidator.cs">
-      <SubType>Component</SubType>
+    <Compile Include="CourseSelection.Designer.cs">
+      <DependentUpon>CourseSelection.cs</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Component\ConfirmValidator.Designer.cs">
-      <DependentUpon>ConfirmValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\ExistValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\ExistValidator.Designer.cs">
-      <DependentUpon>ExistValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\ControlExtension\ConfirmValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\ControlExtension\DescriptionExtension.cs" />
-    <Compile Include="PresentationLayer\ControlExtension\ExistValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\ControlExtension\LengthValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\ControlExtension\RequiredInfoValidatingExtension.cs" />
-    <Compile Include="PresentationLayer\Component\LengthValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\LengthValidator.Designer.cs">
-      <DependentUpon>LengthValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\RequiredInfoValidator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PresentationLayer\Component\RequiredInfoValidator.Designer.cs">
-      <DependentUpon>RequiredInfoValidator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationLayer\ControlExtension\ValidatingUnit.cs" />
-    <Compile Include="PresentationLayer\DataBindHelper.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CourseSelection.resx">
+      <DependentUpon>CourseSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="autofac.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="content\app.config.transform">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="content\autofac.json.pp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SmartLinli.DatabaseDevelopement.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="content\BusinessLogicLayer\" />
-    <Folder Include="content\DataAccessLayer\" />
-    <Folder Include="content\DatabaseTemplate\" />
-    <Folder Include="content\PresentationLayer\" />
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

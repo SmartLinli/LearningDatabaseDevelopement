@@ -25,7 +25,6 @@ namespace SmartLinli.DatabaseDevelopement
 			listControl.DisplayMember = "Name";
 			listControl.ValueMember = "No";
 		}
-
 		/// <summary>
 		/// 快速填充；
 		/// 读取数据表，并设为数据网格视图的数据源；
@@ -38,20 +37,12 @@ namespace SmartLinli.DatabaseDevelopement
 			DataTable dataTable = dbHelper.NewCommand(commandText).ReturnTable();
 			dataGridView.DataSource = dataTable;
 		}
-        /// <summary>
-        /// 执行命令，提交数据；
-        /// </summary>
-        /// <param name="dbHelper">数据库助手</param>
-        /// <param name="dataGridView">数据网格视图</param>
-        /// <returns>受影响行数</returns>
-        public static int Submit(this DbHelperBase dbHelper, DataGridView dataGridView)
-        =>  dbHelper.Submit(dataGridView.DataSource as DataTable);
-        /// <summary>
-        /// 获取数据属性的名称；
-        /// </summary>
-        /// <param name="control">控件</param>
-        /// <returns>数据属性名称</returns>
-        private static string GetDataColumnName(Control control)
+		/// <summary>
+		/// 获取数据属性的名称；
+		/// </summary>
+		/// <param name="control">控件</param>
+		/// <returns>数据属性名称</returns>
+		private static string GetDataColumnName(Control control)
 		{
 			string name = "";
 			if (control.Tag == null)

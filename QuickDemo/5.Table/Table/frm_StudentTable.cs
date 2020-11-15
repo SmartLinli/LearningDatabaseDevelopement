@@ -1,11 +1,10 @@
 ﻿using SmartLinli.DatabaseDevelopement;
 using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace Table
 {
-	public partial class frm_StudentTable : Form
+    public partial class frm_StudentTable : Form
     {
         /// <summary>
         /// 构造函数；
@@ -14,17 +13,6 @@ namespace Table
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-			this.dgv_Student.CellClick += dgv_Student_CellClick;
-		}
-		/// <summary>
-		/// 点击学生数据网格视图的单元格；
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void dgv_Student_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			string currentStudentName = this.dgv_Student.CurrentRow.Cells["Name"].Value.ToString();
-			this.lbl_CurrentStudent.Text = $"当前学生姓名：{currentStudentName}";
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -54,7 +42,6 @@ namespace Table
 				, deleteCommand =
 				@"DELETE tb_Student
 					WHERE No=@No;";
-			var studentTable = this.dgv_Student.DataSource as DataTable;
 			SqlHelper sqlHelper=new SqlHelper();
 			int rowAffected = sqlHelper
 				.NewCommand(insertCommand)
@@ -66,7 +53,7 @@ namespace Table
 				.NewCommand(deleteCommand)
 				.WithParameter("@No")
 				.AsDeleteCommand()
-				.Submit(studentTable);
+				.Submit(this.dgv_Student);
 			MessageBox.Show($"更新{rowAffected}行。");														
         }	
 	}                                                                                                    
