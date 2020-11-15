@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace Table
 {
+    /// <summary>
+    /// 学生表窗体；
+    /// </summary>
     public partial class frm_StudentTable : Form
     {
         /// <summary>
