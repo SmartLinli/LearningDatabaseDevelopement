@@ -21,9 +21,9 @@ namespace Record_Update
 		/// </summary>
 		private void LoadClasses()
 		{
-			string classCommand = "SELECT * FROM tb_Class";
+			string commandText = "SELECT Name FROM tb_Class";
 			var sqlHelper = new SqlHelper();
-			sqlHelper.QuickRead(classCommand);
+			sqlHelper.QuickRead(commandText);
 			while (sqlHelper.HasRecord)
 			{
 				this.cmb_Class.Items.Add(sqlHelper["Name"]);
