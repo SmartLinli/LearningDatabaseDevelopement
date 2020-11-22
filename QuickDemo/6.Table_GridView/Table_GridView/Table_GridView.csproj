@@ -157,16 +157,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseSelection.cs">
+    <Compile Include="frm_CourseSelection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CourseSelection.Designer.cs">
-      <DependentUpon>CourseSelection.cs</DependentUpon>
+    <Compile Include="frm_CourseSelection.Designer.cs">
+      <DependentUpon>frm_CourseSelection.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CourseSelection.resx">
-      <DependentUpon>CourseSelection.cs</DependentUpon>
+    <EmbeddedResource Include="frm_CourseSelection.resx">
+      <DependentUpon>frm_CourseSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

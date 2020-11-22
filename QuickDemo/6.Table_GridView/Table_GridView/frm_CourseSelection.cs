@@ -7,7 +7,7 @@ namespace GridView
     /// <summary>
     /// 选课窗体；
     /// </summary>
-    public partial class CourseSelection : Form
+    public partial class frm_CourseSelection : Form
     {
         /// <summary>
         /// 当前学号；
@@ -16,7 +16,7 @@ namespace GridView
         /// <summary>
         /// 构造函数；
         /// </summary>
-        public CourseSelection()
+        public frm_CourseSelection()
         {
             InitializeComponent();
             this.LoadCourses();
@@ -28,21 +28,14 @@ namespace GridView
         {
             SqlHelper sqlHelper = new SqlHelper();
             string commantText =
-                $@"SELECT C.*,'已选' AS Status 
-						FROM tb_Course AS C JOIN tb_StudentScore AS SS ON C.Number=SS.CourseNumber
-						WHERE SS.StudentNumber='{StudentNumber}'
-					UNION
-					SELECT C.*,'未选'
-						FROM tb_Course AS C
-						WHERE C.Number NOT IN
-							(SELECT SS.CourseNumber
-								FROM tb_StudentScore AS SS
-								WHERE SS.StudentNumber='{StudentNumber}');";
+                $@"SELECT C.*,IIF(SS.StudentNumber IS NULL,'未选','已选') AS Status 
+				    FROM tb_Course AS C LEFT JOIN tb_StudentScore AS SS ON C.Number=SS.CourseNumber 
+                        AND SS.StudentNumber='{StudentNumber}';";
             sqlHelper.QuickFill(commantText, this.dgv_AllCourses);
             commantText =
                 $@"SELECT C.*,IIF(SS.Score IS NULL,'可退选','不可退') AS Status 
-                        FROM tb_StudentScore AS SS JOIN tb_Course AS C ON SS.CourseNumber=C.Number 
-                        WHERE SS.StudentNumber='{StudentNumber}';";
+                    FROM tb_StudentScore AS SS JOIN tb_Course AS C ON SS.CourseNumber=C.Number 
+                    WHERE SS.StudentNumber='{StudentNumber}';";
             sqlHelper.QuickFill(commantText, this.dgv_SelectedCourses);
         }
         /// <summary>

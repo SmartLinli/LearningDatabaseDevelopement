@@ -1,6 +1,6 @@
 ﻿namespace GridView
 {
-	partial class CourseSelection
+	partial class frm_CourseSelection
 	{
 		/// <summary>
 		/// 必需的设计器变量。
