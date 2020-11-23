@@ -34,7 +34,7 @@ namespace GridView
             sqlHelper.QuickFill(commantText, this.dgv_AllCourses);
             commantText =
                 $@"SELECT C.*,IIF(SS.Score IS NULL,'可退选','不可退') AS Status 
-                    FROM tb_StudentScore AS SS JOIN tb_Course AS C ON SS.CourseNumber=C.Number 
+                    FROM tb_Course AS C JOIN tb_StudentScore AS SS ON SS.CourseNumber=C.Number 
                     WHERE SS.StudentNumber='{StudentNumber}';";
             sqlHelper.QuickFill(commantText, this.dgv_SelectedCourses);
         }
