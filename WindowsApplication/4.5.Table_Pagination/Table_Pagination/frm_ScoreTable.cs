@@ -46,8 +46,8 @@ namespace Table_Pagination
 		/// </summary>
 		private void RefreshRowFilter()
 		=>	this.CurrentPageView.RowFilter =                                                                //设置学生数据视图的行筛选条件，即筛选当前页的记录；
-				$"RowID >{(this.CurrentPageNo - 1) * this.PageSize}"
-				+ $"AND RowID <={this.CurrentPageNo * this.PageSize}";                                      //根据当前页号、每页大小，计算相应的行编号范围，并作为行筛选条件；
+				$"RowID >{(this.CurrentPageNo - 1) * this.PageSize} " +
+                $"AND RowID <={this.CurrentPageNo * this.PageSize}";                                        //根据当前页号、每页大小，计算相应的行编号范围，并作为行筛选条件；
 		/// <summary>
 		/// 点击载入按钮；
 		/// </summary>
@@ -63,12 +63,12 @@ namespace Table_Pagination
             SqlCommand sqlCommand = new SqlCommand();                                                       //声明并实例化SQL命令；
             sqlCommand.Connection = sqlConnection;                                                          //将SQL命令的连接属性指向SQL连接；
 			sqlCommand.CommandText =
-				"SELECT No,Name,BirthDate,Phone/*S.No,S.Name AS SName,C.Name AS CName,SS.TotalScore*/"
-				+ " FROM tb_Student AS S ";																	//指定SQL命令的命令文本；该命令查询所有学生信息；
+				"SELECT No,Name,BirthDate,Phone"
+				+ " FROM tb_Student;";																	    //指定SQL命令的命令文本；该命令查询所有学生信息；
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                           //声明并实例化SQL数据适配器；
             sqlDataAdapter.SelectCommand = sqlCommand;                                                      //将SQL数据适配器的查询命令属性指向SQL命令；
             this.StudentTable = new DataTable();                                                            //实例化本窗体的学生数据表，用于保存所有学生，以用作数据网格视图数据源；
-            this.StudentTable.TableName = "StudentScore";                                                   //设置学生数据表的表名；由于该查询访问多张表，数据适配器无法自动指定表名，故需手动指定表名；
+            this.StudentTable.TableName = "Student";                                                        //设置学生数据表的表名；由于该查询对表进行投影，数据适配器无法自动指定表名，故需手动指定表名，以便后续创建数据视图；
             DataColumn rowIdColumn = new DataColumn();                                                      //声明并实例化数据列，用于保存行编号；
             rowIdColumn.ColumnName = "RowID";                                                               //设置数据列的名称；
             rowIdColumn.DataType = typeof(int);                                                             //设置数据列的类型；类型需借助typeof获取；
@@ -85,7 +85,6 @@ namespace Table_Pagination
             this.CurrentPageView.Table = this.StudentTable;                                                 //设置学生数据视图对应的数据表；
             this.CurrentPageView.Sort = "RowID ASC";                                                        //设置学生数据视图的排序条件，即行编号；
 			this.RefreshRowFilter();																		//刷新行筛选条件，即筛选当前页的记录；
-            this.dgv_Student.Columns.Clear();                                                               //数据网格视图的列集合清空；
             this.dgv_Student.DataSource = this.CurrentPageView;                                             //将数据网格视图的数据源设为当前页学生的视图；
             this.dgv_Student.Columns["No"].HeaderText = "学号";												//将数据网格视图的指定列的表头文本设为中文；
             this.dgv_Student.Columns["Name"].HeaderText = "姓名";
