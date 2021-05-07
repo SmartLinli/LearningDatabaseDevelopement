@@ -66,11 +66,11 @@ namespace Record_Update
             sqlConnection.ConnectionString =
                 ConfigurationManager.ConnectionStrings["Sql"].ConnectionString;                            
             SqlCommand sqlCommand = new SqlCommand();                                                      
-            sqlCommand.Connection = sqlConnection;                                                         
-            sqlCommand.CommandText =                                                                       
-                "UPDATE tb_Student"
-                + " SET Name=@Name,Gender=@Gender,BirthDate=@BirthDate,ClassNo=@ClassNo,Speciality=@Speciality"
-                + " WHERE No=@No;";
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText =
+                "UPDATE tb_Student" +
+                 " SET Name=@Name,Gender=@Gender,BirthDate=@BirthDate,ClassNo=@ClassNo,Speciality=@Speciality" +
+                 " WHERE No=@No;";
             sqlCommand.Parameters.AddWithValue("@Name", this.txb_Name.Text.Trim());                       
             sqlCommand.Parameters.AddWithValue("@Gender", this.rdb_Male.Checked);
             sqlCommand.Parameters.AddWithValue("@BirthDate", this.dtp_BirthDate.Value);

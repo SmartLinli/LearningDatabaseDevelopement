@@ -63,8 +63,7 @@ namespace Table_Pagination
             SqlCommand sqlCommand = new SqlCommand();                                                       //声明并实例化SQL命令；
             sqlCommand.Connection = sqlConnection;                                                          //将SQL命令的连接属性指向SQL连接；
 			sqlCommand.CommandText =
-				"SELECT No,Name,BirthDate,Phone"
-				+ " FROM tb_Student;";																	    //指定SQL命令的命令文本；该命令查询所有学生信息；
+				"SELECT No,Name,BirthDate,Phone FROM tb_Student;";											//指定SQL命令的命令文本；该命令查询所有学生信息；
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                           //声明并实例化SQL数据适配器；
             sqlDataAdapter.SelectCommand = sqlCommand;                                                      //将SQL数据适配器的查询命令属性指向SQL命令；
             this.StudentTable = new DataTable();                                                            //实例化本窗体的学生数据表，用于保存所有学生，以用作数据网格视图数据源；

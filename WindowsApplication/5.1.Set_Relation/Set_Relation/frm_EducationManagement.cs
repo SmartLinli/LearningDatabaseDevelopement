@@ -37,9 +37,9 @@ namespace Set_Relation
             SqlCommand sqlCommand = new SqlCommand();                                                   //声明并实例化SQL命令；
             sqlCommand.Connection = sqlConnection;                                                      //将SQL命令的连接属性指向SQL连接；
             sqlCommand.CommandText =                                                                    //指定SQL命令的命令文本；
-                "SELECT * FROM tb_Department;"                                                          //该命令分别查询所有院系、专业、班级，查询结果将返回多张表；
-                + "SELECT * FROM tb_Major;"
-                + "SELECT * FROM tb_Class;";                                       
+                "SELECT * FROM tb_Department;" +                                                        //该命令分别查询所有院系、专业、班级，查询结果将返回多张表；
+                "SELECT * FROM tb_Major;" +
+                "SELECT * FROM tb_Class;";                                       
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                       //声明并实例化SQL数据适配器，同时借助构造函数，将其SelectCommand属性设为先前创建的SQL命令；
             sqlDataAdapter.SelectCommand = sqlCommand;                                                  //将SQL数据适配器的查询命令属性指向SQL命令；
             DataSet dataSet = new DataSet();                                                            //声明并实例化数据集，用于保存查得的多张表；
@@ -52,15 +52,15 @@ namespace Set_Relation
             DataRelation[] dataRelations =                                                              //声明数据关系数组；
             {
                 new DataRelation                                                                        //实例化数据关系，实现院系表、专业表之间的层次关系；
-                    ("Department_Major"                                                                 //数据关系名称；
-                    , departmentTable.Columns["No"]                                                     //父表的被参照列为院系表的编号列；
-                    , majorTable.Columns["DepartmentNo"]                                                //子表的参照列为专业表的院系编号列；不要求后端数据库在子表的参照列上创建外键约束；
-                    , false)                                                                            //不创建约束（父列上的唯一约束、子列上的外键约束）；
-                , new DataRelation                                                                      //实例化数据关系，实现专业表、班级表之间的层次关系；
-                    ("Major_Class"                                                                      //数据关系名称；
-                    , majorTable.Columns["No"]                                                          //父表的被参照列为专业表的编号列；
-                    , classTable.Columns["MajorNo"]                                                     //子表的参照列为班级表的专业编号列；
-                    , false)                                                                            //不创建约束（父列上的唯一约束、子列上的外键约束）；
+                    ("Department_Major",                                                                //数据关系名称；
+                     departmentTable.Columns["No"],                                                     //父表的被参照列为院系表的编号列；
+                     majorTable.Columns["DepartmentNo"],                                                //子表的参照列为专业表的院系编号列；不要求后端数据库在子表的参照列上创建外键约束；
+                     false),                                                                            //不创建约束（父列上的唯一约束、子列上的外键约束）；
+                new DataRelation                                                                        //实例化数据关系，实现专业表、班级表之间的层次关系；
+                    ("Major_Class",                                                                     //数据关系名称；
+                     majorTable.Columns["No"],                                                          //父表的被参照列为专业表的编号列；
+                     classTable.Columns["MajorNo"],                                                     //子表的参照列为班级表的专业编号列；
+                     false)                                                                             //不创建约束（父列上的唯一约束、子列上的外键约束）；
             };
             dataSet.Relations.AddRange(dataRelations);                                                  //将数据关系数组批量加入数据集的关系集合中；
             this.trv_EducationUnit.Nodes.Clear();                                                       //树形视图的节点集合清空；

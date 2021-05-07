@@ -27,9 +27,9 @@ namespace Command_Scalar
             SqlCommand sqlCommand = new SqlCommand();                                       //声明并实例化SQL命令；
             sqlCommand.Connection = sqlConnection;                                          //将SQL命令的属性Connection指向SQL连接；
             sqlCommand.CommandText =                                                        //指定SQL命令的命令文本；命令文本由字符串拼接而成；
-                $"SELECT COUNT(1) FROM tb_User"
-                + $" WHERE No='{this.txb_UserNo.Text.Trim()}'"								//将文本框的文本清除首尾的空格后，拼接至命令文本中；
-                + $" AND Password=HASHBYTES('MD5','{this.txb_Password.Text.Trim()}');";           
+                $"SELECT COUNT(1) FROM tb_User" +
+                $" WHERE No='{this.txb_UserNo.Text.Trim()}'" +								//将文本框的文本清除首尾的空格后，拼接至命令文本中；
+                $" AND Password=HASHBYTES('MD5','{this.txb_Password.Text.Trim()}');";           
             sqlConnection.Open();                                                           //打开SQL连接；
             int rowCount = (int)sqlCommand.ExecuteScalar();                                 //调用SQL命令的方法ExecuteScalar来执行命令，并接受单个结果（即标量）；
                                                                                             //执行标量的返回结果类型为object，可通过强制类型转换，转为整型；

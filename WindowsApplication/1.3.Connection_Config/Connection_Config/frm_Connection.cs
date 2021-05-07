@@ -34,13 +34,13 @@ namespace Connection_Config
             sqlConnection.ConnectionString =
                 ConfigurationManager.ConnectionStrings["Sql"].ConnectionString;                                                 //配置管理器从配置文件读取连接字符串，并将之赋予SQL连接的连接字符串属性；
             sqlConnection.Open();                                                                                               //打开SQL连接；
-			MessageBox.Show																										//在消息框中显示；
-				($"连接状态：{sqlConnection.State.ToString()}"																	//消息框消息内容；
-				+ $"\n工作站标识：{sqlConnection.WorkstationId}"
-				+ $"\n服务器地址：{sqlConnection.DataSource}"
-				+ $"\n服务器版本：{sqlConnection.ServerVersion}"
-				+ $"\n数据库名称：{sqlConnection.Database}"
-				+ $"\n\n（单击【确定】后将关闭SQL连接）");
+            MessageBox.Show                                                                                                     //在消息框中显示；
+                ($"连接状态：{sqlConnection.State.ToString()}" +                                                                 //消息框消息内容；
+                 $"\n工作站标识：{sqlConnection.WorkstationId}" +
+                 $"\n服务器地址：{sqlConnection.DataSource}" +
+                 $"\n服务器版本：{sqlConnection.ServerVersion}" +
+                 $"\n数据库名称：{sqlConnection.Database}" +
+                 $"\n\n（单击【确定】后将关闭SQL连接）");
 			sqlConnection.Close();                                                                                              //关闭SQL连接；
         }
     }

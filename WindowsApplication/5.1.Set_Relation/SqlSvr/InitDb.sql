@@ -46,9 +46,7 @@ CREATE TABLE tb_Major
 	,DepartmentNo
 		INT
 		NOT NULL
-		FOREIGN KEY REFERENCES tb_Department(No)
-			ON UPDATE CASCADE
-			ON DELETE NO ACTION);
+		FOREIGN KEY REFERENCES tb_Department(No));
 INSERT tb_Major
 	(No,Name,DepartmentNo)
 	VALUES
@@ -69,9 +67,7 @@ CREATE TABLE tb_Class
 	,MajorNo
 		INT
 		NOT NULL
-		FOREIGN KEY REFERENCES tb_Major(No)
-			ON UPDATE CASCADE
-			ON DELETE NO ACTION)
+		FOREIGN KEY REFERENCES tb_Major(No))
 INSERT tb_Class
 	(No,Name,MajorNo)
 	VALUES
@@ -126,9 +122,7 @@ CREATE TABLE tb_Student
 	,ClassNo
 		INT
 		NOT NULL
-		FOREIGN KEY REFERENCES tb_Class(No)
-			ON UPDATE CASCADE
-			ON DELETE NO ACTION);
+		FOREIGN KEY REFERENCES tb_Class(No));
 ----批量插入学生表；
 BULK INSERT tb_Student
 	FROM 'C:\Student.csv'
