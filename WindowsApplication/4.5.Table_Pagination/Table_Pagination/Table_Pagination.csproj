@@ -64,16 +64,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frm_ScoreTable.cs">
+    <Compile Include="frm_StudentInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_ScoreTable.designer.cs">
-      <DependentUpon>frm_ScoreTable.cs</DependentUpon>
+    <Compile Include="frm_StudentInfo.designer.cs">
+      <DependentUpon>frm_StudentInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frm_ScoreTable.resx">
-      <DependentUpon>frm_ScoreTable.cs</DependentUpon>
+    <EmbeddedResource Include="frm_StudentInfo.resx">
+      <DependentUpon>frm_StudentInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

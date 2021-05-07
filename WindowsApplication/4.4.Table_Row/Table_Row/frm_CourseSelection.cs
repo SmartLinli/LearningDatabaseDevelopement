@@ -102,7 +102,7 @@ namespace Table_Row
             selectedCourseRow["No"] = currentCourseRow["No"];												//逐一将当前课程数据行的各列值，赋予已选课程数据行的相应列；
             selectedCourseRow["Name"] = currentCourseRow["Name"];
             selectedCourseRow["Credit"] = currentCourseRow["Credit"];
-            this.SelectedCourseTable.Rows.Add(selectedCourseRow);											//已选课程数据行加入已选课程数据表；随后该行的状态为添加；
+            this.SelectedCourseTable.Rows.Add(selectedCourseRow);											//已选课程数据行加入已选课程数据表；随后该行的状态为添加；此处不可用数据表的ImportRow方法替代，后者无法改变行的分离状态；
             currentCourseRow.Delete();																		//当前课程数据行删除；随后该行的状态为删除；
             this.lbl_CreditSum.Text =																		//在标签中显示已选课程的学分总和；
                 $"共{this.SelectedCourseTable.Compute("SUM(Credit)", "")}学分";								//借助已选课程数据表的方法Compute，实现简单计算，例如聚合；
