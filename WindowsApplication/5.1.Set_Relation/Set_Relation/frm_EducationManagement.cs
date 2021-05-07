@@ -54,7 +54,7 @@ namespace Set_Relation
                 new DataRelation                                                                        //实例化数据关系，实现院系表、专业表之间的层次关系；
                     ("Department_Major"                                                                 //数据关系名称；
                     , departmentTable.Columns["No"]                                                     //父表的被参照列为院系表的编号列；
-                    , majorTable.Columns["DepartmentNo"]                                                //子表的参照列为专业表的院系编号列；
+                    , majorTable.Columns["DepartmentNo"]                                                //子表的参照列为专业表的院系编号列；不要求后端数据库在子表的参照列上创建外键约束；
                     , false)                                                                            //不创建约束（父列上的唯一约束、子列上的外键约束）；
                 , new DataRelation                                                                      //实例化数据关系，实现专业表、班级表之间的层次关系；
                     ("Major_Class"                                                                      //数据关系名称；
