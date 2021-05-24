@@ -19,7 +19,7 @@ namespace ObjectOriented_EntityFramework
 		/// 获取数据库上下文；
 		/// </summary>
 		/// <returns></returns>
-		public static EduBase GetDbContext()
+		public static MyDbContext GetDbContext()
 		=>	new EduBaseSql();
 		/// <summary>
 		/// 预热；

@@ -13,13 +13,13 @@ namespace ObjectOriented_MultiDb
 		/// 创建数据访问层；
 		/// </summary>
 		/// <returns>数据访问层</returns>
-		public static IUserDal CreateUserDal()
+		public static IUserDal Create()
 		{
 			IUserDal userDal = null;
 			string dalTypeName = ConfigurationManager.AppSettings["DalType"];
 			switch (dalTypeName)
 			{
-				case "PgSql":
+				case "Pgsql":
 					userDal = new UserDalPgsql();
 					break;
 				default:

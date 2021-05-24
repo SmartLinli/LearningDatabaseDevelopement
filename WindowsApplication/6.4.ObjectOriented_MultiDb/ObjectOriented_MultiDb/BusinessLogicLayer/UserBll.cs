@@ -197,7 +197,7 @@ namespace ObjectOriented_MultiDb
 		/// </summary>
 		public UserBll()
 		{
-			this.UserDal = new UserDalPgsql();
+			this.UserDal = DalFactory.Create();
 		}
 	}
 }
