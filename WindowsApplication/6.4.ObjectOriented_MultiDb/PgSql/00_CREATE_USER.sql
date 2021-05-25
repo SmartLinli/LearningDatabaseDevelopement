@@ -1,0 +1,1 @@
+CREATE USER "Administrator" SUPERUSER PASSWORD '';
