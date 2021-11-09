@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace Table_Row
 {
-	public partial class frm_CourseSelection : Form
+    public partial class frm_CourseSelection : Form
     {
-		/// <summary>
-		/// 学号；
-		/// </summary>
-		private string StudentNo = "3180707001";
+        /// <summary>
+        /// 学号；
+        /// </summary>
+        private string StudentNo = "3180707001";
         /// <summary>
         /// 课程数据表；
         /// </summary>
@@ -92,12 +92,12 @@ namespace Table_Row
         /// <param name="e"></param>
         private void btn_Add_Click(object sender, EventArgs e)
         {
-			if (this.dgv_Course.RowCount == 0)                                                              //若课程数据网格视图内的行计数等于0；
-				return;                                                                                     //返回；
-			DataRowView currentCourseRowView = 
-				this.dgv_Course.CurrentRow.DataBoundItem as DataRowView;									//将课程数据网格视图的当前行的数据绑定项，转换为数据行视图；
-			DataRow                                                                                         //声明数据行；
-				currentCourseRow = currentCourseRowView.Row													//通过当前的数据行视图，获取其相应的数据行；
+            if (this.dgv_Course.RowCount == 0)                                                              //若课程数据网格视图内的行计数等于0；
+                return;                                                                                     //返回；
+            DataRowView currentCourseRowView =
+                this.dgv_Course.CurrentRow.DataBoundItem as DataRowView;                                    //将课程数据网格视图的当前行的数据绑定项，转换为数据行视图；
+            DataRow                                                                                         //声明数据行；
+                currentCourseRow = currentCourseRowView.Row													//通过当前的数据行视图，获取其相应的数据行；
                 , selectedCourseRow = this.SelectedCourseTable.NewRow();									//已选课程数据行则通过已选课程数据表的方法NewRow来新建；随后该行的状态为分离；
             selectedCourseRow["No"] = currentCourseRow["No"];												//逐一将当前课程数据行的各列值，赋予已选课程数据行的相应列；
             selectedCourseRow["Name"] = currentCourseRow["Name"];
@@ -114,14 +114,14 @@ namespace Table_Row
         /// <param name="e"></param>
         private void btn_Remove_Click(object sender, EventArgs e)
         {
-			if (this.dgv_SelectedCourse.RowCount == 0)                                                      //若已选课程数据网格视图内的行计数等于0；
-				return;                                                                                     //返回；
-			DataRowView selectedCourseRowView = 
-				this.dgv_SelectedCourse.CurrentRow.DataBoundItem as DataRowView;                            //将已选课程数据网格视图的当前行的数据绑定项，转换为数据行视图；
-			DataRow selectedCourseRow = selectedCourseRowView.Row;                                          //通过当前的数据行视图，获取其相应的数据行；
-			if (selectedCourseRow.RowState != DataRowState.Added)											//若已选课程数据行的行状态并非添加；
-				return;																						//返回；
-			string courseNo = selectedCourseRow["No"].ToString();											//获取当前课程数据行的课程编号；
+            if (this.dgv_SelectedCourse.RowCount == 0)                                                      //若已选课程数据网格视图内的行计数等于0；
+                return;                                                                                     //返回；
+            DataRowView selectedCourseRowView =
+                this.dgv_SelectedCourse.CurrentRow.DataBoundItem as DataRowView;                            //将已选课程数据网格视图的当前行的数据绑定项，转换为数据行视图；
+            DataRow selectedCourseRow = selectedCourseRowView.Row;                                          //通过当前的数据行视图，获取其相应的数据行；
+            if (selectedCourseRow.RowState != DataRowState.Added)                                           //若已选课程数据行的行状态并非添加；
+                return;                                                                                     //返回；
+            string courseNo = selectedCourseRow["No"].ToString();											//获取当前课程数据行的课程编号；
             DataRow deletedCourseRow =																		//声明已删课程数据行（即先前从课程数据表中删除的数据行）；
                 this.CourseTable.Select($"No='{courseNo}'", "", DataViewRowState.Deleted)[0];			//已删课程数据行可通过课程数据表的方法Select查得，该方法接受查询条件、排序条件、行状态条件等参数，并返回数据行数组；
             deletedCourseRow.RejectChanges();																//已删课程数据行拒绝更改，即回滚先前对其执行的删除；随后该行的状态为未更改；
