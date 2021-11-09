@@ -74,10 +74,11 @@ CREATE TABLE tb_Class
 INSERT tb_Class
 	(No,Name,MajorNo)
 	VALUES
-	(1,'18公管',1)
-	,(2,'18信管',2)
-	,(3,'18中医',3)
-	,(4,'18临床',4);
+	(1,'19公管1',1)
+	,(2,'19公管2',1)
+	,(3,'19信管',2)
+	,(4,'19中医',3)
+	,(5,'19临床',4);
 ----学生表；
 CREATE TABLE tb_Student
 	(No
