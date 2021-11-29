@@ -9,23 +9,38 @@ namespace SmartLinli.DatabaseDevelopement
 	/// </summary>
 	public static class DataBindHelper
 	{
-		/// <summary>
-		/// 快速填充；
-		/// 读取数据表，并设为列表控件的数据源；
-		/// </summary>
-		/// <param name="dbHelper">数据库助手</param>
-		/// <param name="commandText">命令文本</param>
-		/// <param name="listControl">列表控件</param>
-		/// <param name="displayMember">显示值</param>
-		/// <param name="valueMember">实际值</param>
-		public static void QuickFill(this DbHelperBase dbHelper, string commandText, ListControl listControl, string displayMember = "Name", string valueMember = "No")
+        /// <summary>
+        /// 快速填充；
+        /// 利用数据读取器，读取记录并添加至组合框控件的项集合；
+        /// </summary>
+        /// <param name="dbHelper">数据库助手</param>
+        /// <param name="commandText">命令文本</param>
+        /// <param name="comboBox">组合框控件</param>
+        /// <param name="displayMember">显示值</param>
+        public static void QuickFill(this DbHelperBase dbHelper, string commandText, ComboBox comboBox, string displayMember = "Name")
+        {
+            IDataReader dataReader = dbHelper.NewCommand(commandText).ReturnReader();
+            while (dataReader.Read())
+            {
+                comboBox.Items.Add(dataReader[displayMember]);
+            }
+        }
+        /// <summary>
+        /// 快速填充；
+        /// 读取数据表，并设为列表控件的数据源；
+        /// </summary>
+        /// <param name="dbHelper">数据库助手</param>
+        /// <param name="commandText">命令文本</param>
+        /// <param name="listControl">列表控件</param>
+        /// <param name="displayMember">显示值</param>
+        /// <param name="valueMember">实际值</param>
+        public static void QuickFill(this DbHelperBase dbHelper, string commandText, ListControl listControl, string displayMember = "Name", string valueMember = "No")
 		{
 			DataTable dataTable = dbHelper.NewCommand(commandText).ReturnTable();
 			listControl.DataSource = dataTable;
 			listControl.DisplayMember = "Name";
 			listControl.ValueMember = "No";
 		}
-
 		/// <summary>
 		/// 快速填充；
 		/// 读取数据表，并设为数据网格视图的数据源；

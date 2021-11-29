@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SmartLinli.DatabaseDevelopement</id>
-    <version>0.0.51-alpha</version>
+    <version>0.0.52-alpha</version>
     <title>DatabaseDevelopement</title>
     <authors>SmartLinli</authors>
     <owners>SmartLinli</owners>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Basic tools for database developement.</description>
     <releaseNotes>Couple of bugs fixed.</releaseNotes>
-    <copyright>Copyright 2019</copyright>
+    <copyright>Copyright 2021</copyright>
     <tags>Database</tags>
     <dependencies>
       <group targetFramework="net472">

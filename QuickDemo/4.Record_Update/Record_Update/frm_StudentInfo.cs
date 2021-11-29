@@ -23,11 +23,7 @@ namespace Record_Update
 		{
 			string commandText = "SELECT Name FROM tb_Class";
 			var sqlHelper = new SqlHelper();
-			sqlHelper.QuickRead(commandText);
-			while (sqlHelper.HasRecord)
-			{
-				this.cmb_Class.Items.Add(sqlHelper["Name"]);
-			}
+            sqlHelper.QuickFill(commandText, this.cmb_Class);
 		}
 		/// <summary>
 		/// 点击载入按钮；
