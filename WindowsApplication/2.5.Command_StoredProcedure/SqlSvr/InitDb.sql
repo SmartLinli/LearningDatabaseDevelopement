@@ -33,7 +33,7 @@ CREATE TABLE tb_User
 INSERT tb_User
 	(No,Password)
 	VALUES
-	('3180707001',HASHBYTES('MD5','7001'));
+	('3200707001',HASHBYTES('MD5','7001'));
 GO
 USE EduBaseDemo;
 --创建存储过程；
