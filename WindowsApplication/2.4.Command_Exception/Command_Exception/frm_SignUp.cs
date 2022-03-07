@@ -54,7 +54,7 @@ namespace Command_Exception
             {
                 if (sqlEx.Number == 2627)                                                               //若SQL异常编号为2627，则违反主键/唯一约束，即插入重复值；
                 {
-                    MessageBox.Show("您注册的用户号已存在，请重新输入！\n");									//给出适当的错误提示；
+                    MessageBox.Show("您注册的用户号已存在，请重新输入！\n");								//给出适当的错误提示；
                 }
             }
             finally                                                                                     //结束；
