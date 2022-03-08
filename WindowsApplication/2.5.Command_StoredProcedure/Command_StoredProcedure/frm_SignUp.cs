@@ -30,7 +30,7 @@ namespace Command_StoredProcedure
             }
             if (this.txb_Password.Text.Trim() == "")                                                    //若密码文本框为空；
             {
-                MessageBox.Show("密码不能为空！");															//给出错误提示；
+                MessageBox.Show("密码不能为空！");														//给出错误提示；
                 this.txb_Password.Focus();                                                              //密码文本框获得焦点；
                 return;                                                                                 //返回；
             }
