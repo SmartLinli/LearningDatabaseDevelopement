@@ -56,6 +56,10 @@ namespace Command_Exception
                 {
                     MessageBox.Show("您注册的用户号已存在，请重新输入！\n");								//给出适当的错误提示；
                 }
+                else
+                {
+                    MessageBox.Show("注册失败。请联系管理员！");
+                }
             }
             finally                                                                                     //结束；
             {

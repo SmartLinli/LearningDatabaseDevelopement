@@ -33,7 +33,7 @@ namespace Record_Update
             sqlCommand2.Connection = sqlConnection;                                                        
             sqlCommand.CommandText = "SELECT * FROM tb_Class;";                                            
             sqlCommand2.CommandText = "SELECT * FROM tb_Student WHERE No=@No;";                            
-            sqlCommand2.Parameters.AddWithValue("@No", "3180707001");                                      
+            sqlCommand2.Parameters.AddWithValue("@No", "3200707001");                                      
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();                                          
             sqlDataAdapter.SelectCommand = sqlCommand;                                                     
             DataTable classTable = new DataTable();                                                        
@@ -76,7 +76,7 @@ namespace Record_Update
             sqlCommand.Parameters.AddWithValue("@BirthDate", this.dtp_BirthDate.Value);
             sqlCommand.Parameters.AddWithValue("@ClassNo", (int)this.cmb_Class.SelectedValue);
             sqlCommand.Parameters.AddWithValue("@Speciality", this.txb_Speciality.Text.Trim());     
-            sqlCommand.Parameters.AddWithValue("@No", "3120707001");                                      
+            sqlCommand.Parameters.AddWithValue("@No", "3200707001");                                      
             sqlConnection.Open();                                                                         
             int rowAffected = sqlCommand.ExecuteNonQuery();                                               
             sqlConnection.Close();
