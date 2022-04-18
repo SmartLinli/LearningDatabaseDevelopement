@@ -27,7 +27,7 @@ namespace Record_Reader
             SqlCommand sqlCommand = new SqlCommand();                                                       
             sqlCommand.Connection = sqlConnection;                                                          
             sqlCommand.CommandText = "SELECT * FROM tb_Student WHERE No=@No;";                              
-            sqlCommand.Parameters.AddWithValue("@No", "3180707001");                                        
+            sqlCommand.Parameters.AddWithValue("@No", "3200707001");                                        
             sqlConnection.Open();                                                                           
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();                                       
             if (sqlDataReader.Read())                                                                       
