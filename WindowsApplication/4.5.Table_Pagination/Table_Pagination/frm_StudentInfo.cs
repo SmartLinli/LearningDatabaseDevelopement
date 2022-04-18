@@ -89,7 +89,7 @@ namespace Table_Pagination
             this.dgv_Student.Columns["Name"].HeaderText = "姓名";
             this.dgv_Student.Columns["BirthDate"].HeaderText = "生日";
             this.dgv_Student.Columns["Phone"].HeaderText = "电话";
-            this.dgv_Student.Columns["RowID"].Visible = false;                                               //将数据网格视图的指定列设为不可见；
+            this.dgv_Student.Columns["RowID"].Visible = false;                                              //将数据网格视图的指定列设为不可见；
             this.dgv_Student.Columns[this.dgv_Student.Columns.Count - 1].AutoSizeMode =                     //数据网格视图的最后一列的自动调整列宽模式设为填充（至数据网格视图右侧边缘）；
                 DataGridViewAutoSizeColumnMode.Fill;
         }
