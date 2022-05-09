@@ -22,20 +22,6 @@ namespace ObjectOriented_MultiDb
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
 			this.UserBll = new UserBll();
-			this.txb_UserNo.Tag = "用户号";
-			this.txb_Password.Tag = "密码";
-			this.ValidatorComponent
-				.Add<RequiredInfoValidator>
-					(v => v.For(this.txb_UserNo, this.txb_Password))
-				.Add<LengthValidator>
-					(v => v.For(txb_UserNo)
-						   .Between(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength),
-					 v => v.For(txb_Password)
-						   .Between(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh))
-				.Add<ExistValidator>
-					(v => v.For(txb_UserNo)
-						   .By(this.UserBll.CheckExist)
-						   .ShowErrorIfNotExist());
 			this.AcceptButton = this.btn_LogIn;
 		}
 		/// <summary>

@@ -47,7 +47,7 @@ namespace SmartLinli.DatabaseDevelopement
 			}
 			catch (RuntimeBinderException)
 			{
-				throw new NotImplementedException("当前窗体未定义ErrorProvider");
+				throw new NotImplementedException("当前窗体未定义公有的ErrorProvider");
 			}
 			return errorProvider;
 		}

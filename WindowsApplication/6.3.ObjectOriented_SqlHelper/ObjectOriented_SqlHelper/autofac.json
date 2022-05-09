@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "ObjectOriented_SqlHelper",
+  "components": [
+    {
+      "type": "ObjectOriented_SqlHelper.DbContext,ObjectOriented_SqlHelper",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.SmartDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]
+    }
+  ]
+}

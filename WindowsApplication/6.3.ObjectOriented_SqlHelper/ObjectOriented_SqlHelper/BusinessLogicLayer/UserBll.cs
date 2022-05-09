@@ -19,7 +19,7 @@ namespace ObjectOriented_SqlHelper
 		/// <summary>
 		/// 用户号最小长度；
 		/// </summary>
-		public int UserNoMinLength => 10;
+		public int UserNoMinLength => 7;
 		/// <summary>
 		/// 用户号最大长度；
 		/// </summary>
