@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,10 +8,7 @@ namespace ObjectOriented_SqlHelper
 	/// <summary>
 	/// 违反唯一性异常；
 	/// </summary>
-	public class NotUniqueException:Exception
-	{
-		
-	}
+	public class NotUniqueException : Exception { }
 	/// <summary>
 	/// SQL助手；
 	/// </summary>
