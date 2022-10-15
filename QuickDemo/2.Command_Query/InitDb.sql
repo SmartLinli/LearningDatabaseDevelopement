@@ -3,13 +3,7 @@
 */
 --创建数据库；
 USE master;
-IF DB_ID('EduBaseDemo') IS NOT NULL
-	BEGIN
-		ALTER DATABASE EduBaseDemo
-			SET SINGLE_USER
-			WITH ROLLBACK IMMEDIATE;
-		DROP DATABASE EduBaseDemo;
-	END
+DROP DATABASE IF EXISTS EduBaseDemo;
 GO
 CREATE DATABASE EduBaseDemo
 	ON
@@ -33,4 +27,4 @@ CREATE TABLE tb_User
 INSERT tb_User
 	(No,Password)
 	VALUES
-	('3190707001','7001');
+	('3210707001','7001');

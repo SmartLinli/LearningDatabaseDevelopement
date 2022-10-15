@@ -3,13 +3,7 @@
 */
 --创建数据库；
 USE master;
-IF DB_ID('EduBaseDemo') IS NOT NULL
-	BEGIN
-		ALTER DATABASE EduBaseDemo
-			SET SINGLE_USER
-			WITH ROLLBACK IMMEDIATE;
-		DROP DATABASE EduBaseDemo;
-	END
+DROP DATABASE IF EXISTS EduBaseDemo;
 GO
 CREATE DATABASE EduBaseDemo
 	ON
@@ -45,10 +39,10 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3190707001','贾雨晗','女','2001-05-08','19信管','睡觉')
-	,('3190707002','温晓雯','女','2001-05-20','19信管','吃货')
-	,('3190707003','张浩奇','男','2001-04-27','19信管',NULL)
-	,('3190707004','李玉林','男','2000-07-08','19信管',NULL);
+	('3210707001','田杰红','女','2001-09-10','21信管','干饭')
+	,('3210707002','刘兰','女','2003-02-09','21信管','摸鱼')
+	,('3210707003','吴争宇','男','2004-01-05','21信管',NULL)
+	,('3210707004','廖丽珍','女','2002-11-12','21信管',NULL);
 ----课程表；
 CREATE TABLE tb_Course
 	(Number 
@@ -79,4 +73,4 @@ CREATE TABLE tb_StudentScore
 INSERT tb_StudentScore
 	(StudentNumber,CourseNumber,Score)
 	VALUES
-	('3190707001','A001',82);
+	('3210707001','A001',82);

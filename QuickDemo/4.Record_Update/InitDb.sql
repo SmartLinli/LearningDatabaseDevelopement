@@ -3,13 +3,7 @@
 */
 --创建数据库；
 USE master;
-IF DB_ID('EduBaseDemo') IS NOT NULL
-	BEGIN
-		ALTER DATABASE EduBaseDemo
-			SET SINGLE_USER
-			WITH ROLLBACK IMMEDIATE;
-		DROP DATABASE EduBaseDemo;
-	END
+DROP DATABASE IF EXISTS EduBaseDemo;
 GO
 CREATE DATABASE EduBaseDemo
 	ON
@@ -33,10 +27,10 @@ CREATE TABLE tb_Class
 INSERT tb_Class
 	(No,Name)
 	VALUES
-	(1,'19公管')
-	,(2,'19信管')
-	,(3,'19中医')
-	,(4,'19临床');
+	(1,'21公管')
+	,(2,'21信管')
+	,(3,'21中医')
+	,(4,'21临床');
 ----学生表；
 CREATE TABLE tb_Student
 	(No
@@ -61,5 +55,5 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3190707001','贾雨晗',0,'2001-05-08','19信管','睡觉');
+	('3210707001','田杰红','女','2001-09-10','21信管','干饭');
 GO

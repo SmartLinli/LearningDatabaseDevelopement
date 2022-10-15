@@ -12,7 +12,7 @@ namespace GridView
         /// <summary>
         /// 当前学号；
         /// </summary>
-        private string StudentNumber => "3190707001";
+        private string StudentNumber => "3210707001";
         /// <summary>
         /// 构造函数；
         /// </summary>
