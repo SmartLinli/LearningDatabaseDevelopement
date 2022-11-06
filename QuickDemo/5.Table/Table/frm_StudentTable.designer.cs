@@ -31,7 +31,6 @@
             this.btn_Submit = new System.Windows.Forms.Button();
             this.dgv_Student = new System.Windows.Forms.DataGridView();
             this.btn_Load = new System.Windows.Forms.Button();
-            this.lbl_CurrentStudent = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Student)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,21 +63,11 @@
             this.btn_Load.UseVisualStyleBackColor = true;
             this.btn_Load.Click += new System.EventHandler(this.btn_Load_Click);
             // 
-            // lbl_CurrentStudent
-            // 
-            this.lbl_CurrentStudent.AutoSize = true;
-            this.lbl_CurrentStudent.Location = new System.Drawing.Point(12, 224);
-            this.lbl_CurrentStudent.Name = "lbl_CurrentStudent";
-            this.lbl_CurrentStudent.Size = new System.Drawing.Size(89, 12);
-            this.lbl_CurrentStudent.TabIndex = 51;
-            this.lbl_CurrentStudent.Text = "当前学生姓名：";
-            // 
             // frm_StudentTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 254);
-            this.Controls.Add(this.lbl_CurrentStudent);
             this.Controls.Add(this.btn_Load);
             this.Controls.Add(this.dgv_Student);
             this.Controls.Add(this.btn_Submit);
@@ -86,7 +75,6 @@
             this.Text = "学生表";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Student)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -95,6 +83,5 @@
         private System.Windows.Forms.Button btn_Submit;
         private System.Windows.Forms.DataGridView dgv_Student;
         private System.Windows.Forms.Button btn_Load;
-		private System.Windows.Forms.Label lbl_CurrentStudent;
 	}
 }

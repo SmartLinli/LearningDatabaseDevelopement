@@ -16,7 +16,6 @@ namespace Table
 		{
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this.dgv_Student.CellClick += Dgv_Student_CellClick;
 		}
 		/// <summary>
 		/// 点击载入按钮；
@@ -61,16 +60,5 @@ namespace Table
 				.Submit(this.dgv_Student);
 			MessageBox.Show($"更新{rowAffected}行。");
 		}
-        /// <summary>
-        /// 点击数据网格视图中的某个单元格；
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        private void Dgv_Student_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string currentStudentName = this.dgv_Student.CurrentRow.Cells["Name"].Value.ToString();
-            this.lbl_CurrentStudent.Text = $"当前学生姓名：{currentStudentName}";
-        }
     }
 }
