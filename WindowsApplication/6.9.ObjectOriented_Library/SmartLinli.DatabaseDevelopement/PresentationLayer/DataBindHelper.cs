@@ -22,8 +22,16 @@ namespace SmartLinli.DatabaseDevelopement
             IDataReader dataReader = dbHelper.NewCommand(commandText).ReturnReader();
             while (dataReader.Read())
             {
-                comboBox.Items.Add(dataReader[displayMember]);
+                if (dataReader.FieldCount == 1)
+                {
+                    comboBox.Items.Add(dataReader[0]);
+                }
+                else
+                {
+                    comboBox.Items.Add(dataReader[displayMember]);
+                }
             }
+            dataReader.Close();
         }
         /// <summary>
         /// 快速填充；

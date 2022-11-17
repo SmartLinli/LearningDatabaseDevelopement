@@ -9,22 +9,30 @@ namespace SmartLinli.DatabaseDevelopement
 	/// </summary>
 	public static class DataBindHelper
 	{
-        /// <summary>
-        /// 快速填充；
-        /// 利用数据读取器，读取记录并添加至组合框控件的项集合；
-        /// </summary>
-        /// <param name="dbHelper">数据库助手</param>
-        /// <param name="commandText">命令文本</param>
-        /// <param name="comboBox">组合框控件</param>
-        /// <param name="displayMember">显示值</param>
-        public static void QuickFill(this DbHelperBase dbHelper, string commandText, ComboBox comboBox, string displayMember = "Name")
-        {
-            IDataReader dataReader = dbHelper.NewCommand(commandText).ReturnReader();
-            while (dataReader.Read())
-            {
-                comboBox.Items.Add(dataReader[displayMember]);
-            }
-        }
+		/// <summary>
+		/// 快速填充；
+		/// 利用数据读取器，读取记录并添加至组合框控件的项集合；
+		/// </summary>
+		/// <param name="dbHelper">数据库助手</param>
+		/// <param name="commandText">命令文本</param>
+		/// <param name="comboBox">组合框控件</param>
+		/// <param name="displayMember">显示值</param>
+		public static void QuickFill(this DbHelperBase dbHelper, string commandText, ComboBox comboBox, string displayMember = "Name")
+		{
+			IDataReader dataReader = dbHelper.NewCommand(commandText).ReturnReader();
+			while (dataReader.Read())
+			{
+				if (dataReader.FieldCount == 1)
+				{
+					comboBox.Items.Add(dataReader[0]);
+				}
+				else
+				{
+					comboBox.Items.Add(dataReader[displayMember]);
+				}
+			}
+			dataReader.Close();
+		}
         /// <summary>
         /// 快速填充；
         /// 读取数据表，并设为列表控件的数据源；
