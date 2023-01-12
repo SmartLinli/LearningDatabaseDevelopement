@@ -68,8 +68,8 @@ CREATE TABLE tb_SelectedCourse
 INSERT tb_SelectedCourse
     (StudentNo,CourseNo,OrderBook )
 	VALUES
-	('3180707001','E003',1)
-	,('3180707001','F001',1)
+	('3210707001','E003',1)
+	,('3210707001','F001',1)
 GO
 --创建视图；
 ----已选课程信息
@@ -84,14 +84,3 @@ SELECT
 		tb_Course AS C
 		JOIN tb_SelectedCourse AS SC ON SC.CourseNo = C.No;
 GO
---创建存储过程；
---CREATE OR ALTER PROCEDURE usp_Insert_SelectedCourse
---	(@StudentNo CHAR(10)
---	,@CourseNo CHAR(4)
---	,@OrderBook BIT)
---	AS
---BEGIN
---	INSERT tb_SelectedCourse(StudentNo,CourseNo,OrderBook)
---		VALUES( @StudentNo,@CourseNo,@OrderBook);
---END
-

@@ -39,5 +39,5 @@ CREATE TABLE tb_user
 INSERT INTO tb_user
 	(no,password,is_activated,role_no)
 	VALUES
-	('3180707001',DECODE(MD5('7001'),'HEX'),TRUE,1)
+	('3210707001',DECODE(MD5('7001'),'HEX'),TRUE,1)
 	,('2004034',DECODE(MD5('1234'),'HEX'),TRUE,2);

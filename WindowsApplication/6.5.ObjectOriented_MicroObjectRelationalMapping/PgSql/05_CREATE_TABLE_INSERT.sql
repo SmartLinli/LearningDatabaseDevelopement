@@ -18,7 +18,7 @@ CREATE TABLE tb_user
 INSERT INTO tb_user
 	(no,password,is_activated)
 	VALUES
-	('3180707001',DECODE(MD5('7001'),'HEX'),TRUE);
+	('3210707001',DECODE(MD5('7001'),'HEX'),TRUE);
 --根据用户号查询用户计数；
 CREATE OR REPLACE FUNCTION usp_select_user_count
 	(p_no CHAR(10))

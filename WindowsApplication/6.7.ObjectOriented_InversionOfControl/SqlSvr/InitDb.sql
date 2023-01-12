@@ -40,5 +40,5 @@ CREATE TABLE tb_User
 INSERT tb_User
 	(No,Password,IsActivated)
 	VALUES
-	('3180707001',HASHBYTES('MD5','7001'),1);
+	('3210707001',HASHBYTES('MD5','7001'),1);
 GO

@@ -45,5 +45,5 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,Class,Speciality)
 	VALUES
-	('3200707001','闭敏媛','女','2001-07-21','20信管','睡觉');
+	('3210707001','田杰红','女','2001-09-10','21信管','睡觉');
 GO

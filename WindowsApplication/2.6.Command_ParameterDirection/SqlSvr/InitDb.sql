@@ -35,7 +35,7 @@ CREATE TABLE tb_User
 INSERT tb_User
 	(No,Password,LastLogInAddress)
 	VALUES
-	('3200707001',HASHBYTES('MD5','7001'),'192.168.1.10');
+	('3210707001',HASHBYTES('MD5','7001'),'192.168.1.10');
 --创建存储过程；
 ----查询用户计数；
 GO

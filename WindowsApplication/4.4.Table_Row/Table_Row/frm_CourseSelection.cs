@@ -11,7 +11,7 @@ namespace Table_Row
         /// <summary>
         /// 学号；
         /// </summary>
-        private string StudentNo = "3180707001";
+        private string StudentNo = "3210707001";
         /// <summary>
         /// 课程数据表；
         /// </summary>

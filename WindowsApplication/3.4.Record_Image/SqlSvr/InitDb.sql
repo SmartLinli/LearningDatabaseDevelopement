@@ -33,10 +33,10 @@ CREATE TABLE tb_Class
 INSERT tb_Class
 	(No,Name)
 	VALUES
-	(1,'20公管')
-	,(2,'20信管')
-	,(3,'20中医')
-	,(4,'20临床');
+	(1,'21公管')
+	,(2,'21信管')
+	,(3,'21中医')
+	,(4,'21临床');
 ----学生表；
 CREATE TABLE tb_Student
 	(No
@@ -65,5 +65,5 @@ CREATE TABLE tb_Student
 INSERT tb_Student
 	(No,Name,Gender,BirthDate,ClassNo,Speciality)
 	VALUES
-	('3200707001','闭敏媛',0,'2001-07-21',2,'睡觉');
+	('3210707001','田杰红',0,'2001-09-10',2,'睡觉');
 GO

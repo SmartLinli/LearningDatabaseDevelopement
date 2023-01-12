@@ -1,5 +1,5 @@
 /*
-实体框架_增查改删
+数据集_数据关系
 */
 --创建数据库；
 USE master;
@@ -32,10 +32,12 @@ CREATE TABLE tb_Class
 INSERT tb_Class
 	(No,Name)
 	VALUES
-	(1,'18公管')
-	,(2,'18信管')
-	,(3,'18中医')
-	,(4,'18临床');
+	(1,'21公管1')
+	,(2,'21公管2')
+	,(3,'21信管')
+	,(4,'21健管')
+	,(5,'21中医')
+	,(6,'21临床');
 ----学生表；
 CREATE TABLE tb_Student
 	(No
@@ -81,9 +83,7 @@ CREATE TABLE tb_Student
 	,ClassNo
 		INT
 		NOT NULL
-		FOREIGN KEY REFERENCES tb_Class(No)
-			ON UPDATE CASCADE
-			ON DELETE NO ACTION);
+		FOREIGN KEY REFERENCES tb_Class(No));
 ----批量插入学生表；
 BULK INSERT tb_Student
 	FROM 'C:\Student.csv'

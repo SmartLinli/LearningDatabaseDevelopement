@@ -66,5 +66,5 @@ CREATE TABLE tb_SelectedCourse
 INSERT tb_SelectedCourse
     (StudentNo,CourseNo,OrderBook )
 	VALUES
-	('3180707001','E003',1)
-	,('3180707001','F001',1)
+	('3210707001','E003',1)
+	,('3210707001','F001',1)

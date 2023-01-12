@@ -36,7 +36,7 @@ namespace Record_Image
 			sqlCommand2.Connection = sqlConnection;
 			sqlCommand.CommandText = "SELECT * FROM tb_Class;";
 			sqlCommand2.CommandText = "SELECT * FROM tb_Student WHERE No=@No;";
-			sqlCommand2.Parameters.AddWithValue("@No", "3180707001");
+			sqlCommand2.Parameters.AddWithValue("@No", "3210707001");
 			SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
 			sqlDataAdapter.SelectCommand = sqlCommand;
 			DataTable classTable = new DataTable();
