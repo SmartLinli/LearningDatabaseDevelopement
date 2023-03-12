@@ -112,7 +112,7 @@ namespace Record_Image
 			sqlCommand.Parameters.AddWithValue("@ClassNo", (int)this.cmb_Class.SelectedValue);
 			sqlCommand.Parameters.AddWithValue("@Speciality", this.txb_Speciality.Text.Trim());
 			sqlCommand.Parameters.AddWithValue("@Photo", photoBytes);
-			sqlCommand.Parameters.AddWithValue("@No", "3200707001");
+			sqlCommand.Parameters.AddWithValue("@No", "3210707001");
 			sqlConnection.Open();
 			int rowAffected = sqlCommand.ExecuteNonQuery();
 			sqlConnection.Close();
