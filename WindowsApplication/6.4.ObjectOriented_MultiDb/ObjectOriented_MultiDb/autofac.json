@@ -1,0 +1,13 @@
+{
+  "defaultAssembly": "ObjectOriented_MultiDb",
+  "components": [
+    {
+      "type": "ObjectOriented_MultiDb.DbContext,ObjectOriented_MultiDb",
+      "services": [
+        {
+          "type": "SmartLinli.DatabaseDevelopement.SmartDbContext,SmartLinli.DatabaseDevelopement"
+        }
+      ]
+    }
+  ]
+}

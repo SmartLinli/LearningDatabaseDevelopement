@@ -26,7 +26,7 @@ namespace ObjectOriented_SqlHelper
 				.Descrption("用户号")
 				.NotNull()
 				.LengthRange(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength)
-				.CheckExist(text => this.UserBll.CheckNotExist(text), false);
+				.CheckExist(no => this.UserBll.CheckNotExist(no), false);
 			this.txb_UserNo
 				.Descrption("密码")
 				.NotNull()

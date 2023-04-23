@@ -22,7 +22,16 @@ namespace ObjectOriented_MultiDb
 			InitializeComponent();
 			this.StartPosition = FormStartPosition.CenterScreen;
 			this.UserBll = new UserBll();
-			this.AcceptButton = this.btn_LogIn;
+            this.txb_UserNo
+				.Descrption("用户号")
+				.NotNull()
+				.LengthRange(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength)
+				.CheckExist(no => this.UserBll.CheckExist(no), true);
+            this.txb_Password
+                .Descrption("密码")
+                .NotNull()
+                .LengthRange(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh);
+            this.AcceptButton = this.btn_LogIn;
 		}
 		/// <summary>
 		/// 点击登录按钮；

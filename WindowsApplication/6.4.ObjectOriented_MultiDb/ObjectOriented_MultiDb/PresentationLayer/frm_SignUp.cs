@@ -24,19 +24,16 @@ namespace ObjectOriented_MultiDb
 			this.UserBll = new UserBll();
 			this.txb_UserNo.Tag = "用户号";
 			this.txb_Password.Tag = "密码";
-			this.ValidatorComponent
-				.Add<RequiredInfoValidator>
-					(v => v.For(this.txb_UserNo, this.txb_Password))
-				.Add<LengthValidator>
-					(v => v.For(txb_UserNo)
-						   .Between(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength),
-					 v => v.For(txb_Password)
-						   .Between(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh))
-				.Add<ExistValidator>
-					(v => v.For(txb_UserNo)
-						   .By(this.UserBll.CheckNotExist)
-						   .ShowErrorIfExist());
-			this.AcceptButton = this.btn_SignUp;
+            this.txb_UserNo
+                .Descrption("用户号")
+                .NotNull()
+                .LengthRange(this.UserBll.UserNoMinLength, this.UserBll.UserNoMaxLength)
+                .CheckExist(no => this.UserBll.CheckNotExist(no), false);
+            this.txb_Password
+                .Descrption("密码")
+                .NotNull()
+                .LengthRange(this.UserBll.PasswordMinLengh, this.UserBll.PasswordMaxLengh);
+            this.AcceptButton = this.btn_SignUp;
 		}
 		/// <summary>
 		/// 点击注册按钮；
