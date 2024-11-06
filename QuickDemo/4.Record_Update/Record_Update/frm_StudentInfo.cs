@@ -32,9 +32,9 @@ namespace Record_Update
 		/// <param name="e"></param>
 		private void btn_Load_Click(object sender, EventArgs e)
 		{
-			string  studentCommand = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
+			string  commandText = $"SELECT * FROM tb_Student WHERE No='{this.txb_No.Text.Trim()}';";
 			SqlHelper sqlHelper = new SqlHelper();
-			sqlHelper.QuickRead(studentCommand);
+			sqlHelper.QuickRead(commandText);
 			if (sqlHelper.HasRecord)
 			{
 				this.txb_No.Text = sqlHelper["No"].ToString();
